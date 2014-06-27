@@ -1,4 +1,4 @@
-/*global jQuery, Phaser */
+/*global jQuery, Phaser, BlueBall */
 
 jQuery(function () {
 
@@ -23,6 +23,8 @@ jQuery(function () {
                 layers = game.add.group(),
                 players = game.add.group(layers);
 
+            players.classType = BlueBall.Entity;
+
             layers.x = 50;
             layers.y = 50;
 
@@ -31,7 +33,8 @@ jQuery(function () {
             map.createLayer('environment', undefined, undefined, layers);
 
             cursors = game.input.keyboard.createCursorKeys();
-            smallLolo = game.add.sprite(32 * 1, 32 * 6, 'smallLolo', 10, players);
+
+            smallLolo = players.create(32 * 1, 32 * 6, 'smallLolo', 10);
             smallLolo.animations.add('Top', Phaser.Animation.generateFrameNames('loloTop', 0, 4, '', 4), 5, true);
             smallLolo.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 0, 4, '', 4), 5, true);
             smallLolo.animations.add('Down', Phaser.Animation.generateFrameNames('loloDown', 0, 4, '', 4), 5, true);
