@@ -45,9 +45,19 @@ BlueBall.Entity.getCellPosition = function (x, y) {
 };
 
 /**
+ * @property {Phaser.Tilemap} map - Instancia del Tilemap donde se mueve la Entity
+ */
+BlueBall.Entity.prototype.map = null;
+
+/**
+ * @property {array} collideIndexes - Lista de indices de tipos de tiles con los que colisiona la Entity
+ */
+BlueBall.Entity.prototype.collideIndexes = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+
+/**
  * @property {number} velocity - Velocidad a la que se mueve la Entity por el mapa (en pixels por milisegundo)
  */
-BlueBall.Entity.prototype.velocity = 32 / 1000;
+BlueBall.Entity.prototype.velocity = 64 / 1000;
 
 /**
  * @property {number} cellX - Numero de columna de celda en la que se encuentra la Entity
@@ -90,22 +100,41 @@ BlueBall.Entity.prototype.moveTo = function (direction) {
 
     if (this._movingTo === null) {
 
+        var posX = this.cellX,
+            posY = this.cellY,
+            offsetX = 0,
+            offsetY = 0,
+            tile;
+
         switch (direction) {
         case Phaser.Tilemap.NORTH:
-            this.cellY--;
+            posY--;
             break;
         case Phaser.Tilemap.EAST:
-            this.cellX++;
+            posX++;
+            offsetX = 1;
             break;
         case Phaser.Tilemap.SOUTH:
-            this.cellY++;
+            posY++;
+            offsetY = 1;
             break;
         case Phaser.Tilemap.WEST:
-            this.cellX--;
+            posX--;
             break;
         default:
             return null;
         }
+
+        tile = this.map.getTile(parseInt((posX + offsetX) / 2, 10), parseInt((posY + offsetY) / 2, 10), 'environment');
+
+        if (this.collideIndexes.indexOf(tile.index) > -1) {
+
+            return null;
+
+        }
+
+        this.cellX = posX;
+        this.cellY = posY;
 
         this._movingTo = direction;
         this._destPosition = BlueBall.Entity.getCellPosition(this.cellX, this.cellY);

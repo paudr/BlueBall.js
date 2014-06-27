@@ -34,7 +34,9 @@ jQuery(function () {
 
             cursors = game.input.keyboard.createCursorKeys();
 
-            smallLolo = players.create(1, 6, 'smallLolo', 10);
+            smallLolo = players.create(2, 12, 'smallLolo', 10);
+            smallLolo.map = map;
+
             smallLolo.animations.add('Top', Phaser.Animation.generateFrameNames('loloTop', 0, 4, '', 4), 5, true);
             smallLolo.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 0, 4, '', 4), 5, true);
             smallLolo.animations.add('Down', Phaser.Animation.generateFrameNames('loloDown', 0, 4, '', 4), 5, true);
