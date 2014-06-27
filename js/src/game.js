@@ -12,6 +12,7 @@ jQuery(function () {
 
             game.load.image('AdventuresOfLolo3', 'assets/tilemaps/tiles/AdventuresOfLolo3.png');
             game.load.tilemap('blank', 'assets/tilemaps/maps/blank.json', null, Phaser.Tilemap.TILED_JSON);
+            game.load.tilemap('level1-1', 'assets/tilemaps/maps/level1-1.json', null, Phaser.Tilemap.TILED_JSON);
 
             game.load.atlas('smallLolo', 'assets/sprites/smallLolo.png', 'assets/sprites/smallLolo.json');
 
@@ -19,7 +20,7 @@ jQuery(function () {
 
         'create': function () {
 
-            var map = game.add.tilemap('blank'),
+            var map = game.add.tilemap('level1-1'),
                 layers = game.add.group(),
                 players = game.add.group(layers);
 
@@ -36,6 +37,7 @@ jQuery(function () {
 
             smallLolo = players.create(2, 12, 'smallLolo', 10);
             smallLolo.map = map;
+            smallLolo.collideIndexes.push(1, 2);
 
             smallLolo.animations.add('Top', Phaser.Animation.generateFrameNames('loloTop', 0, 4, '', 4), 5, true);
             smallLolo.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 0, 4, '', 4), 5, true);

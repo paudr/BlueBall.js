@@ -104,30 +104,38 @@ BlueBall.Entity.prototype.moveTo = function (direction) {
             posY = this.cellY,
             offsetX = 0,
             offsetY = 0,
-            tile;
+            altX = 0,
+            altY = 0,
+            tile1,
+            tile2;
 
         switch (direction) {
         case Phaser.Tilemap.NORTH:
             posY--;
+            altX = 1;
             break;
         case Phaser.Tilemap.EAST:
             posX++;
             offsetX = 1;
+            altY = 1;
             break;
         case Phaser.Tilemap.SOUTH:
             posY++;
             offsetY = 1;
+            altX = 1;
             break;
         case Phaser.Tilemap.WEST:
             posX--;
+            altY = 1;
             break;
         default:
             return null;
         }
 
-        tile = this.map.getTile(parseInt((posX + offsetX) / 2, 10), parseInt((posY + offsetY) / 2, 10), 'environment');
+        tile1 = this.map.getTile(parseInt((posX + offsetX) / 2, 10), parseInt((posY + offsetY) / 2, 10), 'environment', true);
+        tile2 = this.map.getTile(parseInt((posX + altX + offsetX) / 2, 10), parseInt((posY + altY + offsetY) / 2, 10), 'environment', true);
 
-        if (this.collideIndexes.indexOf(tile.index) > -1) {
+        if (this.collideIndexes.indexOf(tile1.index) > -1 || this.collideIndexes.indexOf(tile2.index) > -1) {
 
             return null;
 

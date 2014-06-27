@@ -1,0 +1,56 @@
+{
+    "version": 1,
+    "width": 13,
+    "height": 14,
+    "tilewidth": 32,
+    "tileheight": 32,
+    "orientation": "orthogonal",
+    "properties": {
+        "world": 1,
+        "level": 1
+    },
+    "tilesets": [
+        {
+            "name": "AdventuresOfLolo3",
+            "image": "AdventuresOfLolo3.png",
+            "imagewidth": 384,
+            "imageheight": 352,
+            "tilewidth": 32,
+            "tileheight": 32,
+            "firstgid": 1,
+            "margin": 0,
+            "spacing": 0,
+            "properties": {},
+            "tileproperties": {}
+        }
+    ],
+    "layers": [
+        {
+            "name": "environment",
+            "type": "tilelayer",
+            "x": 0,
+            "y": 0,
+            "width": 13,
+            "height": 14,
+            "visible": true,
+            "opacity": 1,
+            "properties": {},
+            "data": [
+                 4,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5, 5 ,  6,
+                 7,  8,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  7,
+                 7,  1,  1,  1,  1,  1,  1, 36,  1,  1,  2,  2,  7,
+                 7,  1,  2,  2,  1, 36, 36, 36,  1,  1,  2,  2,  7,
+                 7, 36,  2,  2,  1,  1,  1, 36,  1,  1,  1,  2,  7,
+                 7, 36, 36,  2,  2,  1,  1, 36,  1,  1,  1,  2,  7,
+                 7, 36, 36, 36, 36,  1,  1, 36,  1,  1,  2, 36,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36,  1, 36, 36,  7,
+                 7, 36,  2,  2, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                 7,  2,  2,  2,  2, 36, 36, 36,  2,  2, 36, 36,  7,
+                 7,  2,  2,  2,  2, 36, 36, 36,  2,  2,  2, 36,  7,
+                 7,  1,  2,  2,  1, 36, 36, 36, 36,  2,  2, 36,  7,
+                 7,  1,  1,  1,  1,  1,  1, 36, 36, 36, 36, 36,  7,
+                 11,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5, 13
+            ]
+        }
+    ]
+}
