@@ -4,9 +4,162 @@ var BlueBall = BlueBall || {};
 
 BlueBall.Entity = function (game, x, y, key, frame) {
 
-    Phaser.Sprite.call(this, game, x, y, key, frame);
+    Phaser.Sprite.call(this, game, x * BlueBall.Entity.cellWidth, y * BlueBall.Entity.cellHeight, key, frame);
+
+    this.cellX = x;
+    this.cellY = y;
 
 };
 
 BlueBall.Entity.prototype = Object.create(Phaser.Sprite.prototype);
 BlueBall.Entity.prototype.constructor = BlueBall.Entity;
+
+/**
+ * @property {number} cellWidth - Ancho (en pixels) de una celda de una casilla del mapa (cada casilla esta formada por 2x2 celdas)
+ * @static
+ */
+BlueBall.Entity.cellWidth = 32 / 2;
+
+/**
+ * @property {number} cellHeight - Alto (en pixels) de una celda de una casilla del mapa (cada casilla esta formada por 2x2 celdas)
+ * @static
+ */
+BlueBall.Entity.cellHeight = 32 / 2;
+
+/**
+ * Calcula la posicion (en pixels) de una celda del mapa (cada casilla esta formada por 2x2 celdas)
+ * @method BlueBall.Entity#getCellPosition
+ * @memberof BlueBall.Entity
+ * @param {number} x - Numero de columna de la celda
+ * @param {number} y - Numero de fila de la celda
+ * @return {Object} - Posicion (en pixels) del extremo superior izquierdo de la celda
+ * @static
+ */
+BlueBall.Entity.getCellPosition = function (x, y) {
+
+    return {
+        "x": x * BlueBall.Entity.cellWidth,
+        "y": y * BlueBall.Entity.cellHeight
+    };
+
+};
+
+/**
+ * @property {number} velocity - Velocidad a la que se mueve la Entity por el mapa (en pixels por milisegundo)
+ */
+BlueBall.Entity.prototype.velocity = 32 / 1000;
+
+/**
+ * @property {number} cellX - Numero de columna de celda en la que se encuentra la Entity
+ * @static
+ */
+BlueBall.Entity.prototype.cellX = 0;
+
+/**
+ * @property {number} cellY - Numero de fila de celda en la que se encuentra la Entity
+ * @static
+ */
+BlueBall.Entity.prototype.cellY = 0;
+
+/**
+ * @property {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} _movingTo - Direccion en la que se esta moviendo la Entity
+ * @private
+ */
+BlueBall.Entity.prototype._movingTo = null;
+
+/**
+ * @property {object} _destPosition - Posicion (en pixels) de destino de la Entity
+ * @private
+ */
+BlueBall.Entity.prototype._destPosition = null;
+
+/**
+ * @property {number} _lastMovementTime - Momento (en milisegundos) en el que se movio la Entity por ultima vez
+ * @private
+ */
+BlueBall.Entity.prototype._lastMovementTime = null;
+
+/**
+ * Inicia el movimiento de la Entity en una direccion
+ * @method BlueBall.Entity#moveTo
+ * @memberof BlueBall.Entity
+ * @param  {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se moverá la Entity
+ * @return {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST|null} La dirección en la que se mueve la Entity o null
+ */
+BlueBall.Entity.prototype.moveTo = function (direction) {
+
+    if (this._movingTo === null) {
+
+        switch (direction) {
+        case Phaser.Tilemap.NORTH:
+            this.cellY--;
+            break;
+        case Phaser.Tilemap.EAST:
+            this.cellX++;
+            break;
+        case Phaser.Tilemap.SOUTH:
+            this.cellY++;
+            break;
+        case Phaser.Tilemap.WEST:
+            this.cellX--;
+            break;
+        default:
+            return null;
+        }
+
+        this._movingTo = direction;
+        this._destPosition = BlueBall.Entity.getCellPosition(this.cellX, this.cellY);
+        this._lastMovementTime = this.game.time.now;
+
+        return this._movingTo;
+
+    }
+
+    return this._movingTo;
+
+};
+
+BlueBall.Entity.prototype.update = function () {
+
+    if (this._movingTo !== null) {
+
+        var inc = this.game.time.elapsedSince(this._lastMovementTime) * this.velocity;
+
+        this._lastMovementTime = this.game.time.now;
+
+        switch (this._movingTo) {
+        case Phaser.Tilemap.NORTH:
+            this.y -= inc;
+            if (this.y <= this._destPosition.y) {
+                this.y = this._destPosition.y;
+                this._movingTo = null;
+            }
+            break;
+        case Phaser.Tilemap.EAST:
+            this.x += inc;
+            if (this.x >= this._destPosition.x) {
+                this.x = this._destPosition.x;
+                this._movingTo = null;
+            }
+            break;
+        case Phaser.Tilemap.SOUTH:
+            this.y += inc;
+            if (this.y >= this._destPosition.y) {
+                this.y = this._destPosition.y;
+                this._movingTo = null;
+            }
+            break;
+        case Phaser.Tilemap.WEST:
+            this.x -= inc;
+            if (this.x <= this._destPosition.x) {
+                this.x = this._destPosition.x;
+                this._movingTo = null;
+            }
+            break;
+        default:
+            return;
+        }
+
+    }
+
+};

@@ -34,7 +34,7 @@ jQuery(function () {
 
             cursors = game.input.keyboard.createCursorKeys();
 
-            smallLolo = players.create(32 * 1, 32 * 6, 'smallLolo', 10);
+            smallLolo = players.create(1, 6, 'smallLolo', 10);
             smallLolo.animations.add('Top', Phaser.Animation.generateFrameNames('loloTop', 0, 4, '', 4), 5, true);
             smallLolo.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 0, 4, '', 4), 5, true);
             smallLolo.animations.add('Down', Phaser.Animation.generateFrameNames('loloDown', 0, 4, '', 4), 5, true);
@@ -51,18 +51,22 @@ jQuery(function () {
             if (cursors.up.isDown) {
 
                 smallLolo.animations.play('Top');
-
-            } else if (cursors.down.isDown) {
-
-                smallLolo.animations.play('Down');
-
-            } else if (cursors.left.isDown) {
-
-                smallLolo.animations.play('Left');
+                smallLolo.moveTo(Phaser.Tilemap.NORTH);
 
             } else if (cursors.right.isDown) {
 
                 smallLolo.animations.play('Right');
+                smallLolo.moveTo(Phaser.Tilemap.EAST);
+
+            } else if (cursors.down.isDown) {
+
+                smallLolo.animations.play('Down');
+                smallLolo.moveTo(Phaser.Tilemap.SOUTH);
+
+            } else if (cursors.left.isDown) {
+
+                smallLolo.animations.play('Left');
+                smallLolo.moveTo(Phaser.Tilemap.WEST);
 
             } else {
 
