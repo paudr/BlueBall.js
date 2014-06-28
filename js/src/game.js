@@ -15,6 +15,7 @@ jQuery(function () {
             game.load.tilemap('level1-1', 'assets/tilemaps/maps/level1-1.json', null, Phaser.Tilemap.TILED_JSON);
 
             game.load.atlas('smallLolo', 'assets/sprites/smallLolo.png', 'assets/sprites/smallLolo.json');
+            game.load.atlas('tileSprites', 'assets/tilemaps/tiles/AdventuresOfLolo3.png', 'assets/sprites/tileSprites.json');
 
         },
 
@@ -22,7 +23,8 @@ jQuery(function () {
 
             var map = game.add.tilemap('level1-1'),
                 layers = game.add.group(),
-                players = game.add.group(layers);
+                players = game.add.group(layers),
+                items = game.add.group(layers);
 
             players.classType = BlueBall.Entity;
 
@@ -46,7 +48,12 @@ jQuery(function () {
 
             smallLolo.scale.set(32 / 17);
 
+            var block = new BlueBall.Entity(game, 6, 12, 'tileSprites', 0);
+            //game.add.existing(block);
+            items.add(block);
+
             layers.bringToTop(players);
+            layers.bringToTop(items);
 
         },
 
