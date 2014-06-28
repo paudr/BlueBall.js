@@ -90,6 +90,62 @@ BlueBall.Entity.prototype._destPosition = null;
 BlueBall.Entity.prototype._lastMovementTime = null;
 
 /**
+ * Indica si la entity se puede mover en una direccion concreta
+ * @method BlueBall.Entity#canMoveTo
+ * @memberof BlueBall.Entity
+ * @param  {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se quiere saber si el movimiento es posible
+ * @return {boolean} True si el movimiento esta permitido, false en caso contrario
+ */
+BlueBall.Entity.prototype.canMoveTo = function (direction) {
+
+    var posX = this.cellX,
+        posY = this.cellY,
+        offsetX = 0,
+        offsetY = 0,
+        altX = 0,
+        altY = 0,
+        tile1,
+        tile2;
+
+    switch (direction) {
+    case Phaser.Tilemap.NORTH:
+        posY--;
+        altX = 1;
+        break;
+    case Phaser.Tilemap.EAST:
+        posX++;
+        offsetX = 1;
+        altY = 1;
+        break;
+    case Phaser.Tilemap.SOUTH:
+        posY++;
+        offsetY = 1;
+        altX = 1;
+        break;
+    case Phaser.Tilemap.WEST:
+        posX--;
+        altY = 1;
+        break;
+    default:
+        return false;
+    }
+
+    tile1 = this.map.getTile(parseInt((posX + offsetX) / 2, 10), parseInt((posY + offsetY) / 2, 10), 'environment', true);
+    tile2 = this.map.getTile(parseInt((posX + altX + offsetX) / 2, 10), parseInt((posY + altY + offsetY) / 2, 10), 'environment', true);
+
+    if (this.collideIndexes.indexOf(tile1.index) > -1 || this.collideIndexes.indexOf(tile2.index) > -1) {
+
+        return false;
+
+    } else {
+
+        return true;
+
+    }
+
+};
+
+/**
  * Inicia el movimiento de la Entity en una direccion
  * @method BlueBall.Entity#moveTo
  * @memberof BlueBall.Entity
@@ -98,51 +154,22 @@ BlueBall.Entity.prototype._lastMovementTime = null;
  */
 BlueBall.Entity.prototype.moveTo = function (direction) {
 
-    if (this._movingTo === null) {
-
-        var posX = this.cellX,
-            posY = this.cellY,
-            offsetX = 0,
-            offsetY = 0,
-            altX = 0,
-            altY = 0,
-            tile1,
-            tile2;
+    if (this._movingTo === null && this.canMoveTo(direction)) {
 
         switch (direction) {
         case Phaser.Tilemap.NORTH:
-            posY--;
-            altX = 1;
+            this.cellY--;
             break;
         case Phaser.Tilemap.EAST:
-            posX++;
-            offsetX = 1;
-            altY = 1;
+            this.cellX++;
             break;
         case Phaser.Tilemap.SOUTH:
-            posY++;
-            offsetY = 1;
-            altX = 1;
+            this.cellY++;
             break;
         case Phaser.Tilemap.WEST:
-            posX--;
-            altY = 1;
+            this.cellX--;
             break;
-        default:
-            return null;
         }
-
-        tile1 = this.map.getTile(parseInt((posX + offsetX) / 2, 10), parseInt((posY + offsetY) / 2, 10), 'environment', true);
-        tile2 = this.map.getTile(parseInt((posX + altX + offsetX) / 2, 10), parseInt((posY + altY + offsetY) / 2, 10), 'environment', true);
-
-        if (this.collideIndexes.indexOf(tile1.index) > -1 || this.collideIndexes.indexOf(tile2.index) > -1) {
-
-            return null;
-
-        }
-
-        this.cellX = posX;
-        this.cellY = posY;
 
         this._movingTo = direction;
         this._destPosition = BlueBall.Entity.getCellPosition(this.cellX, this.cellY);
