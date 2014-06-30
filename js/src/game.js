@@ -23,10 +23,7 @@ jQuery(function () {
 
             var map = game.add.tilemap('level1-1'),
                 layers = game.add.group(),
-                players = game.add.group(layers),
-                items = game.add.group(layers);
-
-            players.classType = BlueBall.Entity;
+                entities = game.add.group(layers);
 
             layers.x = 50;
             layers.y = 50;
@@ -37,9 +34,13 @@ jQuery(function () {
 
             cursors = game.input.keyboard.createCursorKeys();
 
-            smallLolo = players.create(2, 12, 'smallLolo', 10);
+            smallLolo = new BlueBall.Entity(game, 2, 12, 'smallLolo', 10);
+            smallLolo.gid = 99;
             smallLolo.map = map;
+            smallLolo.entities = entities;
             smallLolo.collideIndexes.push(1, 2);
+            smallLolo.collideIndexes.push(29);
+            entities.add(smallLolo);
 
             smallLolo.animations.add('Top', Phaser.Animation.generateFrameNames('loloTop', 0, 4, '', 4), 5, true);
             smallLolo.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 0, 4, '', 4), 5, true);
@@ -49,11 +50,13 @@ jQuery(function () {
             smallLolo.scale.set(32 / 17);
 
             var block = new BlueBall.Entity(game, 6, 12, 'tileSprites', 0);
-            //game.add.existing(block);
-            items.add(block);
+            block.gid = 29;
+            block.map = map;
+            block.entities = entities;
+            block.collideIndexes.push(1, 2);
+            entities.add(block);
 
-            layers.bringToTop(players);
-            layers.bringToTop(items);
+            layers.bringToTop(entities);
 
         },
 

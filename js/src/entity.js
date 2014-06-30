@@ -50,6 +50,11 @@ BlueBall.Entity.getCellPosition = function (x, y) {
 BlueBall.Entity.prototype.map = null;
 
 /**
+ * @property {Phaser.Group} entities - Grupo con todas las entites que hay en el nivel
+ */
+BlueBall.Entity.prototype.entities = null;
+
+/**
  * @property {array} collideIndexes - Lista de indices de tipos de tiles con los que colisiona la Entity
  */
 BlueBall.Entity.prototype.collideIndexes = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
@@ -58,6 +63,11 @@ BlueBall.Entity.prototype.collideIndexes = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
  * @property {number} velocity - Velocidad a la que se mueve la Entity por el mapa (en pixels por milisegundo)
  */
 BlueBall.Entity.prototype.velocity = 64 / 1000;
+
+/**
+ * @property {number} gid - Identificador del tipo de Entity
+ */
+BlueBall.Entity.prototype.gid = -1;
 
 /**
  * @property {number} cellX - Numero de columna de celda en la que se encuentra la Entity
@@ -84,6 +94,20 @@ BlueBall.Entity.prototype._movingTo = null;
 BlueBall.Entity.prototype._destPosition = null;
 
 /**
+ * Indica si la entity ocupa una posición en concreto
+ * @method BlueBall.Entity#occupy
+ * @memberof BlueBall.Entity
+ * @param {number} x - Numero de columna de celda
+ * @param {number} y - Numero de fila de celda
+ * @return {boolean} True si la entity ocupa la celda concreta, false en caso contrario
+ */
+BlueBall.Entity.prototype.occupy = function (x, y) {
+
+    return (this.cellX === x || this.cellX + 1 === x) && (this.cellY === y || this.cellY + 1 === y);
+
+};
+
+/**
  * Indica si la entity se puede mover en una direccion concreta
  * @method BlueBall.Entity#canMoveTo
  * @memberof BlueBall.Entity
@@ -92,7 +116,7 @@ BlueBall.Entity.prototype._destPosition = null;
  */
 BlueBall.Entity.prototype.canMoveTo = function (direction) {
 
-    if(this._movingTo !== null) {
+    if (this._movingTo !== null) {
 
         // Si ya se esta moviendo, no se puede volver a mover
         return false;
@@ -105,8 +129,12 @@ BlueBall.Entity.prototype.canMoveTo = function (direction) {
         offsetY = 0,
         altX = 0,
         altY = 0,
+        dest1,
+        dest2,
         tile1,
-        tile2;
+        tile2,
+        i,
+        current;
 
     switch (direction) {
     case Phaser.Tilemap.NORTH:
@@ -131,14 +159,40 @@ BlueBall.Entity.prototype.canMoveTo = function (direction) {
         return false;
     }
 
-    tile1 = this.map.getTile(parseInt((posX + offsetX) / 2, 10), parseInt((posY + offsetY) / 2, 10), 'environment', true);
-    tile2 = this.map.getTile(parseInt((posX + altX + offsetX) / 2, 10), parseInt((posY + altY + offsetY) / 2, 10), 'environment', true);
+    dest1 = {
+        'x': posX + offsetX,
+        'y': posY + offsetY
+    };
+
+    dest2 = {
+        'x': posX + altX + offsetX,
+        'y': posY + altY + offsetY
+    };
+
+    tile1 = this.map.getTile(parseInt((dest1.x) / 2, 10), parseInt((dest1.y) / 2, 10), 'environment', true);
+    tile2 = this.map.getTile(parseInt((dest2.x) / 2, 10), parseInt((dest2.y) / 2, 10), 'environment', true);
 
     if (this.collideIndexes.indexOf(tile1.index) > -1 || this.collideIndexes.indexOf(tile2.index) > -1) {
 
         return false;
 
     } else {
+
+        for(i = 0; i < this.entities.length; i++) {
+
+            current = this.entities.getAt(i);
+
+            if(current.occupy(dest1.x, dest1.y) || current.occupy(dest2.x, dest2.y)) {
+
+                if(this.collideIndexes.indexOf(current.gid) > -1) {
+
+                    return false;
+
+                }
+
+            }
+
+        }
 
         return true;
 
