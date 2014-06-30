@@ -84,12 +84,6 @@ BlueBall.Entity.prototype._movingTo = null;
 BlueBall.Entity.prototype._destPosition = null;
 
 /**
- * @property {number} _lastMovementTime - Momento (en milisegundos) en el que se movio la Entity por ultima vez
- * @private
- */
-BlueBall.Entity.prototype._lastMovementTime = null;
-
-/**
  * Indica si la entity se puede mover en una direccion concreta
  * @method BlueBall.Entity#canMoveTo
  * @memberof BlueBall.Entity
@@ -173,7 +167,6 @@ BlueBall.Entity.prototype.moveTo = function (direction) {
 
         this._movingTo = direction;
         this._destPosition = BlueBall.Entity.getCellPosition(this.cellX, this.cellY);
-        this._lastMovementTime = this.game.time.now;
 
         return this._movingTo;
 
@@ -187,9 +180,7 @@ BlueBall.Entity.prototype.update = function () {
 
     if (this._movingTo !== null) {
 
-        var inc = this.game.time.elapsedSince(this._lastMovementTime) * this.velocity;
-
-        this._lastMovementTime = this.game.time.now;
+        var inc = this.game.time.elapsed * this.velocity;
 
         switch (this._movingTo) {
         case Phaser.Tilemap.NORTH:
