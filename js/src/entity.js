@@ -92,6 +92,13 @@ BlueBall.Entity.prototype._destPosition = null;
  */
 BlueBall.Entity.prototype.canMoveTo = function (direction) {
 
+    if(this._movingTo !== null) {
+
+        // Si ya se esta moviendo, no se puede volver a mover
+        return false;
+
+    }
+
     var posX = this.cellX,
         posY = this.cellY,
         offsetX = 0,
@@ -148,7 +155,7 @@ BlueBall.Entity.prototype.canMoveTo = function (direction) {
  */
 BlueBall.Entity.prototype.moveTo = function (direction) {
 
-    if (this._movingTo === null && this.canMoveTo(direction)) {
+    if (this.canMoveTo(direction)) {
 
         switch (direction) {
         case Phaser.Tilemap.NORTH:
