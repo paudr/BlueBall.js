@@ -99,6 +99,21 @@ BlueBall.Entity.prototype._movingTo = null;
 BlueBall.Entity.prototype._destPosition = null;
 
 /**
+* @name BlueBall.Entity#isMoving
+* @property {boolean} isMoving - True si la Entity se esta moviendo, false en caso contrario
+* @readonly
+*/
+Object.defineProperty(BlueBall.Entity.prototype, "isMoving", {
+
+    get: function () {
+
+        return this._movingTo !== null;
+
+    }
+
+});
+
+/**
  * Indica si la entity ocupa una posición en concreto
  * @method BlueBall.Entity#occupy
  * @memberof BlueBall.Entity
@@ -334,6 +349,14 @@ BlueBall.Entity.prototype.moveTo = function (direction) {
 
 };
 
+/**
+ * Sobreescribir esta funcion para controlar las acciones a realizar cuando se ha finalizado un movimiento
+ * @method BlueBall.Entity#onMoved
+ * @memberof BlueBall.Entity
+ * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se ha movido la Entity
+ */
+BlueBall.Entity.prototype.onMoved = function() {};
+
 BlueBall.Entity.prototype.update = function () {
 
     if (this._movingTo !== null) {
@@ -346,6 +369,7 @@ BlueBall.Entity.prototype.update = function () {
             if (this.y <= this._destPosition.y) {
                 this.y = this._destPosition.y;
                 this._movingTo = null;
+                this.onMoved(Phaser.Tilemap.NORTH);
             }
             break;
         case Phaser.Tilemap.EAST:
@@ -353,6 +377,7 @@ BlueBall.Entity.prototype.update = function () {
             if (this.x >= this._destPosition.x) {
                 this.x = this._destPosition.x;
                 this._movingTo = null;
+                this.onMoved(Phaser.Tilemap.EAST);
             }
             break;
         case Phaser.Tilemap.SOUTH:
@@ -360,6 +385,7 @@ BlueBall.Entity.prototype.update = function () {
             if (this.y >= this._destPosition.y) {
                 this.y = this._destPosition.y;
                 this._movingTo = null;
+                this.onMoved(Phaser.Tilemap.SOUTH);
             }
             break;
         case Phaser.Tilemap.WEST:
@@ -367,6 +393,7 @@ BlueBall.Entity.prototype.update = function () {
             if (this.x <= this._destPosition.x) {
                 this.x = this._destPosition.x;
                 this._movingTo = null;
+                this.onMoved(Phaser.Tilemap.WEST);
             }
             break;
         default:

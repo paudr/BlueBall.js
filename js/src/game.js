@@ -49,6 +49,50 @@ jQuery(function () {
 
             smallLolo.scale.set(32 / 17);
 
+            smallLolo.onMoved = function (direction) {
+
+                var stopAnim = false;
+                switch (direction) {
+                case Phaser.Tilemap.NORTH:
+                    if (cursors.up.isDown) {
+                        smallLolo.moveTo(Phaser.Tilemap.NORTH);
+                    } else {
+                        stopAnim = true;
+                    }
+                    break;
+                case Phaser.Tilemap.EAST:
+                    if (cursors.right.isDown) {
+                        smallLolo.moveTo(Phaser.Tilemap.EAST);
+                    } else {
+                        stopAnim = true;
+                    }
+                    break;
+                case Phaser.Tilemap.SOUTH:
+                    if (cursors.down.isDown) {
+                        smallLolo.moveTo(Phaser.Tilemap.SOUTH);
+                    } else {
+                        stopAnim = true;
+                    }
+                    break;
+                case Phaser.Tilemap.WEST:
+                    if (cursors.left.isDown) {
+                        smallLolo.moveTo(Phaser.Tilemap.WEST);
+                    } else {
+                        stopAnim = true;
+                    }
+                    break;
+                default:
+                    stopAnim = true;
+                }
+
+                if (stopAnim) {
+
+                    smallLolo.animations.stop();
+                    smallLolo.frame = 10;
+
+                }
+            };
+
             var block = new BlueBall.Entity(game, 6, 12, 'tileSprites', 0);
             block.gid = 29;
             block.map = map;
@@ -62,30 +106,34 @@ jQuery(function () {
 
         'update': function () {
 
-            if (cursors.up.isDown) {
+            if (!smallLolo.isMoving) {
 
-                smallLolo.animations.play('Top');
-                smallLolo.moveTo(Phaser.Tilemap.NORTH);
+                if (cursors.up.isDown) {
 
-            } else if (cursors.right.isDown) {
+                    smallLolo.animations.play('Top');
+                    smallLolo.moveTo(Phaser.Tilemap.NORTH);
 
-                smallLolo.animations.play('Right');
-                smallLolo.moveTo(Phaser.Tilemap.EAST);
+                } else if (cursors.right.isDown) {
 
-            } else if (cursors.down.isDown) {
+                    smallLolo.animations.play('Right');
+                    smallLolo.moveTo(Phaser.Tilemap.EAST);
 
-                smallLolo.animations.play('Down');
-                smallLolo.moveTo(Phaser.Tilemap.SOUTH);
+                } else if (cursors.down.isDown) {
 
-            } else if (cursors.left.isDown) {
+                    smallLolo.animations.play('Down');
+                    smallLolo.moveTo(Phaser.Tilemap.SOUTH);
 
-                smallLolo.animations.play('Left');
-                smallLolo.moveTo(Phaser.Tilemap.WEST);
+                } else if (cursors.left.isDown) {
 
-            } else {
+                    smallLolo.animations.play('Left');
+                    smallLolo.moveTo(Phaser.Tilemap.WEST);
 
-                smallLolo.animations.stop();
-                smallLolo.frame = 10;
+                } else {
+
+                    smallLolo.animations.stop();
+                    smallLolo.frame = 10;
+
+                }
 
             }
 
