@@ -4,6 +4,8 @@ BlueBall.Block = function (game, x, y, key, frame) {
 
     BlueBall.Entity.call(this, game, x, y, key, frame);
 
+    this.frameName = 'block';
+
     this.gid = 29;
 
     this.collideIndexes.push(1, 2, 30);

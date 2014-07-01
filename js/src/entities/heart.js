@@ -4,6 +4,8 @@ BlueBall.Heart = function (game, x, y, key, frame) {
 
     BlueBall.Entity.call(this, game, x, y, key, frame);
 
+    this.frameName = 'heart';
+
     this.gid = 30;
 
 };
