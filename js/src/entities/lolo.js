@@ -27,6 +27,51 @@ BlueBall.Lolo.prototype.constructor = BlueBall.Lolo;
 
 BlueBall.Lolo.prototype.onMoved = function (direction) {
 
+    this.checkHeart();
+
+    this.checkNextMovement(direction);
+
+};
+
+BlueBall.Lolo.prototype.update = function () {
+
+    if (!this.isMoving) {
+
+        if (this.cursors.up.isDown) {
+
+            this.animations.play('Top');
+            this.moveTo(Phaser.Tilemap.NORTH);
+
+        } else if (this.cursors.right.isDown) {
+
+            this.animations.play('Right');
+            this.moveTo(Phaser.Tilemap.EAST);
+
+        } else if (this.cursors.down.isDown) {
+
+            this.animations.play('Down');
+            this.moveTo(Phaser.Tilemap.SOUTH);
+
+        } else if (this.cursors.left.isDown) {
+
+            this.animations.play('Left');
+            this.moveTo(Phaser.Tilemap.WEST);
+
+        } else {
+
+            this.animations.stop();
+            this.frame = 10;
+
+        }
+
+    }
+
+    BlueBall.Entity.prototype.update.call(this);
+
+};
+
+BlueBall.Lolo.prototype.checkNextMovement = function(direction) {
+
     var stopAnim = false;
 
     switch (direction) {
@@ -71,39 +116,20 @@ BlueBall.Lolo.prototype.onMoved = function (direction) {
 
 };
 
-BlueBall.Lolo.prototype.update = function () {
+BlueBall.Lolo.prototype.checkHeart = function() {
 
-    if (!this.isMoving) {
+    var i,
+        current;
 
-        if (this.cursors.up.isDown) {
+    for(i = 0; i < this.entities.length; i++) {
 
-            this.animations.play('Top');
-            this.moveTo(Phaser.Tilemap.NORTH);
+        current = this.entities.getAt(i);
 
-        } else if (this.cursors.right.isDown) {
+        if(current instanceof BlueBall.Heart && this.cellX === current.cellX && this.cellY === current.cellY) {
 
-            this.animations.play('Right');
-            this.moveTo(Phaser.Tilemap.EAST);
-
-        } else if (this.cursors.down.isDown) {
-
-            this.animations.play('Down');
-            this.moveTo(Phaser.Tilemap.SOUTH);
-
-        } else if (this.cursors.left.isDown) {
-
-            this.animations.play('Left');
-            this.moveTo(Phaser.Tilemap.WEST);
-
-        } else {
-
-            this.animations.stop();
-            this.frame = 10;
+            current.getIt();
 
         }
 
     }
-
-    BlueBall.Entity.prototype.update.call(this);
-
 };

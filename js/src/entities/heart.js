@@ -16,3 +16,9 @@ BlueBall.Heart.prototype.constructor = BlueBall.Heart;
  * @static
  */
 BlueBall.Heart.prototype.eggs = 0;
+
+BlueBall.Heart.prototype.getIt = function() {
+
+    this.destroy(true);
+
+};
