@@ -4,7 +4,9 @@ var BlueBall = BlueBall || {};
 
 BlueBall.Entity = function (game, x, y, key, frame) {
 
-    Phaser.Sprite.call(this, game, x * BlueBall.Entity.cellWidth, y * BlueBall.Entity.cellHeight, key, frame);
+    var pos = BlueBall.Entity.getCellPosition(x, y);
+
+    Phaser.Sprite.call(this, game, pos.x, pos.y, key, frame);
 
     this.cellX = x;
     this.cellY = y;

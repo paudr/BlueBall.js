@@ -31,8 +31,8 @@ jQuery(function () {
 
             map.createLayer('environment', undefined, undefined, layers);
 
-            map.createFromObjects('entities', 30, 'heart', 0, true, false, entities, BlueBall.Heart);
-            map.createFromObjects('entities', 99, 'smallLolo', 10, true, false, entities, BlueBall.Lolo);
+            map.createFromObjects('entities', 30, 'heart', 0, true, false, entities, BlueBall.Heart, false);
+            map.createFromObjects('entities', 99, 'smallLolo', 10, true, false, entities, BlueBall.Lolo, false);
 
             entities.forEach(function(entity) {
                 entity.map = map;

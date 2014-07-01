@@ -66,19 +66,19 @@
                 {
                     "gid": 99,
                     "x": 2,
-                    "y": 14,
+                    "y": 12,
                     "properties": {}
                 },
                 {
                     "gid": 30,
                     "x": 10,
-                    "y": 8,
+                    "y": 6,
                     "properties": {}
                 },
                 {
                     "gid": 30,
                     "x": 22,
-                    "y": 14,
+                    "y": 12,
                     "properties": {
                         "eggs": 2
                     }
