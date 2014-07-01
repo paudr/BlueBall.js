@@ -39,7 +39,7 @@ jQuery(function () {
             smallLolo.map = map;
             smallLolo.entities = entities;
             smallLolo.collideIndexes.push(1, 2);
-            smallLolo.collideIndexes.push(29);
+            smallLolo.pushIndexes.push(29);
             entities.add(smallLolo);
 
             smallLolo.animations.add('Top', Phaser.Animation.generateFrameNames('loloTop', 0, 4, '', 4), 5, true);

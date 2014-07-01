@@ -60,6 +60,11 @@ BlueBall.Entity.prototype.entities = null;
 BlueBall.Entity.prototype.collideIndexes = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
 /**
+ * @property {array} pushIndexes - Lista de indices de tipos de entities a las que puede empujar la Entity
+ */
+BlueBall.Entity.prototype.pushIndexes = [];
+
+/**
  * @property {number} velocity - Velocidad a la que se mueve la Entity por el mapa (en pixels por milisegundo)
  */
 BlueBall.Entity.prototype.velocity = 64 / 1000;
@@ -108,33 +113,20 @@ BlueBall.Entity.prototype.occupy = function (x, y) {
 };
 
 /**
- * Indica si la entity se puede mover en una direccion concreta
- * @method BlueBall.Entity#canMoveTo
+ * Devuelve las posiciones de las celdas adyacentes a la entity en una direccion concreta
+ * @method BlueBall.Entity#cellsAt
  * @memberof BlueBall.Entity
- * @param  {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se quiere saber si el movimiento es posible
- * @return {boolean} True si el movimiento esta permitido, false en caso contrario
+ * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se encuentran las celdas adyacentes
+ * @return {array} Objeto con las coordenadas de las celdas adyacentes
  */
-BlueBall.Entity.prototype.canMoveTo = function (direction) {
-
-    if (this._movingTo !== null) {
-
-        // Si ya se esta moviendo, no se puede volver a mover
-        return false;
-
-    }
+BlueBall.Entity.prototype.cellsAt = function (direction) {
 
     var posX = this.cellX,
         posY = this.cellY,
         offsetX = 0,
         offsetY = 0,
         altX = 0,
-        altY = 0,
-        dest1,
-        dest2,
-        tile1,
-        tile2,
-        i,
-        current;
+        altY = 0;
 
     switch (direction) {
     case Phaser.Tilemap.NORTH:
@@ -156,21 +148,48 @@ BlueBall.Entity.prototype.canMoveTo = function (direction) {
         altY = 1;
         break;
     default:
-        return false;
+        return [];
     }
 
-    dest1 = {
-        'x': posX + offsetX,
-        'y': posY + offsetY
-    };
+    return [
+        {
+            'x': posX + offsetX,
+            'y': posY + offsetY
+        },
+        {
+            'x': posX + altX + offsetX,
+            'y': posY + altY + offsetY
+        }
+    ];
 
-    dest2 = {
-        'x': posX + altX + offsetX,
-        'y': posY + altY + offsetY
-    };
+};
 
-    tile1 = this.map.getTile(parseInt((dest1.x) / 2, 10), parseInt((dest1.y) / 2, 10), 'environment', true);
-    tile2 = this.map.getTile(parseInt((dest2.x) / 2, 10), parseInt((dest2.y) / 2, 10), 'environment', true);
+/**
+ * Indica si la entity se puede mover en una direccion concreta
+ * @method BlueBall.Entity#canMoveTo
+ * @memberof BlueBall.Entity
+ * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se quiere saber si el movimiento es posible
+ * @return {boolean} True si el movimiento esta permitido, false en caso contrario
+ */
+BlueBall.Entity.prototype.canMoveTo = function (direction) {
+
+    if (this._movingTo !== null) {
+
+        // Si ya se esta moviendo, no se puede volver a mover
+        return false;
+
+    }
+
+    var pos,
+        tile1,
+        tile2,
+        i,
+        current;
+
+    pos = this.cellsAt(direction);
+
+    tile1 = this.map.getTile(parseInt((pos[0].x) / 2, 10), parseInt((pos[0].y) / 2, 10), 'environment', true);
+    tile2 = this.map.getTile(parseInt((pos[1].x) / 2, 10), parseInt((pos[1].y) / 2, 10), 'environment', true);
 
     if (this.collideIndexes.indexOf(tile1.index) > -1 || this.collideIndexes.indexOf(tile2.index) > -1) {
 
@@ -178,13 +197,13 @@ BlueBall.Entity.prototype.canMoveTo = function (direction) {
 
     } else {
 
-        for(i = 0; i < this.entities.length; i++) {
+        for (i = 0; i < this.entities.length; i++) {
 
             current = this.entities.getAt(i);
 
-            if(current.occupy(dest1.x, dest1.y) || current.occupy(dest2.x, dest2.y)) {
+            if (current.occupy(pos[0].x, pos[0].y) || current.occupy(pos[1].x, pos[1].y)) {
 
-                if(this.collideIndexes.indexOf(current.gid) > -1) {
+                if (this.collideIndexes.indexOf(current.gid) > -1) {
 
                     return false;
 
@@ -201,35 +220,113 @@ BlueBall.Entity.prototype.canMoveTo = function (direction) {
 };
 
 /**
+ * Indica si la entity ha de empujar a otra entity para moverse en una direccion
+ * @method BlueBall.Entity#isPushing
+ * @memberof BlueBall.Entity
+ * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se quiere saber si el movimiento es posible
+ * @return {BlueBall.Entity} Entity a la que se empujara o null si no hay ninguna entity a la que empujar
+ */
+BlueBall.Entity.prototype.isPushing = function (direcion) {
+
+    var pos,
+        i,
+        current;
+
+    if (this.pushIndexes.length > 0) {
+
+        pos = this.cellsAt(direcion);
+
+        for (i = 0; i < this.entities.length; i++) {
+
+            current = this.entities.getAt(i);
+
+            if (current.occupy(pos[0].x, pos[0].y) || current.occupy(pos[1].x, pos[1].y)) {
+
+                if (this.pushIndexes.indexOf(current.gid) > -1) {
+
+                    return current;
+
+                }
+
+            }
+
+        }
+
+    }
+
+    return null;
+
+};
+
+/**
+ * Indica si la entity puede empujar a otra entity concreta en una direccion
+ * @method BlueBall.Entity#isPushing
+ * @memberof BlueBall.Entity
+ * @param {BlueBall.Entity} other - Entity a empujar
+ * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se quiere saber si el movimiento es posible
+ * @return {boolean} True si se puede empujar a la Entity, false en caso contrario
+ */
+BlueBall.Entity.prototype.canPush = function (other, direction) {
+
+    if (other === null) {
+
+        return true;
+
+    }
+
+    if (((direction === Phaser.Tilemap.NORTH || direction === Phaser.Tilemap.SOUTH) && this.cellX != other.cellX) ||
+        ((direction === Phaser.Tilemap.EAST || direction === Phaser.Tilemap.WEST) && this.cellY != other.cellY)) {
+
+        return false;
+
+    }
+
+    return other.canMoveTo(direction);
+
+};
+
+/**
  * Inicia el movimiento de la Entity en una direccion
  * @method BlueBall.Entity#moveTo
  * @memberof BlueBall.Entity
- * @param  {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se moverá la Entity
+ * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se moverá la Entity
  * @return {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST|null} La dirección en la que se mueve la Entity o null
  */
 BlueBall.Entity.prototype.moveTo = function (direction) {
 
     if (this.canMoveTo(direction)) {
 
-        switch (direction) {
-        case Phaser.Tilemap.NORTH:
-            this.cellY--;
-            break;
-        case Phaser.Tilemap.EAST:
-            this.cellX++;
-            break;
-        case Phaser.Tilemap.SOUTH:
-            this.cellY++;
-            break;
-        case Phaser.Tilemap.WEST:
-            this.cellX--;
-            break;
+        var pushed = this.isPushing(direction);
+
+        if (this.canPush(pushed, direction)) {
+
+            switch (direction) {
+            case Phaser.Tilemap.NORTH:
+                this.cellY--;
+                break;
+            case Phaser.Tilemap.EAST:
+                this.cellX++;
+                break;
+            case Phaser.Tilemap.SOUTH:
+                this.cellY++;
+                break;
+            case Phaser.Tilemap.WEST:
+                this.cellX--;
+                break;
+            }
+
+            this._movingTo = direction;
+            this._destPosition = BlueBall.Entity.getCellPosition(this.cellX, this.cellY);
+
+            if (pushed) {
+
+                pushed.moveTo(direction);
+
+            }
+
+            return this._movingTo;
+
         }
-
-        this._movingTo = direction;
-        this._destPosition = BlueBall.Entity.getCellPosition(this.cellX, this.cellY);
-
-        return this._movingTo;
 
     }
 
