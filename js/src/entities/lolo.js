@@ -27,7 +27,7 @@ BlueBall.Lolo.prototype.constructor = BlueBall.Lolo;
 
 BlueBall.Lolo.prototype.onMoved = function (direction) {
 
-    this.checkHeart();
+    this.checkCurrentCell();
 
     this.checkNextMovement(direction);
 
@@ -116,7 +116,7 @@ BlueBall.Lolo.prototype.checkNextMovement = function(direction) {
 
 };
 
-BlueBall.Lolo.prototype.checkHeart = function() {
+BlueBall.Lolo.prototype.checkCurrentCell = function() {
 
     var i,
         current;
@@ -128,6 +128,11 @@ BlueBall.Lolo.prototype.checkHeart = function() {
         if(current instanceof BlueBall.Heart && this.cellX === current.cellX && this.cellY === current.cellY) {
 
             current.getIt();
+
+        }
+        else if(current instanceof BlueBall.Chest && this.cellX === current.cellX && this.cellY === current.cellY && current.status === BlueBall.Chest.OPENED) {
+
+            current.getPearl();
 
         }
 

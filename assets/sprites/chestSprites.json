@@ -1,0 +1,16 @@
+{
+    "frames": [
+        {
+            "filename": "closed",
+            "frame": { "x": 0, "y": 0, "w": 44, "h": 48 }
+        },
+        {
+            "filename": "opened",
+            "frame": { "x": 44, "y": 0, "w": 44, "h": 48 }
+        },
+        {
+            "filename": "empty",
+            "frame": { "x": 88, "y": 0, "w": 44, "h": 48 }
+        }
+    ]
+}

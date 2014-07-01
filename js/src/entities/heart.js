@@ -21,6 +21,37 @@ BlueBall.Heart.prototype.eggs = 0;
 
 BlueBall.Heart.prototype.getIt = function() {
 
+    var hearts = 0,
+        chests = [],
+        i,
+        current;
+
     this.destroy(true);
 
+    for(i = 0; i < this.entities.length; i++) {
+
+        current = this.entities.getAt(i);
+
+        if(current instanceof BlueBall.Heart) {
+
+            hearts++;
+
+        }
+        else if(current instanceof BlueBall.Chest) {
+
+            chests.push(current);
+
+        }
+
+    }
+
+    if(hearts === 0){
+
+        for(i = 0; i < chests.length; i++) {
+
+            chests[i].open();
+
+        }
+
+    }
 };

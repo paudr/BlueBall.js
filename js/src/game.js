@@ -14,6 +14,7 @@ jQuery(function () {
 
             game.load.atlas('smallLolo', 'assets/sprites/smallLolo.png', 'assets/sprites/smallLolo.json');
             game.load.atlas('tileSprites', 'assets/tilemaps/tiles/AdventuresOfLolo3.png', 'assets/sprites/tileSprites.json');
+            game.load.atlas('chestSprites', 'assets/sprites/chestSprites.png', 'assets/sprites/chestSprites.json');
 
         },
 
@@ -30,6 +31,7 @@ jQuery(function () {
 
             map.createLayer('environment', undefined, undefined, layers);
 
+            map.createFromObjects('entities', 117, 'chestSprites', 0, true, false, entities, BlueBall.Chest, false);
             map.createFromObjects('entities', 30, 'tileSprites', 0, true, false, entities, BlueBall.Heart, false);
             map.createFromObjects('entities', 99, 'smallLolo', 10, true, false, entities, BlueBall.Lolo, false);
 

@@ -82,6 +82,12 @@
                     "properties": {
                         "eggs": 2
                     }
+                },
+                {
+                    "gid": 117,
+                    "x": 10,
+                    "y": 22,
+                    "properties": {}
                 }
             ]
         }
