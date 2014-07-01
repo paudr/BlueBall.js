@@ -34,70 +34,14 @@ jQuery(function () {
 
             cursors = game.input.keyboard.createCursorKeys();
 
-            smallLolo = new BlueBall.Entity(game, 2, 12, 'smallLolo', 10);
-            smallLolo.gid = 99;
+            smallLolo = new BlueBall.Lolo(game, 2, 12, 'smallLolo', 10);
             smallLolo.map = map;
             smallLolo.entities = entities;
-            smallLolo.collideIndexes.push(1, 2);
-            smallLolo.pushIndexes.push(29);
             entities.add(smallLolo);
 
-            smallLolo.animations.add('Top', Phaser.Animation.generateFrameNames('loloTop', 0, 4, '', 4), 5, true);
-            smallLolo.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 0, 4, '', 4), 5, true);
-            smallLolo.animations.add('Down', Phaser.Animation.generateFrameNames('loloDown', 0, 4, '', 4), 5, true);
-            smallLolo.animations.add('Left', Phaser.Animation.generateFrameNames('loloLeft', 0, 4, '', 4), 5, true);
-
-            smallLolo.scale.set(32 / 17);
-
-            smallLolo.onMoved = function (direction) {
-
-                var stopAnim = false;
-                switch (direction) {
-                case Phaser.Tilemap.NORTH:
-                    if (cursors.up.isDown) {
-                        smallLolo.moveTo(Phaser.Tilemap.NORTH);
-                    } else {
-                        stopAnim = true;
-                    }
-                    break;
-                case Phaser.Tilemap.EAST:
-                    if (cursors.right.isDown) {
-                        smallLolo.moveTo(Phaser.Tilemap.EAST);
-                    } else {
-                        stopAnim = true;
-                    }
-                    break;
-                case Phaser.Tilemap.SOUTH:
-                    if (cursors.down.isDown) {
-                        smallLolo.moveTo(Phaser.Tilemap.SOUTH);
-                    } else {
-                        stopAnim = true;
-                    }
-                    break;
-                case Phaser.Tilemap.WEST:
-                    if (cursors.left.isDown) {
-                        smallLolo.moveTo(Phaser.Tilemap.WEST);
-                    } else {
-                        stopAnim = true;
-                    }
-                    break;
-                default:
-                    stopAnim = true;
-                }
-
-                if (stopAnim) {
-
-                    smallLolo.animations.stop();
-                    smallLolo.frame = 10;
-
-                }
-            };
-
-            var block = new BlueBall.Entity(game, 6, 12, 'tileSprites', 0);
-            block.gid = 29;
+            var block = new BlueBall.Block(game, 6, 12, 'tileSprites', 0);
             block.map = map;
             block.entities = entities;
-            block.collideIndexes.push(1, 2);
             entities.add(block);
 
             layers.bringToTop(entities);
@@ -105,38 +49,6 @@ jQuery(function () {
         },
 
         'update': function () {
-
-            if (!smallLolo.isMoving) {
-
-                if (cursors.up.isDown) {
-
-                    smallLolo.animations.play('Top');
-                    smallLolo.moveTo(Phaser.Tilemap.NORTH);
-
-                } else if (cursors.right.isDown) {
-
-                    smallLolo.animations.play('Right');
-                    smallLolo.moveTo(Phaser.Tilemap.EAST);
-
-                } else if (cursors.down.isDown) {
-
-                    smallLolo.animations.play('Down');
-                    smallLolo.moveTo(Phaser.Tilemap.SOUTH);
-
-                } else if (cursors.left.isDown) {
-
-                    smallLolo.animations.play('Left');
-                    smallLolo.moveTo(Phaser.Tilemap.WEST);
-
-                } else {
-
-                    smallLolo.animations.stop();
-                    smallLolo.frame = 10;
-
-                }
-
-            }
-
         }
 
     });
