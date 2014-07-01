@@ -2,9 +2,7 @@
 
 jQuery(function () {
 
-    var game,
-        cursors,
-        smallLolo;
+    var game;
 
     game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameLayer', {
 
@@ -15,7 +13,8 @@ jQuery(function () {
             game.load.tilemap('level1-1', 'assets/tilemaps/maps/level1-1.json', null, Phaser.Tilemap.TILED_JSON);
 
             game.load.atlas('smallLolo', 'assets/sprites/smallLolo.png', 'assets/sprites/smallLolo.json');
-            game.load.atlas('tileSprites', 'assets/tilemaps/tiles/AdventuresOfLolo3.png', 'assets/sprites/tileSprites.json');
+            game.load.atlas('block', 'assets/tilemaps/tiles/AdventuresOfLolo3.png', 'assets/sprites/block.json');
+            game.load.atlas('heart', 'assets/tilemaps/tiles/AdventuresOfLolo3.png', 'assets/sprites/heart.json');
 
         },
 
@@ -32,17 +31,13 @@ jQuery(function () {
 
             map.createLayer('environment', undefined, undefined, layers);
 
-            cursors = game.input.keyboard.createCursorKeys();
+            map.createFromObjects('entities', 30, 'heart', 0, true, false, entities, BlueBall.Heart);
+            map.createFromObjects('entities', 99, 'smallLolo', 10, true, false, entities, BlueBall.Lolo);
 
-            smallLolo = new BlueBall.Lolo(game, 2, 12, 'smallLolo', 10);
-            smallLolo.map = map;
-            smallLolo.entities = entities;
-            entities.add(smallLolo);
-
-            var block = new BlueBall.Block(game, 6, 12, 'tileSprites', 0);
-            block.map = map;
-            block.entities = entities;
-            entities.add(block);
+            entities.forEach(function(entity) {
+                entity.map = map;
+                entity.entities = entities;
+            });
 
             layers.bringToTop(entities);
 
