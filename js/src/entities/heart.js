@@ -10,3 +10,9 @@ BlueBall.Heart = function (game, x, y, key, frame) {
 
 BlueBall.Heart.prototype = Object.create(BlueBall.Entity.prototype);
 BlueBall.Heart.prototype.constructor = BlueBall.Heart;
+
+/**
+ * @property {number} eggs - Cantidad de disparos que obtiene Lolo por coger el Heart
+ * @static
+ */
+BlueBall.Heart.prototype.eggs = 0;

@@ -28,6 +28,7 @@ BlueBall.Lolo.prototype.constructor = BlueBall.Lolo;
 BlueBall.Lolo.prototype.onMoved = function (direction) {
 
     var stopAnim = false;
+
     switch (direction) {
     case Phaser.Tilemap.NORTH:
         if (this.cursors.up.isDown) {
@@ -67,6 +68,7 @@ BlueBall.Lolo.prototype.onMoved = function (direction) {
         this.frame = 10;
 
     }
+
 };
 
 BlueBall.Lolo.prototype.update = function () {

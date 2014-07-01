@@ -79,7 +79,9 @@
                     "gid": 30,
                     "x": 22,
                     "y": 14,
-                    "properties": {}
+                    "properties": {
+                        "eggs": 2
+                    }
                 }
             ]
         }
