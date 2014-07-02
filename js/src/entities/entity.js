@@ -47,14 +47,9 @@ BlueBall.Entity.getCellPosition = function (x, y) {
 };
 
 /**
- * @property {Phaser.Tilemap} map - Instancia del Tilemap donde se mueve la Entity
+ * @property {BlueBall.Level} level - Instancia del Level actual
  */
-BlueBall.Entity.prototype.map = null;
-
-/**
- * @property {Phaser.Group} entities - Grupo con todas las entites que hay en el nivel
- */
-BlueBall.Entity.prototype.entities = null;
+BlueBall.Entity.prototype.level = null;
 
 /**
  * @property {array} collideIndexes - Lista de indices de tipos de tiles con los que colisiona la Entity
@@ -205,8 +200,8 @@ BlueBall.Entity.prototype.canMoveTo = function (direction) {
 
     pos = this.cellsAt(direction);
 
-    tile1 = this.map.getTile(parseInt((pos[0].x) / 2, 10), parseInt((pos[0].y) / 2, 10), 'environment', true);
-    tile2 = this.map.getTile(parseInt((pos[1].x) / 2, 10), parseInt((pos[1].y) / 2, 10), 'environment', true);
+    tile1 = this.level.map.getTile(parseInt((pos[0].x) / 2, 10), parseInt((pos[0].y) / 2, 10), 'environment', true);
+    tile2 = this.level.map.getTile(parseInt((pos[1].x) / 2, 10), parseInt((pos[1].y) / 2, 10), 'environment', true);
 
     if (this.collideIndexes.indexOf(tile1.index) > -1 || this.collideIndexes.indexOf(tile2.index) > -1) {
 
@@ -214,9 +209,9 @@ BlueBall.Entity.prototype.canMoveTo = function (direction) {
 
     } else {
 
-        for (i = 0; i < this.entities.length; i++) {
+        for (i = 0; i < this.level.entities.length; i++) {
 
-            current = this.entities.getAt(i);
+            current = this.level.entities.getAt(i);
 
             if (current.occupy(pos[0].x, pos[0].y) || current.occupy(pos[1].x, pos[1].y)) {
 
@@ -253,9 +248,9 @@ BlueBall.Entity.prototype.isPushing = function (direcion) {
 
         pos = this.cellsAt(direcion);
 
-        for (i = 0; i < this.entities.length; i++) {
+        for (i = 0; i < this.level.entities.length; i++) {
 
-            current = this.entities.getAt(i);
+            current = this.level.entities.getAt(i);
 
             if (current.occupy(pos[0].x, pos[0].y) || current.occupy(pos[1].x, pos[1].y)) {
 

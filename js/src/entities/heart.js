@@ -28,9 +28,9 @@ BlueBall.Heart.prototype.getIt = function() {
 
     this.destroy(true);
 
-    for(i = 0; i < this.entities.length; i++) {
+    for(i = 0; i < this.level.entities.length; i++) {
 
-        current = this.entities.getAt(i);
+        current = this.level.entities.getAt(i);
 
         if(current instanceof BlueBall.Heart) {
 
