@@ -19,39 +19,12 @@ BlueBall.Heart.prototype.constructor = BlueBall.Heart;
  */
 BlueBall.Heart.prototype.eggs = 0;
 
-BlueBall.Heart.prototype.getIt = function() {
+BlueBall.Heart.prototype.onGotted = function() {};
 
-    var hearts = 0,
-        chests = [],
-        i,
-        current;
+BlueBall.Heart.prototype.getIt = function() {
 
     this.destroy(true);
 
-    for(i = 0; i < this.level.entities.length; i++) {
+    this.onGotted(this);
 
-        current = this.level.entities.getAt(i);
-
-        if(current instanceof BlueBall.Heart) {
-
-            hearts++;
-
-        }
-        else if(current instanceof BlueBall.Chest) {
-
-            chests.push(current);
-
-        }
-
-    }
-
-    if(hearts === 0){
-
-        for(i = 0; i < chests.length; i++) {
-
-            chests[i].open();
-
-        }
-
-    }
 };
