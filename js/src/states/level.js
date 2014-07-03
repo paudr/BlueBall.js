@@ -2,16 +2,16 @@
 
 var BlueBall = BlueBall || {};
 
-BlueBall.Level = function (floor, level) {
+BlueBall.Level = function (name) {
 
-    this.floor = floor;
-    this.level = level;
+    this.levelName = name;
 
 };
 
 BlueBall.Level.prototype = Object.create(Phaser.State.prototype);
 BlueBall.Level.prototype.constructor = BlueBall.Level;
 
+BlueBall.Level.prototype.levelName = '';
 BlueBall.Level.prototype.floor = 0;
 BlueBall.Level.prototype.level = 0;
 BlueBall.Level.prototype.map = null;
@@ -23,13 +23,17 @@ BlueBall.Level.prototype.exit = null;
 
 BlueBall.Level.prototype.preload = function () {
 
-    this.game.load.tilemap('level' + this.floor + '-' + this.level, 'assets/tilemaps/maps/level' + this.floor + '-' + this.level + '.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.tilemap(this.levelName, 'assets/tilemaps/maps/' + this.levelName + '.json', null, Phaser.Tilemap.TILED_JSON);
 
 };
 
 BlueBall.Level.prototype.create = function () {
 
-    this.map = this.game.add.tilemap('level1-1');
+    this.map = this.game.add.tilemap(this.levelName);
+
+    this.floor = this.map.properties.world;
+    this.level = this.map.properties.level;
+
     this.layers = this.game.add.group();
     this.entities = this.game.add.group(this.layers);
 
