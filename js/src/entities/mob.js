@@ -27,7 +27,7 @@ BlueBall.Mob.prototype.pushIndexes = null;
 /**
  * @property {number} velocity - Velocidad a la que se mueve la Mob por el mapa (en pixels por milisegundo)
  */
-BlueBall.Mob.prototype.velocity = 64 / 1000;
+BlueBall.Mob.prototype.velocity = 3 * 32 / 1000;
 
 /**
  * @property {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} _movingTo - Direccion en la que se esta moviendo la Mob
