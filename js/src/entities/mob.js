@@ -6,7 +6,7 @@ BlueBall.Mob = function (game, x, y, key, frame) {
 
     BlueBall.Entity.call(this, game, x, y, key, frame);
 
-    this.collideIndexes = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+    this.collideIndexes = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 22];
     this.pushIndexes = [];
 
 };

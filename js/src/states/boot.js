@@ -19,6 +19,6 @@ BlueBall.Boot.prototype.preload = function () {
 
 BlueBall.Boot.prototype.create = function () {
 
-    this.game.state.start('level_1_1');
+    this.game.state.start('level1-1');
 
 };
