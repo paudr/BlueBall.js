@@ -13,7 +13,7 @@ BlueBall.Item.prototype.onPlayerEnter = function () {};
 
 BlueBall.Item.prototype.update = function () {
 
-    if (this.level.player.lastPosition.x === this.cellX && this.level.player.lastPosition.y === this.cellY) {
+    if (this.level.player.lastPosition.x === this.cellPosition.x && this.level.player.lastPosition.y === this.cellPosition.y) {
 
         this.onPlayerEnter(this);
 
