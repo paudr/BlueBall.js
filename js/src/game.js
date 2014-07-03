@@ -3,7 +3,7 @@
 jQuery(function () {
 
     var game;
-    game = new Phaser.Game(800, 600, Phaser.AUTO);
+    game = new Phaser.Game(516, 548, Phaser.AUTO);
 
     game.state.add('boot', new BlueBall.Boot());
     game.state.add('level1-1', new BlueBall.Level('level1-1'));
