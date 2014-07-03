@@ -4,7 +4,7 @@ var BlueBall = BlueBall || {};
 
 BlueBall.Lolo = function (game, x, y, key, frame) {
 
-    BlueBall.Entity.call(this, game, x, y, key, frame);
+    BlueBall.Mob.call(this, game, x, y, key, frame);
 
     this.gid = 99;
 
@@ -22,7 +22,7 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
 
 };
 
-BlueBall.Lolo.prototype = Object.create(BlueBall.Entity.prototype);
+BlueBall.Lolo.prototype = Object.create(BlueBall.Mob.prototype);
 BlueBall.Lolo.prototype.constructor = BlueBall.Lolo;
 
 BlueBall.Lolo.prototype.onMoved = function (direction) {
@@ -66,7 +66,7 @@ BlueBall.Lolo.prototype.update = function () {
 
     }
 
-    BlueBall.Entity.prototype.update.call(this);
+    BlueBall.Mob.prototype.update.call(this);
 
 };
 

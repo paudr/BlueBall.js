@@ -2,7 +2,7 @@ var BlueBall = BlueBall || {};
 
 BlueBall.Block = function (game, x, y, key, frame) {
 
-    BlueBall.Entity.call(this, game, x, y, key, frame);
+    BlueBall.Mob.call(this, game, x, y, key, frame);
 
     this.frameName = 'block';
 
@@ -12,5 +12,5 @@ BlueBall.Block = function (game, x, y, key, frame) {
 
 };
 
-BlueBall.Block.prototype = Object.create(BlueBall.Entity.prototype);
+BlueBall.Block.prototype = Object.create(BlueBall.Mob.prototype);
 BlueBall.Block.prototype.constructor = BlueBall.Block;
