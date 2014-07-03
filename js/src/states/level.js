@@ -18,6 +18,7 @@ BlueBall.Level.prototype.map = null;
 BlueBall.Level.prototype.layers = null;
 BlueBall.Level.prototype.entities = null;
 BlueBall.Level.prototype.hearts = 0;
+BlueBall.Level.prototype.player = null;
 
 BlueBall.Level.prototype.preload = function () {
 
@@ -26,6 +27,8 @@ BlueBall.Level.prototype.preload = function () {
 };
 
 BlueBall.Level.prototype.create = function () {
+
+    var self = this;
 
     this.map = this.game.add.tilemap('level1-1');
     this.layers = this.game.add.group();
@@ -42,17 +45,43 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', 30, 'tileSprites', 0, true, false, this.entities, BlueBall.Heart, false);
     this.map.createFromObjects('entities', 99, 'smallLolo', 10, true, false, this.entities, BlueBall.Lolo, false);
 
+    var block = new BlueBall.Block(this.game, 10, 16, 'tileSprites', 0);
+    this.entities.add(block);
+
     this.entities.forEach(function (entity) {
 
         var self = this;
 
         entity.level = this;
 
-        if(entity instanceof BlueBall.Heart) {
+        if (entity instanceof BlueBall.Lolo) {
 
-            entity.onGotted = function() {
+            this.player = entity;
+
+        } else if (entity instanceof BlueBall.Heart) {
+
+            entity.onPlayerEnter = function (heart) {
+
+                    heart.destroy(true);
+                    self.countHearts();
+
+            };
+
+            entity.onGotted = function () {
 
                 BlueBall.Level.prototype.countHearts.call(self);
+
+            };
+
+        } else if (entity instanceof BlueBall.Chest) {
+
+            entity.onPlayerEnter = function (chest) {
+
+                if (chest.status === BlueBall.Chest.OPENED) {
+
+                    chest.getPearl();
+
+                }
 
             };
 
@@ -81,7 +110,7 @@ BlueBall.Level.prototype.countHearts = function () {
 
     this.hearts = quantity;
 
-    if(this.hearts === 0) {
+    if (this.hearts === 0) {
 
         this.openChests();
 
@@ -89,7 +118,7 @@ BlueBall.Level.prototype.countHearts = function () {
 
 };
 
-BlueBall.Level.prototype.openChests = function() {
+BlueBall.Level.prototype.openChests = function () {
 
     var i,
         current;

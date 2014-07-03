@@ -2,7 +2,7 @@ var BlueBall = BlueBall || {};
 
 BlueBall.Chest = function (game, x, y, key, frame) {
 
-    BlueBall.Entity.call(this, game, x, y, key, frame);
+    BlueBall.Item.call(this, game, x, y, key, frame);
 
     this.frameName = BlueBall.Chest.CLOSED;
     this.status = BlueBall.Chest.CLOSED;
@@ -16,7 +16,7 @@ BlueBall.Chest = function (game, x, y, key, frame) {
 
 };
 
-BlueBall.Chest.prototype = Object.create(BlueBall.Entity.prototype);
+BlueBall.Chest.prototype = Object.create(BlueBall.Item.prototype);
 BlueBall.Chest.prototype.constructor = BlueBall.Chest;
 
 BlueBall.Chest.CLOSED = 'closed';

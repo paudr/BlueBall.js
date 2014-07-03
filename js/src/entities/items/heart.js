@@ -2,7 +2,7 @@ var BlueBall = BlueBall || {};
 
 BlueBall.Heart = function (game, x, y, key, frame) {
 
-    BlueBall.Entity.call(this, game, x, y, key, frame);
+    BlueBall.Item.call(this, game, x, y, key, frame);
 
     this.frameName = 'heart';
 
@@ -10,7 +10,7 @@ BlueBall.Heart = function (game, x, y, key, frame) {
 
 };
 
-BlueBall.Heart.prototype = Object.create(BlueBall.Entity.prototype);
+BlueBall.Heart.prototype = Object.create(BlueBall.Item.prototype);
 BlueBall.Heart.prototype.constructor = BlueBall.Heart;
 
 /**

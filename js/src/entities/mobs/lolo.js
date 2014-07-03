@@ -20,14 +20,21 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
 
     this.cursors = game.input.keyboard.createCursorKeys();
 
+    this.lastPosition = {
+        'x': this.cellX,
+        'y': this.cellY
+    };
 };
 
 BlueBall.Lolo.prototype = Object.create(BlueBall.Mob.prototype);
 BlueBall.Lolo.prototype.constructor = BlueBall.Lolo;
 
+BlueBall.Lolo.prototype.lastPosition = null;
+
 BlueBall.Lolo.prototype.onMoved = function (direction) {
 
-    this.checkCurrentCell();
+    this.lastPosition.x = this.cellX;
+    this.lastPosition.y = this.cellY;
 
     this.checkNextMovement(direction);
 
@@ -114,27 +121,4 @@ BlueBall.Lolo.prototype.checkNextMovement = function(direction) {
 
     }
 
-};
-
-BlueBall.Lolo.prototype.checkCurrentCell = function() {
-
-    var i,
-        current;
-
-    for(i = 0; i < this.level.entities.length; i++) {
-
-        current = this.level.entities.getAt(i);
-
-        if(current instanceof BlueBall.Heart && this.cellX === current.cellX && this.cellY === current.cellY) {
-
-            current.getIt();
-
-        }
-        else if(current instanceof BlueBall.Chest && this.cellX === current.cellX && this.cellY === current.cellY && current.status === BlueBall.Chest.OPENED) {
-
-            current.getPearl();
-
-        }
-
-    }
 };
