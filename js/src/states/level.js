@@ -64,12 +64,6 @@ BlueBall.Level.prototype.create = function () {
 
             };
 
-            entity.onGotted = function () {
-
-                BlueBall.Level.prototype.countHearts.call(self);
-
-            };
-
         } else if (entity instanceof BlueBall.Chest) {
 
             entity.onPlayerEnter = function (chest) {
