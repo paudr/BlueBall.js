@@ -45,9 +45,6 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', 30, 'tileSprites', 0, true, false, this.entities, BlueBall.Heart, false);
     this.map.createFromObjects('entities', 99, 'smallLolo', 10, true, false, this.entities, BlueBall.Lolo, false);
 
-    var block = new BlueBall.Block(this.game, 10, 16, 'tileSprites', 0);
-    this.entities.add(block);
-
     this.entities.forEach(function (entity) {
 
         var self = this;
