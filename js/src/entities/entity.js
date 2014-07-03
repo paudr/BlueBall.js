@@ -8,8 +8,10 @@ BlueBall.Entity = function (game, x, y, key, frame) {
 
     Phaser.Sprite.call(this, game, pos.x, pos.y, key, frame);
 
-    this.cellX = x;
-    this.cellY = y;
+    this.cellPosition = {
+        'x': x,
+        'y': y
+    };
 
 };
 
@@ -58,16 +60,10 @@ BlueBall.Entity.prototype.level = null;
 BlueBall.Entity.prototype.gid = -1;
 
 /**
- * @property {number} cellX - Numero de columna de celda en la que se encuentra la Entity
+ * @property {object} cellPosition - Numero de columna y fila de celda en la que se encuentra la Entity
  * @static
  */
-BlueBall.Entity.prototype.cellX = 0;
-
-/**
- * @property {number} cellY - Numero de fila de celda en la que se encuentra la Entity
- * @static
- */
-BlueBall.Entity.prototype.cellY = 0;
+BlueBall.Entity.prototype.cellPosition = null;
 
 /**
  * Indica si la entity ocupa una posición en concreto
@@ -79,7 +75,7 @@ BlueBall.Entity.prototype.cellY = 0;
  */
 BlueBall.Entity.prototype.occupy = function (x, y) {
 
-    return (this.cellX === x || this.cellX + 1 === x) && (this.cellY === y || this.cellY + 1 === y);
+    return (this.cellPosition.x === x || this.cellPosition.x + 1 === x) && (this.cellPosition.y === y || this.cellPosition.y + 1 === y);
 
 };
 
@@ -92,8 +88,8 @@ BlueBall.Entity.prototype.occupy = function (x, y) {
  */
 BlueBall.Entity.prototype.cellsAt = function (direction) {
 
-    var posX = this.cellX,
-        posY = this.cellY,
+    var posX = this.cellPosition.x,
+        posY = this.cellPosition.y,
         offsetX = 0,
         offsetY = 0,
         altX = 0,

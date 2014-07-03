@@ -21,8 +21,8 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
     this.cursors = game.input.keyboard.createCursorKeys();
 
     this.lastPosition = {
-        'x': this.cellX,
-        'y': this.cellY
+        'x': this.cellPosition.x,
+        'y': this.cellPosition.y
     };
 };
 
@@ -33,8 +33,8 @@ BlueBall.Lolo.prototype.lastPosition = null;
 
 BlueBall.Lolo.prototype.onMoved = function (direction) {
 
-    this.lastPosition.x = this.cellX;
-    this.lastPosition.y = this.cellY;
+    this.lastPosition.x = this.cellPosition.x;
+    this.lastPosition.y = this.cellPosition.y;
 
     this.checkNextMovement(direction);
 

@@ -166,8 +166,8 @@ BlueBall.Mob.prototype.canPush = function (other, direction) {
 
     }
 
-    if (((direction === Phaser.Tilemap.NORTH || direction === Phaser.Tilemap.SOUTH) && this.cellX != other.cellX) ||
-        ((direction === Phaser.Tilemap.EAST || direction === Phaser.Tilemap.WEST) && this.cellY != other.cellY)) {
+    if (((direction === Phaser.Tilemap.NORTH || direction === Phaser.Tilemap.SOUTH) && this.cellPosition.x != other.cellPosition.x) ||
+        ((direction === Phaser.Tilemap.EAST || direction === Phaser.Tilemap.WEST) && this.cellPosition.y != other.cellPosition.y)) {
 
         return false;
 
@@ -194,21 +194,21 @@ BlueBall.Mob.prototype.moveTo = function (direction) {
 
             switch (direction) {
             case Phaser.Tilemap.NORTH:
-                this.cellY--;
+                this.cellPosition.y--;
                 break;
             case Phaser.Tilemap.EAST:
-                this.cellX++;
+                this.cellPosition.x++;
                 break;
             case Phaser.Tilemap.SOUTH:
-                this.cellY++;
+                this.cellPosition.y++;
                 break;
             case Phaser.Tilemap.WEST:
-                this.cellX--;
+                this.cellPosition.x--;
                 break;
             }
 
             this._movingTo = direction;
-            this._destPosition = BlueBall.Entity.getCellPosition(this.cellX, this.cellY);
+            this._destPosition = BlueBall.Entity.getCellPosition(this.cellPosition.x, this.cellPosition.y);
 
             if (pushed) {
 
