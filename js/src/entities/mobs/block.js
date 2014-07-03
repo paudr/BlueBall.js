@@ -8,7 +8,7 @@ BlueBall.Block = function (game, x, y, key, frame) {
 
     this.gid = 29;
 
-    this.collideIndexes.push(1, 2, 23, 30, 117);
+    this.collideIndexes.push(1, 2, 23, 30, 117, 97);
 
 };
 

@@ -1,0 +1,28 @@
+{
+    "frames": [
+        {
+            "filename": "snakey1",
+            "frame": { "x": 14, "y": 29, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "snakey2",
+            "frame": { "x": 48, "y": 29, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "snakey3",
+            "frame": { "x": 80, "y": 29, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "snakey4",
+            "frame": { "x": 111, "y": 29, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "snakey5",
+            "frame": { "x": 144, "y": 29, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "snakey6",
+            "frame": { "x": 177, "y": 29, "w": 34, "h": 34 }
+        }
+    ]
+}

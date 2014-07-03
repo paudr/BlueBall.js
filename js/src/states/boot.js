@@ -14,6 +14,7 @@ BlueBall.Boot.prototype.preload = function () {
     this.game.load.atlas('smallLolo', 'assets/sprites/smallLolo.png', 'assets/sprites/smallLolo.json');
     this.game.load.atlas('tileSprites', 'assets/tilemaps/tiles/AdventuresOfLolo3Attrib.png', 'assets/sprites/tileSprites.json');
     this.game.load.atlas('chestSprites', 'assets/sprites/chestSprites.png', 'assets/sprites/chestSprites.json');
+    this.game.load.atlas('mobSprites', 'assets/sprites/mobSprites.png', 'assets/sprites/mobSprites.json');
 
 };
 
