@@ -19,6 +19,7 @@ BlueBall.Level.prototype.layers = null;
 BlueBall.Level.prototype.entities = null;
 BlueBall.Level.prototype.hearts = 0;
 BlueBall.Level.prototype.player = null;
+BlueBall.Level.prototype.exit = null;
 
 BlueBall.Level.prototype.preload = function () {
 
@@ -27,8 +28,6 @@ BlueBall.Level.prototype.preload = function () {
 };
 
 BlueBall.Level.prototype.create = function () {
-
-    var self = this;
 
     this.map = this.game.add.tilemap('level1-1');
     this.layers = this.game.add.group();
@@ -43,24 +42,27 @@ BlueBall.Level.prototype.create = function () {
 
     this.map.createFromObjects('entities', 117, 'chestSprites', 0, true, false, this.entities, BlueBall.Chest, false);
     this.map.createFromObjects('entities', 30, 'tileSprites', 0, true, false, this.entities, BlueBall.Heart, false);
+    this.map.createFromObjects('entities', 15, 'tileSprites', 3, true, false, this.entities, BlueBall.Exit, false);
     this.map.createFromObjects('entities', 99, 'smallLolo', 10, true, false, this.entities, BlueBall.Lolo, false);
 
     this.entities.forEach(function (entity) {
 
         var self = this;
 
-        entity.level = this;
-
         if (entity instanceof BlueBall.Lolo) {
 
             this.player = entity;
+
+        } else if (entity instanceof BlueBall.Exit) {
+
+            this.exit = entity;
 
         } else if (entity instanceof BlueBall.Heart) {
 
             entity.onPlayerEnter = function (heart) {
 
-                    heart.destroy(true);
-                    self.countHearts();
+                heart.destroy(true);
+                self.countHearts();
 
             };
 
@@ -71,6 +73,7 @@ BlueBall.Level.prototype.create = function () {
                 if (chest.status === BlueBall.Chest.OPENED) {
 
                     chest.getPearl();
+                    self.exit.open();
 
                 }
 

@@ -42,10 +42,10 @@ BlueBall.Mob.prototype._movingTo = null;
 BlueBall.Mob.prototype._destPosition = null;
 
 /**
-* @name BlueBall.Mob#isMoving
-* @property {boolean} isMoving - True si la Mob se esta moviendo, false en caso contrario
-* @readonly
-*/
+ * @name BlueBall.Mob#isMoving
+ * @property {boolean} isMoving - True si la Mob se esta moviendo, false en caso contrario
+ * @readonly
+ */
 Object.defineProperty(BlueBall.Mob.prototype, "isMoving", {
 
     get: function () {
@@ -232,7 +232,7 @@ BlueBall.Mob.prototype.moveTo = function (direction) {
  * @memberof BlueBall.Mob
  * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se ha movido la Mob
  */
-BlueBall.Mob.prototype.onMoved = function() {};
+BlueBall.Mob.prototype.onMoved = function () {};
 
 BlueBall.Mob.prototype.update = function () {
 

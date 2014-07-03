@@ -8,6 +8,8 @@ BlueBall.Entity = function (game, x, y, key, frame) {
 
     Phaser.Sprite.call(this, game, pos.x, pos.y, key, frame);
 
+    this.level = this.game.state.getCurrentState();
+
     this.cellPosition = {
         'x': x,
         'y': y
