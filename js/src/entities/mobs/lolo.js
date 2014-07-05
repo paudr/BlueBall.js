@@ -31,6 +31,7 @@ BlueBall.Lolo.prototype.constructor = BlueBall.Lolo;
 
 BlueBall.Lolo.prototype.lastDirection = Phaser.Tilemap.SOUTH;
 BlueBall.Lolo.prototype.lastPosition = null;
+BlueBall.Lolo.prototype._eggs = 0;
 
 BlueBall.Lolo.prototype.onMoved = function (direction) {
 
@@ -146,3 +147,19 @@ BlueBall.Lolo.prototype.stopAnimation = function (direction) {
     }
 
 }
+
+Object.defineProperty(BlueBall.Mob.prototype, "eggs", {
+
+    get: function () {
+
+        return this._eggs;
+
+    },
+
+    set: function(value) {
+
+        this._eggs = value;
+        this.level.eggCounterText.text = value.toString();
+    }
+
+});

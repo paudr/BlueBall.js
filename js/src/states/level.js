@@ -20,6 +20,7 @@ BlueBall.Level.prototype.entities = null;
 BlueBall.Level.prototype.hearts = 0;
 BlueBall.Level.prototype.player = null;
 BlueBall.Level.prototype.exit = null;
+BlueBall.Level.prototype.eggCounterText;
 
 BlueBall.Level.prototype.preload = function () {
 
@@ -51,6 +52,16 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', 97, 'mobSprites', 3, true, false, this.entities, BlueBall.Snakey, false);
     this.map.createFromObjects('entities', 99, 'loloSprites', 10, true, false, this.entities, BlueBall.Lolo, false);
 
+    var eggCounterImage = this.game.add.sprite(420, 128, 'eggSprites', 1, this.layers);
+    eggCounterImage.scale.set(2);
+
+    this.eggCounterText = this.game.add.text(426, 156, '0', {
+        'font': '32px Arial',
+        'fill': '#ffffff',
+        'align': 'center'
+    }, this.layers);
+    this.eggCounterText.setShadow(2, 0, '#666666');
+
     this.entities.forEach(function (entity) {
 
         var self = this;
@@ -63,9 +74,9 @@ BlueBall.Level.prototype.create = function () {
 
             this.exit = entity;
 
-            entity.onPlayerEnter = function(exit) {
+            entity.onPlayerEnter = function (exit) {
 
-                if(exit.gid === 17) {
+                if (exit.gid === 17) {
 
                     self.game.state.start(self.map.properties.next);
 
@@ -79,6 +90,7 @@ BlueBall.Level.prototype.create = function () {
 
                 heart.destroy(true);
                 self.countHearts();
+                self.player.eggs = self.player.eggs + heart.eggs;
 
             };
 

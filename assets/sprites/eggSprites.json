@@ -1,0 +1,20 @@
+{
+    "frames": [
+        {
+            "filename": "shootVertical",
+            "frame": { "x": 3, "y": 2, "w": 16, "h": 16 }
+        },
+        {
+            "filename": "shootHorizontal",
+            "frame": { "x": 23, "y": 2, "w": 16, "h": 16 }
+        },
+        {
+            "filename": "eggNormal",
+            "frame": { "x": 43, "y": 2, "w": 16, "h": 16 }
+        },
+        {
+            "filename": "eggBroken",
+            "frame": { "x": 62, "y": 2, "w": 16, "h": 16 }
+        }
+    ]
+}
