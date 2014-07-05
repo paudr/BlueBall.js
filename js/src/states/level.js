@@ -49,7 +49,7 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', 15, 'tileSprites', 3, true, false, this.entities, BlueBall.Exit, false);
     this.map.createFromObjects('entities', 29, 'tileSprites', 1, true, false, this.entities, BlueBall.Block, false);
     this.map.createFromObjects('entities', 97, 'mobSprites', 3, true, false, this.entities, BlueBall.Snakey, false);
-    this.map.createFromObjects('entities', 99, 'smallLolo', 10, true, false, this.entities, BlueBall.Lolo, false);
+    this.map.createFromObjects('entities', 99, 'loloSprites', 10, true, false, this.entities, BlueBall.Lolo, false);
 
     this.entities.forEach(function (entity) {
 

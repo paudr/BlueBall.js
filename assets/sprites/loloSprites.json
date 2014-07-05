@@ -1,0 +1,137 @@
+{
+    "frames": [
+
+        {
+            "filename": "loloUp1",
+            "frame": { "x": 18, "y": 81, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloUp2",
+            "frame": { "x": 37, "y": 81, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloUp3",
+            "frame": { "x": 56, "y": 81, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloUp4",
+            "frame": { "x": 74, "y": 81, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloUp5",
+            "frame": { "x": 92, "y": 81, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloUp6",
+            "frame": { "x": 111, "y": 81, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloUp7",
+            "frame": { "x": 130, "y": 81, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloUp8",
+            "frame": { "x": 149, "y": 81, "w": 17, "h": 17 }
+        },
+
+        {
+            "filename": "loloRight1",
+            "frame": { "x": 19, "y": 62, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloRight2",
+            "frame": { "x": 38, "y": 62, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloRight3",
+            "frame": { "x": 57, "y": 62, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloRight4",
+            "frame": { "x": 75, "y": 62, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloRight5",
+            "frame": { "x": 93, "y": 62, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloRight6",
+            "frame": { "x": 112, "y": 62, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloRight7",
+            "frame": { "x": 131, "y": 62, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloRight8",
+            "frame": { "x": 150, "y": 62, "w": 17, "h": 17 }
+        },
+
+        {
+            "filename": "loloDown1",
+            "frame": { "x": 20, "y": 39, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloDown2",
+            "frame": { "x": 38, "y": 39, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloDown3",
+            "frame": { "x": 55, "y": 39, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloDown4",
+            "frame": { "x": 72, "y": 39, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloDown5",
+            "frame": { "x": 89, "y": 39, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloDown6",
+            "frame": { "x": 107, "y": 39, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloDown7",
+            "frame": { "x": 124, "y": 39, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloDown8",
+            "frame": { "x": 141, "y": 39, "w": 17, "h": 17 }
+        },
+
+        {
+            "filename": "loloLeft1",
+            "frame": { "x": 19, "y": 102, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloLeft2",
+            "frame": { "x": 38, "y": 102, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloLeft3",
+            "frame": { "x": 57, "y": 102, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloLeft4",
+            "frame": { "x": 75, "y": 102, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloLeft5",
+            "frame": { "x": 93, "y": 102, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloLeft6",
+            "frame": { "x": 112, "y": 102, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloLeft7",
+            "frame": { "x": 131, "y": 102, "w": 17, "h": 17 }
+        },
+        {
+            "filename": "loloLeft8",
+            "frame": { "x": 150, "y": 102, "w": 17, "h": 17 }
+        }
+
+    ]
+}
