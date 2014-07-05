@@ -5,22 +5,17 @@ var BlueBall = BlueBall || {};
 BlueBall.Level = function (name) {
 
     this.levelName = name;
+    this.map = null;
+    this.layers = null;
+    this.entities = null;
+    this.player = null;
+    this.exit = null;
+    this.eggCounterText = null;
 
 };
 
 BlueBall.Level.prototype = Object.create(Phaser.State.prototype);
 BlueBall.Level.prototype.constructor = BlueBall.Level;
-
-BlueBall.Level.prototype.levelName = '';
-BlueBall.Level.prototype.floor = 0;
-BlueBall.Level.prototype.level = 0;
-BlueBall.Level.prototype.map = null;
-BlueBall.Level.prototype.layers = null;
-BlueBall.Level.prototype.entities = null;
-BlueBall.Level.prototype.hearts = 0;
-BlueBall.Level.prototype.player = null;
-BlueBall.Level.prototype.exit = null;
-BlueBall.Level.prototype.eggCounterText;
 
 BlueBall.Level.prototype.preload = function () {
 
@@ -31,9 +26,6 @@ BlueBall.Level.prototype.preload = function () {
 BlueBall.Level.prototype.create = function () {
 
     this.map = this.game.add.tilemap(this.levelName);
-
-    this.floor = this.map.properties.world;
-    this.level = this.map.properties.level;
 
     this.layers = this.game.add.group();
     this.entities = this.game.add.group(this.layers);
@@ -130,9 +122,7 @@ BlueBall.Level.prototype.countHearts = function () {
 
     }
 
-    this.hearts = quantity;
-
-    if (this.hearts === 0) {
+    if (quantity === 0) {
 
         this.openChests();
 
