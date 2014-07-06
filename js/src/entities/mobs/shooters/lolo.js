@@ -4,12 +4,14 @@ var BlueBall = BlueBall || {};
 
 BlueBall.Lolo = function (game, x, y, key, frame) {
 
-    BlueBall.Mob.call(this, game, x, y, key, frame);
+    BlueBall.Shooter.call(this, game, x, y, key, frame);
 
     this.gid = 99;
 
     this.collideIndexes.push(1, 2, 97);
     this.pushIndexes.push(29);
+
+    this.projectileClass = BlueBall.ProjectileEgg;
 
     this.animations.add('Top', Phaser.Animation.generateFrameNames('loloUp', 0, 6, '', 1), 10, true);
     this.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 0, 6, '', 1), 10, true);
@@ -19,13 +21,15 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
     this.scale.set(32 / 17);
 
     this.cursors = game.input.keyboard.createCursorKeys();
+    this.spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    this.spacebar.onDown.add(this.checkShoot, this);
 
     this._eggs = 0;
     this.lookingAt = Phaser.Tilemap.SOUTH;
 
 };
 
-BlueBall.Lolo.prototype = Object.create(BlueBall.Mob.prototype);
+BlueBall.Lolo.prototype = Object.create(BlueBall.Shooter.prototype);
 BlueBall.Lolo.prototype.constructor = BlueBall.Lolo;
 
 BlueBall.Lolo.prototype.moveTo = function (direction) {
@@ -129,6 +133,20 @@ BlueBall.Lolo.prototype.checkNextMovement = function () {
 
 };
 
+BlueBall.Lolo.prototype.checkShoot = function () {
+
+    if (this._eggs > 0) {
+
+        if (this.shoot(this.lookingAt)) {
+
+            this.eggs--;
+
+        }
+
+    }
+
+};
+
 BlueBall.Lolo.prototype.stopAnimation = function (direction) {
 
     this.animations.stop();
@@ -167,3 +185,10 @@ Object.defineProperty(BlueBall.Mob.prototype, "eggs", {
     }
 
 });
+
+BlueBall.Lolo.prototype.destroy = function() {
+
+    this.spacebar.onDown.remove(this.checkShoot, this);
+    BlueBall.Entity.prototype.destroy.apply(this, arguments);
+
+};

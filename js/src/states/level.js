@@ -161,7 +161,7 @@ BlueBall.Level.prototype.getEntitesAt = function (x, y) {
 
         current = this.entities.getAt(i);
 
-        if (current.occupy(x, y)) {
+        if (current.exists && current.occupy(x, y)) {
 
             entities.push(current);
 
@@ -193,5 +193,18 @@ BlueBall.Level.prototype.catchPearl = function (chest) {
 BlueBall.Level.prototype.catchExit = function () {
 
     this.game.state.start(this.map.properties.next);
+
+};
+
+BlueBall.Level.prototype.fired = function(shooter, impacted) {
+
+    var i,
+        length;
+
+    for(i = 0, length = impacted.length; i < length; i++) {
+
+        impacted[i].kill();
+
+    }
 
 };
