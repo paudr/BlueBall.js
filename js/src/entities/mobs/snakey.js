@@ -8,15 +8,17 @@ BlueBall.Snakey = function (game, x, y, key, frame) {
 
     this.gid = 97;
 
+    this.level.onPlayerMovementEnded.add(this.lookAt, this);
+
 };
 
 BlueBall.Snakey.prototype = Object.create(BlueBall.Mob.prototype);
 BlueBall.Snakey.prototype.constructor = BlueBall.Snakey;
 
-BlueBall.Snakey.prototype.update = function () {
+BlueBall.Snakey.prototype.lookAt = function (player) {
 
-    var diffX = this.cellPosition.x - this.level.player.cellPosition.x,
-        diffY = this.cellPosition.y - this.level.player.cellPosition.y;
+    var diffX = this.cellPosition.x - player.cellPosition.x,
+        diffY = this.cellPosition.y - player.cellPosition.y;
 
     if (diffY >= 0) {
 

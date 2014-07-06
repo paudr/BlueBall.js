@@ -25,16 +25,26 @@ BlueBall.Chest.EMPTY = 'empty';
 
 BlueBall.Chest.prototype.status = null;
 
-BlueBall.Chest.prototype.open = function() {
+BlueBall.Chest.prototype.open = function () {
 
     this.frameName = BlueBall.Chest.OPENED;
     this.status = BlueBall.Chest.OPENED;
 
 };
 
-BlueBall.Chest.prototype.getPearl = function() {
+BlueBall.Chest.prototype.getPearl = function () {
 
     this.frameName = BlueBall.Chest.EMPTY;
     this.status = BlueBall.Chest.EMPTY;
+
+};
+
+BlueBall.Chest.prototype.onPlayerEnter = function () {
+
+    if (this.status === BlueBall.Chest.OPENED) {
+
+        this.level.catchPearl(this);
+
+    }
 
 };

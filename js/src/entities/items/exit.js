@@ -21,3 +21,13 @@ BlueBall.Exit.prototype.open = function () {
     this.level.map.putTile(-1, parseInt(this.cellPosition.x / 2, 10), parseInt(this.cellPosition.y / 2, 10), 'environment');
 
 };
+
+BlueBall.Exit.prototype.onPlayerEnter = function () {
+
+    if (this.gid === 17) {
+
+        this.level.catchExit();
+
+    }
+
+};

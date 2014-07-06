@@ -57,55 +57,6 @@ BlueBall.Level.prototype.create = function () {
     }, this.layers);
     this.eggCounterText.setShadow(2, 0, '#666666');
 
-    this.entities.forEach(function (entity) {
-
-        var self = this;
-
-        if (entity instanceof BlueBall.Lolo) {
-
-            this.player = entity;
-
-        } else if (entity instanceof BlueBall.Exit) {
-
-            this.exit = entity;
-
-            entity.onPlayerEnter = function (exit) {
-
-                if (exit.gid === 17) {
-
-                    self.game.state.start(self.map.properties.next);
-
-                }
-
-            };
-
-        } else if (entity instanceof BlueBall.Heart) {
-
-            entity.onPlayerEnter = function (heart) {
-
-                heart.destroy(true);
-                self.countHearts();
-                self.player.eggs = self.player.eggs + heart.eggs;
-
-            };
-
-        } else if (entity instanceof BlueBall.Chest) {
-
-            entity.onPlayerEnter = function (chest) {
-
-                if (chest.status === BlueBall.Chest.OPENED) {
-
-                    chest.getPearl();
-                    self.exit.open();
-
-                }
-
-            };
-
-        }
-
-    }, this);
-
     this.layers.bringToTop(this.entities);
 
 };
@@ -152,6 +103,51 @@ BlueBall.Level.prototype.openChests = function () {
 
 };
 
+BlueBall.Level.prototype.countPearls = function () {
+
+    var quantity = 0,
+        i,
+        current;
+
+    for (i = 0; i < this.entities.length; i++) {
+
+        current = this.entities.getAt(i);
+
+        if (current instanceof BlueBall.Chest && current.status !== BlueBall.Chest.EMPTY) {
+
+            quantity++;
+
+        }
+
+    }
+
+    if (quantity === 0) {
+
+        this.openExits();
+
+    }
+
+};
+
+BlueBall.Level.prototype.openExits = function () {
+
+    var i,
+        current;
+
+    for (i = 0; i < this.entities.length; i++) {
+
+        current = this.entities.getAt(i);
+
+        if (current instanceof BlueBall.Exit) {
+
+            current.open();
+
+        }
+
+    }
+
+};
+
 BlueBall.Level.prototype.getEntitesAt = function (x, y) {
 
     var entities = [],
@@ -174,5 +170,28 @@ BlueBall.Level.prototype.getEntitesAt = function (x, y) {
     }
 
     return entities;
+
+};
+
+BlueBall.Level.prototype.catchHeart = function (heart, player) {
+
+    player.eggs = player.eggs + heart.eggs;
+
+    heart.destroy(true);
+
+    this.countHearts();
+
+};
+
+BlueBall.Level.prototype.catchPearl = function (chest) {
+
+    chest.getPearl();
+    this.countPearls();
+
+};
+
+BlueBall.Level.prototype.catchExit = function () {
+
+    this.game.state.start(this.map.properties.next);
 
 };

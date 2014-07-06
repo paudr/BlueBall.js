@@ -19,12 +19,8 @@ BlueBall.Heart.prototype.constructor = BlueBall.Heart;
  */
 BlueBall.Heart.prototype.eggs = 0;
 
-BlueBall.Heart.prototype.onGotted = function() {};
+BlueBall.Heart.prototype.onPlayerEnter = function (player) {
 
-BlueBall.Heart.prototype.getIt = function() {
-
-    this.destroy(true);
-
-    this.onGotted(this);
+    this.level.catchHeart(this, player);
 
 };

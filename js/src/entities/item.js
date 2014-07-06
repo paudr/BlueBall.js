@@ -15,7 +15,7 @@ BlueBall.Item.prototype.checkPlayerPosition = function (player) {
 
     if (this.cellPosition.x === player.cellPosition.x && this.cellPosition.y === player.cellPosition.y) {
 
-        this.onPlayerEnter(this);
+        this.onPlayerEnter(player);
 
     }
 
