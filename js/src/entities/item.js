@@ -22,3 +22,11 @@ BlueBall.Item.prototype.checkPlayerPosition = function (player) {
 };
 
 BlueBall.Item.prototype.onPlayerEnter = function () {};
+
+BlueBall.Item.prototype.destroy = function() {
+
+    this.level.onPlayerMovementEnded.remove(this.checkPlayerPosition, this);
+
+    BlueBall.Entity.prototype.destroy.apply(this, arguments);
+
+};
