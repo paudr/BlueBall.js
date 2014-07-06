@@ -4,19 +4,21 @@ BlueBall.Item = function (game, x, y, key, frame) {
 
     BlueBall.Entity.call(this, game, x, y, key, frame);
 
+    this.level.onPlayerMovementEnded.add(this.checkPlayerPosition, this);
+
 };
 
 BlueBall.Item.prototype = Object.create(BlueBall.Entity.prototype);
 BlueBall.Item.prototype.constructor = BlueBall.Item;
 
-BlueBall.Item.prototype.onPlayerEnter = function () {};
+BlueBall.Item.prototype.checkPlayerPosition = function (player) {
 
-BlueBall.Item.prototype.update = function () {
-
-    if (this.level.player.lastPosition.x === this.cellPosition.x && this.level.player.lastPosition.y === this.cellPosition.y) {
+    if (this.cellPosition.x === player.cellPosition.x && this.cellPosition.y === player.cellPosition.y) {
 
         this.onPlayerEnter(this);
 
     }
 
 };
+
+BlueBall.Item.prototype.onPlayerEnter = function () {};

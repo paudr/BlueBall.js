@@ -217,7 +217,7 @@ BlueBall.Mob.prototype.moveTo = function (direction) {
             i,
             length;
 
-        if(this.pushIndexes.length > 0) {
+        if (this.pushIndexes.length > 0) {
 
             this._pushing = this.getPushingEntities(this.level.getEntitesAt(positions[0].x, positions[0].y));
 

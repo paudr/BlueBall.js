@@ -12,6 +12,9 @@ BlueBall.Level = function (name) {
     this.exit = null;
     this.eggCounterText = null;
 
+    this.onPlayerMovementStarted = new Phaser.Signal();
+    this.onPlayerMovementEnded = new Phaser.Signal();
+
 };
 
 BlueBall.Level.prototype = Object.create(Phaser.State.prototype);
@@ -162,7 +165,7 @@ BlueBall.Level.prototype.getEntitesAt = function (x, y) {
 
         current = this.entities.getAt(i);
 
-        if(current.occupy(x, y)) {
+        if (current.occupy(x, y)) {
 
             entities.push(current);
 

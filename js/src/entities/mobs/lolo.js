@@ -20,25 +20,29 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
 
     this.cursors = game.input.keyboard.createCursorKeys();
 
-    this.lastPosition = {
-        'x': this.cellPosition.x,
-        'y': this.cellPosition.y
-    };
+    this._eggs = 0;
+    this.lastDirection = Phaser.Tilemap.SOUTH;
+
 };
 
 BlueBall.Lolo.prototype = Object.create(BlueBall.Mob.prototype);
 BlueBall.Lolo.prototype.constructor = BlueBall.Lolo;
 
-BlueBall.Lolo.prototype.lastDirection = Phaser.Tilemap.SOUTH;
-BlueBall.Lolo.prototype.lastPosition = null;
-BlueBall.Lolo.prototype._eggs = 0;
+BlueBall.Lolo.prototype.moveTo = function (direction) {
+
+    if (BlueBall.Mob.prototype.moveTo.call(this, direction)) {
+
+        this.level.onPlayerMovementStarted.dispatch(this, direction);
+
+    }
+
+};
 
 BlueBall.Lolo.prototype.onMoved = function (direction) {
 
     this.lastDirection = direction;
 
-    this.lastPosition.x = this.cellPosition.x;
-    this.lastPosition.y = this.cellPosition.y;
+    this.level.onPlayerMovementEnded.dispatch(this, direction);
 
     this.checkNextMovement();
 
@@ -156,7 +160,7 @@ Object.defineProperty(BlueBall.Mob.prototype, "eggs", {
 
     },
 
-    set: function(value) {
+    set: function (value) {
 
         this._eggs = value;
         this.level.eggCounterText.text = value.toString();
