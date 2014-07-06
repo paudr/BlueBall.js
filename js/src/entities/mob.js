@@ -6,137 +6,196 @@ BlueBall.Mob = function (game, x, y, key, frame) {
 
     BlueBall.Entity.call(this, game, x, y, key, frame);
 
+    /**
+     * @property {array} collideIndexes - Lista de indices de tipos de tiles con los que colisiona Mob
+     */
     this.collideIndexes = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 22];
+
+    /**
+     * @property {array} pushIndexes - Lista de indices de tipos de entities a las que puede empujar Mob
+     */
     this.pushIndexes = [];
+
+    /**
+     * @property {array} bridgeIndexes - Lista de indices de tipos de entities a las que puede hacer de puente a Mob
+     */
+    this.bridgeIndexes = [];
+
+    /**
+     * @property {number} velocity - Velocidad a la que se mueve Mob por el mapa (en pixels por milisegundo)
+     */
+    this.velocity = 3 * 32 / 1000;
+
+    /**
+     * @property {boolean} isMoving - True si Mob se esta moviendo, false en caso contrario
+     */
+    this.isMoving = false;
+
+    /**
+     * @property {boolean} wasPushed - True si Mob esta siendo empujado, false en caso contrario
+     */
+    this.wasPushed = false;
+
+    /**
+     * @property {array} _pushing - Entities que se estan empujando
+     */
+    this._pushing = [];
+
+    /**
+     * @property {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} _movingTo - Direccion en la que se esta moviendo la Mob
+     */
+    this._movingTo = null;
+
+    /**
+     * @property {object} _destPosition - Coordenadas de la posición (en pixels) a la que se dirige Mob
+     */
+    this._destPosition = null;
 
 };
 
 BlueBall.Mob.prototype = Object.create(BlueBall.Entity.prototype);
 BlueBall.Mob.prototype.constructor = BlueBall.Mob;
 
-/**
- * @property {array} collideIndexes - Lista de indices de tipos de tiles con los que colisiona la Mob
- */
-BlueBall.Mob.prototype.collideIndexes = null;
+BlueBall.Mob.prototype.getPositionAt = function (direction) {
 
-/**
- * @property {array} pushIndexes - Lista de indices de tipos de entities a las que puede empujar la Mob
- */
-BlueBall.Mob.prototype.pushIndexes = null;
+    var position = {
+        'x': this.cellPosition.x,
+        'y': this.cellPosition.y
+    };
 
-/**
- * @property {number} velocity - Velocidad a la que se mueve la Mob por el mapa (en pixels por milisegundo)
- */
-BlueBall.Mob.prototype.velocity = 3 * 32 / 1000;
+    switch (direction) {
+    case Phaser.Tilemap.NORTH:
+        position.y--;
+        break;
+    case Phaser.Tilemap.EAST:
+        position.x++;
+        break;
+    case Phaser.Tilemap.SOUTH:
+        position.y++;
+        break;
+    case Phaser.Tilemap.WEST:
+        position.x--;
+        break;
+    }
 
-/**
- * @property {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} _movingTo - Direccion en la que se esta moviendo la Mob
- * @private
- */
-BlueBall.Mob.prototype._movingTo = null;
+    return position;
 
-/**
- * @property {object} _destPosition - Posicion (en pixels) de destino de la Mob
- * @private
- */
-BlueBall.Mob.prototype._destPosition = null;
+};
 
-/**
- * @name BlueBall.Mob#isMoving
- * @property {boolean} isMoving - True si la Mob se esta moviendo, false en caso contrario
- * @readonly
- */
-Object.defineProperty(BlueBall.Mob.prototype, "isMoving", {
+BlueBall.Mob.prototype.getCollidingEntities = function (entities) {
 
-    get: function () {
+    return BlueBall.Entity.getEntitiesFromIndexArray(this.collideIndexes, entities);
 
-        return this._movingTo !== null;
+};
+
+BlueBall.Mob.prototype.getPushingEntities = function (entities) {
+
+    return BlueBall.Entity.getEntitiesFromIndexArray(this.pushIndexes, entities);
+
+};
+
+BlueBall.Mob.prototype.getBridgingEntities = function (entities) {
+
+    return BlueBall.Entity.getEntitiesFromIndexArray(this.bridgeIndexes, entities);
+
+};
+
+BlueBall.Mob.prototype.isMapColliding = function (direction, entities1, entities2) {
+
+    var positions = this.cellsAt(direction),
+        tile1 = this.level.map.getTile(positions[0].x >> 1, positions[0].y >> 1, 'environment', true),
+        tile2 = this.level.map.getTile(positions[1].x >> 1, positions[1].y >> 1, 'environment', true);
+
+    if (this.collideIndexes.indexOf(tile1.index) > -1) {
+
+        entities1 = this.getBridgingEntities(entities1);
+
+        if (entities1.length === 0) {
+
+            return true;
+
+        }
+
+    } else if (this.collideIndexes.indexOf(tile2.index) > -1) {
+
+        entities2 = this.getBridgingEntities(entities2);
+
+        if (entities2.length === 0) {
+
+            return true;
+
+        }
 
     }
 
-});
+    return false;
 
-/**
- * Indica si la Mob se puede mover en una direccion concreta
- * @method BlueBall.Mob#canMoveTo
- * @memberof BlueBall.Mob
- * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se quiere saber si el movimiento es posible
- * @return {boolean} True si el movimiento esta permitido, false en caso contrario
- */
+};
+
+BlueBall.Mob.prototype.isEntitiesColliding = function (entities1, entities2) {
+
+    entities1 = this.getCollidingEntities(entities1);
+
+    if (entities1.length > 0) {
+
+        return true;
+
+    }
+
+    entities2 = this.getCollidingEntities(entities2);
+
+    if (entities2.length > 0) {
+
+        return true;
+
+    }
+
+    return false;
+
+};
+
 BlueBall.Mob.prototype.canMoveTo = function (direction) {
 
-    if (this._movingTo !== null) {
+    if (!this.isMoving) {
 
-        // Si ya se esta moviendo, no se puede volver a mover
-        return false;
+        var positions = this.cellsAt(direction),
+            entities1 = this.level.getEntitesAt(positions[0].x, positions[0].y),
+            entities2 = this.level.getEntitesAt(positions[1].x, positions[1].y);
 
-    }
+        if (!this.isMapColliding(direction, entities1, entities2)) {
 
-    var pos,
-        tile1,
-        tile2,
-        i,
-        current;
+            if (!this.isEntitiesColliding(entities1, entities2)) {
 
-    pos = this.cellsAt(direction);
+                var pushing1 = this.getPushingEntities(entities1),
+                    pushing2 = this.getPushingEntities(entities2),
+                    i,
+                    length;
 
-    tile1 = this.level.map.getTile(parseInt((pos[0].x) / 2, 10), parseInt((pos[0].y) / 2, 10), 'environment', true);
-    tile2 = this.level.map.getTile(parseInt((pos[1].x) / 2, 10), parseInt((pos[1].y) / 2, 10), 'environment', true);
+                if (pushing1.length === pushing2.length) {
 
-    if (this.collideIndexes.indexOf(tile1.index) > -1 || this.collideIndexes.indexOf(tile2.index) > -1) {
+                    if (pushing1.length === 0) {
 
-        return false;
+                        return true;
 
-    } else {
+                    }
 
-        for (i = 0; i < this.level.entities.length; i++) {
+                    pushing1 = BlueBall.intersection(pushing1, pushing2);
 
-            current = this.level.entities.getAt(i);
+                    if (pushing1.length > 0 && pushing1.length === pushing2.length) {
 
-            if (current.occupy(pos[0].x, pos[0].y) || current.occupy(pos[1].x, pos[1].y)) {
+                        for (i = 0, length = pushing1.length; i < length; i++) {
 
-                if (this.collideIndexes.indexOf(current.gid) > -1) {
+                            if (!pushing1[i].canMoveTo(direction)) {
 
-                    return false;
+                                return false;
 
-                }
+                            }
 
-            }
+                        }
 
-        }
+                    }
 
-        return true;
-
-    }
-
-};
-
-/**
- * Indica si la Mob ha de empujar a otra Mob para moverse en una direccion
- * @method BlueBall.Mob#isPushing
- * @memberof BlueBall.Mob
- * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se quiere saber si el movimiento es posible
- * @return {BlueBall.Mob} Mob a la que se empujara o null si no hay ninguna Mob a la que empujar
- */
-BlueBall.Mob.prototype.isPushing = function (direcion) {
-
-    var pos,
-        i,
-        current;
-
-    if (this.pushIndexes.length > 0) {
-
-        pos = this.cellsAt(direcion);
-
-        for (i = 0; i < this.level.entities.length; i++) {
-
-            current = this.level.entities.getAt(i);
-
-            if (current.occupy(pos[0].x, pos[0].y) || current.occupy(pos[1].x, pos[1].y)) {
-
-                if (this.pushIndexes.indexOf(current.gid) > -1) {
-
-                    return current;
+                    return true;
 
                 }
 
@@ -146,83 +205,65 @@ BlueBall.Mob.prototype.isPushing = function (direcion) {
 
     }
 
-    return null;
+    return false;
 
 };
 
-/**
- * Indica si la Mob puede empujar a otra Mob concreta en una direccion
- * @method BlueBall.Mob#isPushing
- * @memberof BlueBall.Mob
- * @param {BlueBall.Mob} other - Mob a empujar
- * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se quiere saber si el movimiento es posible
- * @return {boolean} True si se puede empujar a la Mob, false en caso contrario
- */
-BlueBall.Mob.prototype.canPush = function (other, direction) {
-
-    if (other === null) {
-
-        return true;
-
-    }
-
-    if (((direction === Phaser.Tilemap.NORTH || direction === Phaser.Tilemap.SOUTH) && this.cellPosition.x != other.cellPosition.x) ||
-        ((direction === Phaser.Tilemap.EAST || direction === Phaser.Tilemap.WEST) && this.cellPosition.y != other.cellPosition.y)) {
-
-        return false;
-
-    }
-
-    return other.canMoveTo(direction);
-
-};
-
-/**
- * Inicia el movimiento de la Mob en una direccion
- * @method BlueBall.Mob#moveTo
- * @memberof BlueBall.Mob
- * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se moverá la Mob
- * @return {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST|null} La dirección en la que se mueve la Mob o null
- */
 BlueBall.Mob.prototype.moveTo = function (direction) {
 
     if (this.canMoveTo(direction)) {
 
-        var pushed = this.isPushing(direction);
+        var positions = this.cellsAt(direction),
+            i,
+            length;
 
-        if (this.canPush(pushed, direction)) {
+        this._pushing = this.getPushingEntities(this.level.getEntitesAt(positions[0].x, positions[0].y));
 
+        switch (direction) {
+        case Phaser.Tilemap.NORTH:
+            this.cellPosition.y--;
+            break;
+        case Phaser.Tilemap.EAST:
+            this.cellPosition.x++;
+            break;
+        case Phaser.Tilemap.SOUTH:
+            this.cellPosition.y++;
+            break;
+        case Phaser.Tilemap.WEST:
+            this.cellPosition.x--;
+            break;
+        }
+
+        this.isMoving = true;
+        this._movingTo = direction;
+        this._destPosition = BlueBall.Entity.getCellPosition(this.cellPosition.x, this.cellPosition.y);
+
+        for (i = 0, length = this._pushing.length; i < length; i++) {
+
+            this._pushing[i].isMoving = true;
+            this._pushing[i].wasPushed = true;
             switch (direction) {
             case Phaser.Tilemap.NORTH:
-                this.cellPosition.y--;
+                this._pushing[i].cellPosition.y--;
                 break;
             case Phaser.Tilemap.EAST:
-                this.cellPosition.x++;
+                this._pushing[i].cellPosition.x++;
                 break;
             case Phaser.Tilemap.SOUTH:
-                this.cellPosition.y++;
+                this._pushing[i].cellPosition.y++;
                 break;
             case Phaser.Tilemap.WEST:
-                this.cellPosition.x--;
+                this._pushing[i].cellPosition.x--;
                 break;
             }
-
-            this._movingTo = direction;
-            this._destPosition = BlueBall.Entity.getCellPosition(this.cellPosition.x, this.cellPosition.y);
-
-            if (pushed) {
-
-                pushed.moveTo(direction);
-
-            }
-
-            return this._movingTo;
 
         }
 
+        return true;
+
     }
 
-    return this._movingTo;
+    return false;
 
 };
 
@@ -234,49 +275,84 @@ BlueBall.Mob.prototype.moveTo = function (direction) {
  */
 BlueBall.Mob.prototype.onMoved = function () {};
 
-BlueBall.Mob.prototype.update = function () {
+BlueBall.Mob.prototype._updateMovement = function () {
 
-    if (this._movingTo !== null) {
+    if (this.isMoving === true && this.wasPushed === false) {
 
-        var inc = this.game.time.elapsed * this.velocity;
+        var inc = this.game.time.elapsed * this.velocity,
+            direction = this._movingTo,
+            x = 0,
+            y = 0,
+            lastMovement = false,
+            i,
+            length,
+            item;
 
-        switch (this._movingTo) {
+        switch (direction) {
         case Phaser.Tilemap.NORTH:
-            this.y -= inc;
-            if (this.y <= this._destPosition.y) {
-                this.y = this._destPosition.y;
-                this._movingTo = null;
-                this.onMoved(Phaser.Tilemap.NORTH);
+            y -= inc;
+            if (this.y + y <= this._destPosition.y) {
+                y = this._destPosition.y - this.y;
+                lastMovement = true;
             }
             break;
         case Phaser.Tilemap.EAST:
-            this.x += inc;
-            if (this.x >= this._destPosition.x) {
-                this.x = this._destPosition.x;
-                this._movingTo = null;
-                this.onMoved(Phaser.Tilemap.EAST);
+            x += inc;
+            if (this.x + x >= this._destPosition.x) {
+                x = this._destPosition.x - this.x;
+                lastMovement = true;
             }
             break;
         case Phaser.Tilemap.SOUTH:
-            this.y += inc;
-            if (this.y >= this._destPosition.y) {
-                this.y = this._destPosition.y;
-                this._movingTo = null;
-                this.onMoved(Phaser.Tilemap.SOUTH);
+            y += inc;
+            if (this.y + y >= this._destPosition.y) {
+                y = this._destPosition.y - this.y;
+                lastMovement = true;
             }
             break;
         case Phaser.Tilemap.WEST:
-            this.x -= inc;
-            if (this.x <= this._destPosition.x) {
-                this.x = this._destPosition.x;
-                this._movingTo = null;
-                this.onMoved(Phaser.Tilemap.WEST);
+            x -= inc;
+            if (this.x + x <= this._destPosition.x) {
+                x = this._destPosition.x - this.x;
+                lastMovement = true;
             }
             break;
         default:
             return;
         }
 
+        for (i = 0, length = this._pushing.length; i < length; i++) {
+
+            item = this._pushing[i];
+            item.x += x;
+            item.y += y;
+
+            if (lastMovement) {
+
+                item.isMoving = false;
+                item.wasPushed = false;
+
+            }
+
+        }
+
+        this.x += x;
+        this.y += y;
+
+        if (lastMovement) {
+
+            this.isMoving = false;
+            this._movingTo = null;
+            this.onMoved(direction);
+
+        }
+
     }
+
+};
+
+BlueBall.Mob.prototype.update = function () {
+
+    this._updateMovement();
 
 };

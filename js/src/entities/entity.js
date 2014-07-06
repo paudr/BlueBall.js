@@ -50,6 +50,32 @@ BlueBall.Entity.getCellPosition = function (x, y) {
 
 };
 
+BlueBall.Entity.getEntitiesFromIndexArray = function (indexArray, entities) {
+
+    var selected = [],
+        i,
+        length;
+
+    if (indexArray.length > 0) {
+
+        length = entities.length;
+
+        for (i = 0; i < length; i++) {
+
+            if (indexArray.indexOf(entities[i].gid) > -1) {
+
+                selected.push(entities[i]);
+
+            }
+
+        }
+
+    }
+
+    return selected;
+
+};
+
 /**
  * @property {BlueBall.Level} level - Instancia del Level actual
  */

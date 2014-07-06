@@ -148,3 +148,28 @@ BlueBall.Level.prototype.openChests = function () {
     }
 
 };
+
+BlueBall.Level.prototype.getEntitesAt = function (x, y) {
+
+    var entities = [],
+        i,
+        length,
+        current;
+
+    length = this.entities.length;
+
+    for (i = 0; i < length; i++) {
+
+        current = this.entities.getAt(i);
+
+        if(current.occupy(x, y)) {
+
+            entities.push(current);
+
+        }
+
+    }
+
+    return entities;
+
+};

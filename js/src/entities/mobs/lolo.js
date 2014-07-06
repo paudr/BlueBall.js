@@ -146,7 +146,7 @@ BlueBall.Lolo.prototype.stopAnimation = function (direction) {
         this.frame = 10;
     }
 
-}
+};
 
 Object.defineProperty(BlueBall.Mob.prototype, "eggs", {
 
