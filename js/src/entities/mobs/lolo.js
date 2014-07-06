@@ -21,7 +21,7 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
     this.cursors = game.input.keyboard.createCursorKeys();
 
     this._eggs = 0;
-    this.lastDirection = Phaser.Tilemap.SOUTH;
+    this.lookingAt = Phaser.Tilemap.SOUTH;
 
 };
 
@@ -29,6 +29,8 @@ BlueBall.Lolo.prototype = Object.create(BlueBall.Mob.prototype);
 BlueBall.Lolo.prototype.constructor = BlueBall.Lolo;
 
 BlueBall.Lolo.prototype.moveTo = function (direction) {
+
+    this.lookingAt = direction;
 
     if (BlueBall.Mob.prototype.moveTo.call(this, direction)) {
 
@@ -39,8 +41,6 @@ BlueBall.Lolo.prototype.moveTo = function (direction) {
 };
 
 BlueBall.Lolo.prototype.onMoved = function (direction) {
-
-    this.lastDirection = direction;
 
     this.level.onPlayerMovementEnded.dispatch(this, direction);
 
@@ -74,7 +74,7 @@ BlueBall.Lolo.prototype.update = function () {
 
         } else {
 
-            this.stopAnimation(this.lastDirection);
+            this.stopAnimation(this.lookingAt);
 
         }
 
@@ -88,7 +88,7 @@ BlueBall.Lolo.prototype.checkNextMovement = function () {
 
     var stopAnim = false;
 
-    switch (this.lastDirection) {
+    switch (this.lookingAt) {
     case Phaser.Tilemap.NORTH:
         if (this.cursors.up.isDown) {
             this.moveTo(Phaser.Tilemap.NORTH);
@@ -123,7 +123,7 @@ BlueBall.Lolo.prototype.checkNextMovement = function () {
 
     if (stopAnim) {
 
-        this.stopAnimation(this.lastDirection);
+        this.stopAnimation(this.lookingAt);
 
     }
 
@@ -138,13 +138,13 @@ BlueBall.Lolo.prototype.stopAnimation = function (direction) {
         this.frame = 0;
         break;
     case Phaser.Tilemap.EAST:
-        this.frame = 5;
+        this.frame = 8;
         break;
     case Phaser.Tilemap.SOUTH:
-        this.frame = 10;
+        this.frame = 16;
         break;
     case Phaser.Tilemap.WEST:
-        this.frame = 15;
+        this.frame = 24;
         break;
     default:
         this.frame = 10;
