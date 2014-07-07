@@ -50,7 +50,17 @@ BlueBall.Egg.prototype.open = function () {
 
 BlueBall.Egg.prototype.fired = function() {
 
-    this.game.time.events.add(Phaser.Timer.SECOND * 8, this.respawn, this.target);
+    this.game.time.events.remove(this.event);
+
+    this.event = this.game.time.events.add(Phaser.Timer.SECOND * 8, this.respawn, this);
+    this.kill();
+
+};
+
+BlueBall.Egg.prototype.respawn = function() {
+
+    this.event = null;
+    this.target.respawn();
     this.destroy();
 
 };
