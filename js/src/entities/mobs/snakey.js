@@ -57,3 +57,11 @@ BlueBall.Snakey.prototype.lookAt = function (player) {
     }
 
 };
+
+BlueBall.Snakey.prototype.destroy = function() {
+
+    this.level.onPlayerMovementEnded.remove(this.lookAt, this);
+
+    BlueBall.Entity.prototype.destroy.apply(this, arguments);
+
+};
