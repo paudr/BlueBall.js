@@ -1,8 +1,12 @@
+/*global Phaser */
+
 var BlueBall = BlueBall || {};
 
 BlueBall.ProjectileEgg = function (shooter, direction) {
 
-    BlueBall.Projectile.call(this, shooter, direction);
+    var frame = (direction === Phaser.Tilemap.NORTH || direction === Phaser.Tilemap.SOUTH) ? 0 : 1;
+
+    BlueBall.Projectile.call(this, shooter, direction, 'eggSprites', frame);
 
     this.collideIndexes.push(97);
     this.impactIndexes.push(97);

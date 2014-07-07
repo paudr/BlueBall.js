@@ -1,12 +1,9 @@
-/*global Phaser */
-
 var BlueBall = BlueBall || {};
 
-BlueBall.Projectile = function (shooter, direction) {
+BlueBall.Projectile = function (shooter, direction, key, frame) {
 
-    var frame = (direction === Phaser.Tilemap.NORTH || direction === Phaser.Tilemap.SOUTH) ? 0 : 1;
 
-    BlueBall.Mob.call(this, shooter.game, shooter.cellPosition.x, shooter.cellPosition.y, 'eggSprites', frame);
+    BlueBall.Mob.call(this, shooter.game, shooter.cellPosition.x, shooter.cellPosition.y, key, frame);
 
     shooter.level.layers.add(this);
 
