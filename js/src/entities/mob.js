@@ -24,7 +24,7 @@ BlueBall.Mob = function (game, x, y, key, frame) {
     /**
      * @property {number} velocity - Velocidad a la que se mueve Mob por el mapa (en pixels por milisegundo)
      */
-    this.velocity = 3 * 32 / 1000;
+    this.velocity = 3 * 32 / Phaser.Timer.SECOND;
 
     /**
      * @property {boolean} isMoving - True si Mob se esta moviendo, false en caso contrario
