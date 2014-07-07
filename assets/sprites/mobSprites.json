@@ -23,6 +23,16 @@
         {
             "filename": "snakey6",
             "frame": { "x": 177, "y": 29, "w": 34, "h": 34 }
+        },
+
+        {
+            "filename": "gol1",
+            "frame": { "x": 274, "y": 33, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "gol2",
+            "frame": { "x": 314, "y": 33, "w": 34, "h": 34 }
         }
+
     ]
 }

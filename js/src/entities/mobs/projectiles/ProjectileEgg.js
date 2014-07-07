@@ -8,8 +8,8 @@ BlueBall.ProjectileEgg = function (shooter, direction) {
 
     BlueBall.Projectile.call(this, shooter, direction, 'eggSprites', frame);
 
-    this.collideIndexes.push(97, 100);
-    this.impactIndexes.push(97, 100);
+    this.collideIndexes.push(97, 81, 100);
+    this.impactIndexes.push(97, 81, 100);
 
 };
 

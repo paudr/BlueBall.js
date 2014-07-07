@@ -103,6 +103,22 @@
                     "properties": {}
                 },
                 {
+                    "gid": 81,
+                    "x": 8,
+                    "y": 4,
+                    "properties": {
+                        "lookingAt": 2
+                    }
+                },
+                {
+                    "gid": 81,
+                    "x": 2,
+                    "y": 20,
+                    "properties": {
+                        "lookingAt": 1
+                    }
+                },
+                {
                     "gid": 29,
                     "x": 14,
                     "y": 22,

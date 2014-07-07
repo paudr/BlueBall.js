@@ -48,6 +48,7 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', 15, 'tileSprites', 3, true, false, this.entities, BlueBall.Exit, false);
     this.map.createFromObjects('entities', 29, 'tileSprites', 1, true, false, this.entities, BlueBall.Block, false);
     this.map.createFromObjects('entities', 97, 'mobSprites', 3, true, false, this.entities, BlueBall.Snakey, false);
+    this.map.createFromObjects('entities', 81, 'mobSprites', 7, true, false, this.entities, BlueBall.Gol, false);
     this.map.createFromObjects('entities', 99, 'loloSprites', 10, true, false, this.entities, BlueBall.Lolo, false);
 
     var eggCounterImage = this.game.add.sprite(420, 128, 'eggSprites', 1, this.layers);
@@ -107,6 +108,12 @@ BlueBall.Level.prototype.openChests = function () {
         if (current instanceof BlueBall.Chest && current.status === BlueBall.Chest.CLOSED) {
 
             current.open();
+
+        }
+
+        if(typeof current.awake === 'function') {
+
+            current.awake();
 
         }
 
