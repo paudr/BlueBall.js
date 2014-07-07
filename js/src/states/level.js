@@ -12,8 +12,8 @@ BlueBall.Level = function (name) {
     this.exit = null;
     this.eggCounterText = null;
 
-    this.onPlayerMovementStarted = new Phaser.Signal();
-    this.onPlayerMovementEnded = new Phaser.Signal();
+    this.onPlayerMovementStarted = null;
+    this.onPlayerMovementEnded = null;
 
 };
 
@@ -27,6 +27,9 @@ BlueBall.Level.prototype.preload = function () {
 };
 
 BlueBall.Level.prototype.create = function () {
+
+    this.onPlayerMovementStarted = new Phaser.Signal();
+    this.onPlayerMovementEnded = new Phaser.Signal();
 
     this.map = this.game.add.tilemap(this.levelName);
 
@@ -59,6 +62,14 @@ BlueBall.Level.prototype.create = function () {
 
     this.layers.bringToTop(this.entities);
 
+};
+
+BlueBall.Level.prototype.shutdown = function() {
+
+    this.entities.destroy(true);
+
+    this.onPlayerMovementStarted.dispose();
+    this.onPlayerMovementEnded.dispose();
 };
 
 BlueBall.Level.prototype.countHearts = function () {
