@@ -14,7 +14,7 @@ BlueBall.Egg = function (target) {
 
     this.destroyOnExitOpen = true;
 
-    this.collideIndexes.push(1, 2, 23, 30, 117, 97);
+    this.collideIndexes.push(1, 2, 23, 30, 117, 97, 81);
 
     this.level.entities.add(this);
 
