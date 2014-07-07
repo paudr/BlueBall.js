@@ -8,6 +8,8 @@ BlueBall.Snakey = function (game, x, y, key, frame) {
 
     this.gid = 97;
 
+    this.destroyOnExitOpen = true;
+
     this.level.onPlayerMovementEnded.add(this.lookAt, this);
 
 };

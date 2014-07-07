@@ -155,6 +155,12 @@ BlueBall.Level.prototype.openExits = function () {
 
         }
 
+        if(current.destroyOnExitOpen === true) {
+
+            current.destroy(true);
+
+        }
+
     }
 
 };

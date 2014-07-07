@@ -27,6 +27,8 @@ BlueBall.Entity = function (game, x, y, key, frame) {
         'y': y
     };
 
+    this.destroyOnExitOpen = false;
+
 };
 
 BlueBall.Entity.prototype = Object.create(Phaser.Sprite.prototype);
