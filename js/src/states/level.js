@@ -203,7 +203,8 @@ BlueBall.Level.prototype.fired = function(shooter, impacted) {
 
     for(i = 0, length = impacted.length; i < length; i++) {
 
-        impacted[i].kill();
+        new BlueBall.Egg(impacted[i]);
+        //impacted[i].kill();
 
     }
 

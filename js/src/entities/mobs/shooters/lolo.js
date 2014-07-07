@@ -9,7 +9,7 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
     this.gid = 99;
 
     this.collideIndexes.push(1, 2, 97);
-    this.pushIndexes.push(29);
+    this.pushIndexes.push(29, 100);
     this.bridgeIndexes.push(17);
 
     this.projectileClass = BlueBall.ProjectileEgg;
