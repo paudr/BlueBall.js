@@ -8,8 +8,20 @@ BlueBall.Entity = function (game, x, y, key, frame) {
 
     Phaser.Sprite.call(this, game, pos.x, pos.y, key, frame);
 
+    /**
+     * @property {BlueBall.Level} level - Instancia del Level actual
+     */
     this.level = this.game.state.getCurrentState();
 
+    /**
+     * @property {number} gid - Identificador del tipo de Entity
+     */
+    this.gid = -1;
+
+    /**
+     * @property {object} cellPosition - Numero de columna y fila de celda en la que se encuentra la Entity
+     * @static
+     */
     this.cellPosition = {
         'x': x,
         'y': y
@@ -77,23 +89,6 @@ BlueBall.Entity.getEntitiesFromIndexArray = function (indexArray, entities) {
 };
 
 /**
- * @property {BlueBall.Level} level - Instancia del Level actual
- */
-BlueBall.Entity.prototype.level = null;
-
-
-/**
- * @property {number} gid - Identificador del tipo de Entity
- */
-BlueBall.Entity.prototype.gid = -1;
-
-/**
- * @property {object} cellPosition - Numero de columna y fila de celda en la que se encuentra la Entity
- * @static
- */
-BlueBall.Entity.prototype.cellPosition = null;
-
-/**
  * Indica si la entity ocupa una posición en concreto
  * @method BlueBall.Entity#occupy
  * @memberof BlueBall.Entity
@@ -158,4 +153,3 @@ BlueBall.Entity.prototype.cellsAt = function (direction) {
     ];
 
 };
-
