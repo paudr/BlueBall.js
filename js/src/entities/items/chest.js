@@ -9,6 +9,8 @@ BlueBall.Chest = function (game, x, y, key, frame) {
 
     this.gid = 117;
 
+    this.anchor.set(0.5, 0.33);
+
     this.scale.x = (2 * BlueBall.Entity.cellWidth) / 44;
     this.scale.y = (3 * BlueBall.Entity.cellWidth) / 48;
 
