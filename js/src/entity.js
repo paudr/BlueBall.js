@@ -155,3 +155,14 @@ BlueBall.Entity.prototype.cellsAt = function (direction) {
     ];
 
 };
+
+BlueBall.Entity.prototype.setPosition = function (x, y) {
+
+    var pos = BlueBall.Entity.getCellPosition(x, y);
+
+    this.cellPosition.x = x;
+    this.cellPosition.y = y;
+    this.x = pos.x;
+    this.y = pos.y;
+
+};

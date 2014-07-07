@@ -1,3 +1,5 @@
+/*global Phaser */
+
 var BlueBall = BlueBall || {};
 
 BlueBall.Egg = function (target) {
@@ -16,9 +18,41 @@ BlueBall.Egg = function (target) {
 
     this.level.entities.add(this);
 
+    this.target = target;
+
     target.kill();
 
+    this.event = this.game.time.events.add(Phaser.Timer.SECOND * 5, this.break, this);
 };
 
 BlueBall.Egg.prototype = Object.create(BlueBall.Mob.prototype);
 BlueBall.Egg.prototype.constructor = BlueBall.Egg;
+
+BlueBall.Egg.prototype.break = function () {
+
+    this.frameName = 'eggBroken';
+
+    this.event = this.game.time.events.add(Phaser.Timer.SECOND * 2, this.open, this);
+
+};
+
+BlueBall.Egg.prototype.open = function () {
+
+    this.event = null;
+
+    this.target.setPosition(this.cellPosition.x, this.cellPosition.y);
+
+    this.target.revive();
+
+    this.destroy(true);
+
+};
+
+BlueBall.Egg.prototype.destroy = function () {
+
+    this.game.time.events.remove(this.event);
+    this.event = null;
+
+    BlueBall.Entity.prototype.destroy.apply(this, arguments);
+
+};
