@@ -7,8 +7,6 @@ BlueBall.Projectile = function (shooter, direction, key, frame) {
 
     shooter.level.layers.add(this);
 
-    this.anchor.set(-0.5, -0.5);
-
     this.velocity *= 2;
 
     this.collideIndexes.push(1, 2);

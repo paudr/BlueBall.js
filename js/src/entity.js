@@ -8,6 +8,8 @@ BlueBall.Entity = function (game, x, y, key, frame) {
 
     Phaser.Sprite.call(this, game, pos.x, pos.y, key, frame);
 
+    this.anchor.set(0.5, 0.5);
+
     /**
      * @property {BlueBall.Level} level - Instancia del Level actual
      */
@@ -67,8 +69,8 @@ BlueBall.Entity.cellHeight = 32 / 2;
 BlueBall.Entity.getCellPosition = function (x, y) {
 
     return {
-        "x": x * BlueBall.Entity.cellWidth,
-        "y": y * BlueBall.Entity.cellHeight
+        "x": (x + 1) * BlueBall.Entity.cellWidth,
+        "y": (y + 1) * BlueBall.Entity.cellHeight
     };
 
 };
