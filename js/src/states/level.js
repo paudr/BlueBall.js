@@ -216,12 +216,28 @@ BlueBall.Level.prototype.catchExit = function () {
 BlueBall.Level.prototype.fired = function(shooter, impacted) {
 
     var i,
-        length;
+        length,
+        current;
 
     for(i = 0, length = impacted.length; i < length; i++) {
 
-        new BlueBall.Egg(impacted[i]);
-        //impacted[i].kill();
+        current = impacted[i];
+
+        if(current instanceof BlueBall.Lolo) {
+
+            // Hay que matar a Lolo
+
+        }
+        else if(current instanceof BlueBall.Egg) {
+
+            current.fired();
+
+        }
+        else {
+
+            new BlueBall.Egg(current);
+
+        }
 
     }
 
