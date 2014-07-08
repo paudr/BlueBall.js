@@ -37,7 +37,7 @@ BlueBall.Lolo.prototype.moveTo = function (direction) {
 
     this.lookingAt = direction;
 
-    if (BlueBall.Mob.prototype.moveTo.call(this, direction)) {
+    if (BlueBall.Shooter.prototype.moveTo.call(this, direction)) {
 
         this.level.onPlayerMovementStarted.dispatch(this, direction);
 
@@ -85,7 +85,7 @@ BlueBall.Lolo.prototype.update = function () {
 
     }
 
-    BlueBall.Mob.prototype.update.call(this);
+    BlueBall.Shooter.prototype.update.call(this);
 
 };
 
