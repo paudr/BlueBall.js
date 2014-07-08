@@ -32,6 +32,15 @@
         {
             "filename": "gol2",
             "frame": { "x": 314, "y": 33, "w": 34, "h": 34 }
+        },
+
+        {
+            "filename": "projectileGol1",
+            "frame": { "x": 280, "y": 74, "w": 12, "h": 31 }
+        },
+        {
+            "filename": "projectileGol2",
+            "frame": { "x": 297, "y": 74, "w": 12, "h": 31 }
         }
 
     ]

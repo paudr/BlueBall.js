@@ -12,9 +12,9 @@ BlueBall.Shooter = function (game, x, y, key, frame) {
 BlueBall.Shooter.prototype = Object.create(BlueBall.Mob.prototype);
 BlueBall.Shooter.prototype.constructor = BlueBall.Shooter;
 
-BlueBall.Shooter.prototype.shoot = function(direction) {
+BlueBall.Shooter.prototype.shoot = function (direction) {
 
-    if(this.projectile === null) {
+    if (this.projectile === null) {
 
         this.projectile = new this.projectileClass(this, direction);
 
@@ -25,3 +25,5 @@ BlueBall.Shooter.prototype.shoot = function(direction) {
     return false;
 
 };
+
+BlueBall.Shooter.prototype.impact = function () {};
