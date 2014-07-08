@@ -70,6 +70,6 @@ BlueBall.Egg.prototype.destroy = function () {
     this.game.time.events.remove(this.event);
     this.event = null;
 
-    BlueBall.Entity.prototype.destroy.apply(this, arguments);
+    BlueBall.Mob.prototype.destroy.apply(this, arguments);
 
 };

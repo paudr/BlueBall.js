@@ -190,6 +190,6 @@ Object.defineProperty(BlueBall.Mob.prototype, "eggs", {
 BlueBall.Lolo.prototype.destroy = function() {
 
     this.spacebar.onDown.remove(this.checkShoot, this);
-    BlueBall.Entity.prototype.destroy.apply(this, arguments);
+    BlueBall.Shooter.prototype.destroy.apply(this, arguments);
 
 };

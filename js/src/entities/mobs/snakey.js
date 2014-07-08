@@ -64,6 +64,6 @@ BlueBall.Snakey.prototype.destroy = function() {
 
     this.level.onPlayerMovementEnded.remove(this.lookAt, this);
 
-    BlueBall.Entity.prototype.destroy.apply(this, arguments);
+    BlueBall.Mob.prototype.destroy.apply(this, arguments);
 
 };

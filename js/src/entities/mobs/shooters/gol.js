@@ -127,7 +127,7 @@ BlueBall.Gol.prototype.destroy = function () {
     this.level.onPlayerMovementEnded.remove(this.checkPlayerVisibleIn, this);
     this.level.onPlayerMovementEnded.remove(this.checkPlayerVisibleOut, this);
 
-    BlueBall.Entity.prototype.destroy.apply(this, arguments);
+    BlueBall.Shooter.prototype.destroy.apply(this, arguments);
 
 };
 
