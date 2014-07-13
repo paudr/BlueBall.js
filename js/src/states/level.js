@@ -26,7 +26,7 @@ BlueBall.Level.prototype.constructor = BlueBall.Level;
 BlueBall.Level.PHASE_INITIAL = 0;
 BlueBall.Level.PHASE_HEARTS = 1;
 BlueBall.Level.PHASE_PEARLS = 2;
-BlueBall.Level.PHASE_EXISTS = 3;
+BlueBall.Level.PHASE_EXITS = 3;
 
 BlueBall.Level.prototype.preload = function () {
 
@@ -76,7 +76,7 @@ BlueBall.Level.prototype.create = function () {
 
 };
 
-BlueBall.Level.prototype.shutdown = function() {
+BlueBall.Level.prototype.shutdown = function () {
 
     this.entities.destroy(true);
 
@@ -85,30 +85,51 @@ BlueBall.Level.prototype.shutdown = function() {
     this.onPhaseChanged.dispose();
 };
 
-BlueBall.Level.prototype.update = function() {
+BlueBall.Level.prototype.update = function () {
 
-    switch(this.phase) {
+    this.checkEntitiesToDestroy();
 
-        case BlueBall.Level.PHASE_HEARTS:
-            if(this.countHearts() === 0) {
+    switch (this.phase) {
 
-                this.phase = BlueBall.Level.PHASE_PEARLS;
-                this.openChests();
-                this.onPhaseChanged.dispatch(this);
+    case BlueBall.Level.PHASE_HEARTS:
+        if (this.countHearts() === 0) {
 
-            }
-            break;
+            this.phase = BlueBall.Level.PHASE_PEARLS;
+            this.openChests();
+            this.onPhaseChanged.dispatch(this);
 
-        case BlueBall.Level.PHASE_PEARLS:
-            if(this.countPearls() === 0) {
+        }
+        break;
 
-                this.phase = BlueBall.Level.PHASE_EXISTS;
-                this.openExits();
-                this.onPhaseChanged.dispatch(this);
+    case BlueBall.Level.PHASE_PEARLS:
+        if (this.countPearls() === 0) {
 
-            }
-            break;
-            
+            this.phase = BlueBall.Level.PHASE_EXITS;
+            this.openExits();
+            this.onPhaseChanged.dispatch(this);
+
+        }
+        break;
+
+    }
+
+};
+
+BlueBall.Level.prototype.checkEntitiesToDestroy = function () {
+
+    var i,
+        current;
+
+    for (i = 0; i < this.entities.length; i++) {
+
+        current = this.entities.getAt(i);
+
+        if (current.toDestroy === true) {
+
+            current.destroy(true);
+
+        }
+
     }
 
 };
@@ -144,12 +165,6 @@ BlueBall.Level.prototype.openChests = function () {
         if (current instanceof BlueBall.Chest && current.status === BlueBall.Chest.CLOSED) {
 
             current.open();
-
-        }
-
-        if(typeof current.awake === 'function') {
-
-            current.awake();
 
         }
 
@@ -194,12 +209,6 @@ BlueBall.Level.prototype.openExits = function () {
 
         }
 
-        if(current.destroyOnExitOpen === true) {
-
-            current.destroy(true);
-
-        }
-
     }
 
 };
@@ -233,7 +242,7 @@ BlueBall.Level.prototype.catchHeart = function (heart, player) {
 
     player.eggs = player.eggs + heart.eggs;
 
-    heart.destroy(true);
+    heart.toDestroy = true;
 
 };
 
@@ -249,27 +258,25 @@ BlueBall.Level.prototype.catchExit = function () {
 
 };
 
-BlueBall.Level.prototype.fired = function(shooter, impacted) {
+BlueBall.Level.prototype.fired = function (shooter, impacted) {
 
     var i,
         length,
         current;
 
-    for(i = 0, length = impacted.length; i < length; i++) {
+    for (i = 0, length = impacted.length; i < length; i++) {
 
         current = impacted[i];
 
-        if(current instanceof BlueBall.Lolo) {
+        if (current instanceof BlueBall.Lolo) {
 
             // Hay que matar a Lolo
 
-        }
-        else if(current instanceof BlueBall.Egg) {
+        } else if (current instanceof BlueBall.Egg) {
 
             current.fired();
 
-        }
-        else {
+        } else {
 
             new BlueBall.Egg(current);
 

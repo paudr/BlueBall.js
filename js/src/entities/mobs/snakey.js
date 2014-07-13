@@ -8,8 +8,7 @@ BlueBall.Snakey = function (game, x, y, key, frame) {
 
     this.gid = 97;
 
-    this.destroyOnExitOpen = true;
-
+    this.level.onPhaseChanged.add(this.phaseChanged, this);
     this.level.onPlayerMovementEnded.add(this.lookAt, this);
 
 };
@@ -60,10 +59,23 @@ BlueBall.Snakey.prototype.lookAt = function (player) {
 
 };
 
-BlueBall.Snakey.prototype.destroy = function() {
+BlueBall.Snakey.prototype.destroy = function () {
 
+    this.level.onPhaseChanged.remove(this.phaseChanged, this);
     this.level.onPlayerMovementEnded.remove(this.lookAt, this);
 
     BlueBall.Mob.prototype.destroy.apply(this, arguments);
+
+};
+
+BlueBall.Snakey.prototype.phaseChanged = function () {
+
+    switch (this.level.phase) {
+
+    case BlueBall.Level.PHASE_EXITS:
+        this.toDestroy = true;
+        break;
+
+    }
 
 };

@@ -22,7 +22,6 @@ BlueBall.Entity = function (game, x, y, key, frame) {
 
     /**
      * @property {object} spawnPosition - Numero de columna y fila de celda en la que aparece Entity
-     * @static
      */
     this.spawnPosition = {
         'x': x,
@@ -31,14 +30,16 @@ BlueBall.Entity = function (game, x, y, key, frame) {
 
     /**
      * @property {object} cellPosition - Numero de columna y fila de celda en la que se encuentra la Entity
-     * @static
      */
     this.cellPosition = {
         'x': x,
         'y': y
     };
 
-    this.destroyOnExitOpen = false;
+    /**
+     * @property {boolean} toDestroy - Indica si Entity ha de ser destruido
+     */
+    this.toDestroy = false;
 
 };
 
@@ -178,7 +179,7 @@ BlueBall.Entity.prototype.setPosition = function (x, y) {
 
 };
 
-BlueBall.Entity.prototype.respawn = function() {
+BlueBall.Entity.prototype.respawn = function () {
 
     this.setPosition(this.spawnPosition.x, this.spawnPosition.y);
     this.revive();

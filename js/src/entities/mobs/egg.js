@@ -12,7 +12,7 @@ BlueBall.Egg = function (target) {
 
     this.gid = 100;
 
-    this.destroyOnExitOpen = true;
+    this.level.onPhaseChanged.add(this.phaseChanged, this);
 
     this.collideIndexes.push(1, 2, 23, 30, 117, 97, 81);
 
@@ -48,7 +48,7 @@ BlueBall.Egg.prototype.open = function () {
 
 };
 
-BlueBall.Egg.prototype.fired = function() {
+BlueBall.Egg.prototype.fired = function () {
 
     this.game.time.events.remove(this.event);
 
@@ -57,7 +57,7 @@ BlueBall.Egg.prototype.fired = function() {
 
 };
 
-BlueBall.Egg.prototype.respawn = function() {
+BlueBall.Egg.prototype.respawn = function () {
 
     this.event = null;
     this.target.respawn();
@@ -67,9 +67,22 @@ BlueBall.Egg.prototype.respawn = function() {
 
 BlueBall.Egg.prototype.destroy = function () {
 
+    this.level.onPhaseChanged.remove(this.phaseChanged, this);
     this.game.time.events.remove(this.event);
     this.event = null;
 
     BlueBall.Mob.prototype.destroy.apply(this, arguments);
+
+};
+
+BlueBall.Egg.prototype.phaseChanged = function () {
+
+    switch (this.level.phase) {
+
+    case BlueBall.Level.PHASE_EXITS:
+        this.toDestroy = true;
+        break;
+
+    }
 
 };
