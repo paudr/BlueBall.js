@@ -12,13 +12,21 @@ BlueBall.Level = function (name) {
     this.exit = null;
     this.eggCounterText = null;
 
+    this.phase = BlueBall.Level.PHASE_INITIAL;
+
     this.onPlayerMovementStarted = null;
     this.onPlayerMovementEnded = null;
+    this.onPhaseChanged = null;
 
 };
 
 BlueBall.Level.prototype = Object.create(Phaser.State.prototype);
 BlueBall.Level.prototype.constructor = BlueBall.Level;
+
+BlueBall.Level.PHASE_INITIAL = 0;
+BlueBall.Level.PHASE_HEARTS = 1;
+BlueBall.Level.PHASE_PEARLS = 2;
+BlueBall.Level.PHASE_EXISTS = 3;
 
 BlueBall.Level.prototype.preload = function () {
 
@@ -30,6 +38,7 @@ BlueBall.Level.prototype.create = function () {
 
     this.onPlayerMovementStarted = new Phaser.Signal();
     this.onPlayerMovementEnded = new Phaser.Signal();
+    this.onPhaseChanged = new Phaser.Signal();
 
     this.map = this.game.add.tilemap(this.levelName);
 
@@ -63,6 +72,8 @@ BlueBall.Level.prototype.create = function () {
 
     this.layers.bringToTop(this.entities);
 
+    this.phase = BlueBall.Level.PHASE_HEARTS;
+
 };
 
 BlueBall.Level.prototype.shutdown = function() {
@@ -71,6 +82,35 @@ BlueBall.Level.prototype.shutdown = function() {
 
     this.onPlayerMovementStarted.dispose();
     this.onPlayerMovementEnded.dispose();
+    this.onPhaseChanged.dispose();
+};
+
+BlueBall.Level.prototype.update = function() {
+
+    switch(this.phase) {
+
+        case BlueBall.Level.PHASE_HEARTS:
+            if(this.countHearts() === 0) {
+
+                this.phase = BlueBall.Level.PHASE_PEARLS;
+                this.openChests();
+                this.onPhaseChanged.dispatch(this);
+
+            }
+            break;
+
+        case BlueBall.Level.PHASE_PEARLS:
+            if(this.countPearls() === 0) {
+
+                this.phase = BlueBall.Level.PHASE_EXISTS;
+                this.openExits();
+                this.onPhaseChanged.dispatch(this);
+
+            }
+            break;
+            
+    }
+
 };
 
 BlueBall.Level.prototype.countHearts = function () {
@@ -88,11 +128,7 @@ BlueBall.Level.prototype.countHearts = function () {
 
     }
 
-    if (quantity === 0) {
-
-        this.openChests();
-
-    }
+    return quantity;
 
 };
 
@@ -139,11 +175,7 @@ BlueBall.Level.prototype.countPearls = function () {
 
     }
 
-    if (quantity === 0) {
-
-        this.openExits();
-
-    }
+    return quantity;
 
 };
 
@@ -203,14 +235,11 @@ BlueBall.Level.prototype.catchHeart = function (heart, player) {
 
     heart.destroy(true);
 
-    this.countHearts();
-
 };
 
 BlueBall.Level.prototype.catchPearl = function (chest) {
 
     chest.getPearl();
-    this.countPearls();
 
 };
 
