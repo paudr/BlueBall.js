@@ -1,4 +1,4 @@
-/*global Phaser */
+/*global Phaser, $ */
 
 var BlueBall = BlueBall || {};
 
@@ -20,6 +20,25 @@ BlueBall.Boot.prototype.preload = function () {
 };
 
 BlueBall.Boot.prototype.create = function () {
+
+    if (this.game.device.desktop)
+    {
+        var $layer = $('#' + this.game.parent);
+
+        var multiplier = Math.min(($layer.height() / this.game.height), ($layer.width() / this.game.width));
+
+        this.scale.width = Math.round(this.game.width * multiplier);
+        this.scale.height = Math.round(this.game.height * multiplier);
+
+        this.scale.margin.x = Math.round(($layer.width() - this.scale.width) / 2);
+        this.scale.margin.y = Math.round(($layer.height() - this.scale.height) / 2);
+
+        this.game.canvas.style.marginLeft = this.scale.margin.x + 'px';
+        this.game.canvas.style.marginTop = this.scale.margin.y + 'px';
+
+        this.scale.setSize();
+
+    }
 
     this.game.state.start('level1-1');
 
