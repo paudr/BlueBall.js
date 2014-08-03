@@ -23,20 +23,32 @@ BlueBall.Boot.prototype.create = function () {
 
     if (this.game.device.desktop)
     {
-        var $layer = $('#' + this.game.parent);
 
-        var multiplier = Math.min(($layer.height() / this.game.height), ($layer.width() / this.game.width));
+		var $layer = $(this.game.parent ? '#' + this.game.parent : 'body');
 
-        this.scale.width = Math.round(this.game.width * multiplier);
-        this.scale.height = Math.round(this.game.height * multiplier);
+		var resizeCanvas = function() {
 
-        this.scale.margin.x = Math.round(($layer.width() - this.scale.width) / 2);
-        this.scale.margin.y = Math.round(($layer.height() - this.scale.height) / 2);
+			var width = $layer.width(),
+				height = $layer.height();
 
-        this.game.canvas.style.marginLeft = this.scale.margin.x + 'px';
-        this.game.canvas.style.marginTop = this.scale.margin.y + 'px';
+			var multiplier = Math.min((height / this.game.height), (width / this.game.width));
 
-        this.scale.setSize();
+			this.scale.width = Math.round(this.game.width * multiplier);
+			this.scale.height = Math.round(this.game.height * multiplier);
+
+			this.scale.margin.x = Math.round((width - this.scale.width) / 2);
+			this.scale.margin.y = Math.round((height - this.scale.height) / 2);
+
+			this.game.canvas.style.marginLeft = this.scale.margin.x + 'px';
+			this.game.canvas.style.marginTop = this.scale.margin.y + 'px';
+
+			this.scale.setSize();
+
+		};
+
+		resizeCanvas.apply(this);
+
+		window.addEventListener('resize', resizeCanvas.bind(this));
 
     }
 
