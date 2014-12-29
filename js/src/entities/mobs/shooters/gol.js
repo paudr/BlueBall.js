@@ -145,7 +145,7 @@ BlueBall.Gol.prototype.destroy = function () {
 
 BlueBall.Gol.prototype.update = function () {
 
-    if (this.isAwaken && this.isPlayerVisible) {
+    if (this.alive && this.isAwaken && this.isPlayerVisible) {
 
         this.shoot(this.lookingAt);
 
