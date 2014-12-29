@@ -28,21 +28,10 @@ BlueBall.Boot.prototype.create = function () {
 
 		var resizeCanvas = function() {
 
-			var width = $layer.width(),
-				height = $layer.height();
-
-			var multiplier = Math.min((height / this.game.height), (width / this.game.width));
-
-			this.scale.width = Math.round(this.game.width * multiplier);
-			this.scale.height = Math.round(this.game.height * multiplier);
-
-			this.scale.margin.x = Math.round((width - this.scale.width) / 2);
-			this.scale.margin.y = Math.round((height - this.scale.height) / 2);
-
-			this.game.canvas.style.marginLeft = this.scale.margin.x + 'px';
-			this.game.canvas.style.marginTop = this.scale.margin.y + 'px';
-
-			this.scale.setSize();
+			this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+			this.scale.setMinMax(129, 137, 1032, 1096);
+			this.scale.pageAlignHorizontally = true;
+			this.scale.pageAlignVertically = true;
 
 		};
 
