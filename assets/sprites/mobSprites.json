@@ -41,6 +41,47 @@
         {
             "filename": "projectileGol2",
             "frame": { "x": 297, "y": 74, "w": 12, "h": 31 }
+        },
+
+        {
+            "filename": "sleepyUp1",
+            "frame": { "x": 11, "y": 370, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "sleepyUp2",
+            "frame": { "x": 47, "y": 370, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "sleepyRight1",
+            "frame": { "x": 10, "y": 334, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "sleepyRight2",
+            "frame": { "x": 45, "y": 334, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "sleepyDown1",
+            "frame": { "x": 12, "y": 296, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "sleepyDown2",
+            "frame": { "x": 50, "y": 296, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "sleepyLeft1",
+            "frame": { "x": 87, "y": 334, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "sleepyLeft2",
+            "frame": { "x": 122, "y": 334, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "sleepySleep1",
+            "frame": { "x": 87, "y": 296, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "sleepySleep2",
+            "frame": { "x": 124, "y": 296, "w": 34, "h": 34 }
         }
 
     ]
