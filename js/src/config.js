@@ -1,0 +1,5 @@
+/*global BlueBall */
+
+BlueBall.Config = {
+    
+};

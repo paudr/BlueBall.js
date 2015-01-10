@@ -8,9 +8,9 @@
                 height: 99%;
             }
         </style>
-        <script type="text/javascript" src="js/lib/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/lib/phaser.js"></script>
-        <script type="text/javascript" src="js/src/package.js"></script>
+        <script type="text/javascript" src="js/src/blueball.js"></script>
+        <script type="text/javascript" src="js/src/config.js"></script>
         <script type="text/javascript" src="js/src/entity.js"></script>
         <script type="text/javascript" src="js/src/entities/mob.js"></script>
         <script type="text/javascript" src="js/src/entities/mobs/egg.js"></script>
@@ -27,10 +27,12 @@
         <script type="text/javascript" src="js/src/entities/items/heart.js"></script>
         <script type="text/javascript" src="js/src/entities/items/chest.js"></script>
         <script type="text/javascript" src="js/src/entities/items/exit.js"></script>
-        <script type="text/javascript" src="js/src/states/boot.js"></script>
+        <script type="text/javascript" src="js/src/states/loader.js"></script>
         <script type="text/javascript" src="js/src/states/level.js"></script>
-        <script type="text/javascript" src="js/src/game.js"></script>
     </head>
     <body>
+        <script>
+            window.addEventListener('load', function () { BlueBall.init(); });
+        </script>
     </body>
 </html>

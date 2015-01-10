@@ -1,13 +1,11 @@
-/*global Phaser, $ */
+/*global Phaser, BlueBall, window */
 
-var BlueBall = BlueBall || {};
+BlueBall.Loader = function () {};
 
-BlueBall.Boot = function () {};
+BlueBall.Loader.prototype = Object.create(Phaser.State.prototype);
+BlueBall.Loader.prototype.constructor = BlueBall.Loader;
 
-BlueBall.Boot.prototype = Object.create(Phaser.State.prototype);
-BlueBall.Boot.prototype.constructor = BlueBall.Boot;
-
-BlueBall.Boot.prototype.preload = function () {
+BlueBall.Loader.prototype.preload = function () {
 
     this.game.load.image('AdventuresOfLolo3', 'assets/tilemaps/tiles/AdventuresOfLolo3.png');
     this.game.load.image('AdventuresOfLolo3Attrib', 'assets/tilemaps/tiles/AdventuresOfLolo3Attrib.png');
@@ -19,12 +17,10 @@ BlueBall.Boot.prototype.preload = function () {
 
 };
 
-BlueBall.Boot.prototype.create = function () {
+BlueBall.Loader.prototype.create = function () {
 
     if (this.game.device.desktop)
     {
-
-		var $layer = $(this.game.parent ? '#' + this.game.parent : 'body');
 
 		var resizeCanvas = function() {
 

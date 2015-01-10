@@ -1,6 +1,5 @@
-/*global Phaser */
+/*global Phaser, BlueBall */
 
-var BlueBall = BlueBall || {};
 
 BlueBall.Entity = function (game, x, y, key, frame) {
 
