@@ -13,4 +13,3 @@ BlueBall.Block = function (game, x, y, key, frame) {
 };
 
 BlueBall.Block.prototype = Object.create(BlueBall.Mob.prototype);
-BlueBall.Block.prototype.constructor = BlueBall.Block;

@@ -43,19 +43,6 @@ BlueBall.Entity = function (game, x, y, key, frame) {
 };
 
 BlueBall.Entity.prototype = Object.create(Phaser.Sprite.prototype);
-BlueBall.Entity.prototype.constructor = BlueBall.Entity;
-
-/**
- * @property {number} cellWidth - Ancho (en pixels) de una celda de una casilla del mapa (cada casilla esta formada por 2x2 celdas)
- * @static
- */
-BlueBall.Entity.cellWidth = 32 / 2;
-
-/**
- * @property {number} cellHeight - Alto (en pixels) de una celda de una casilla del mapa (cada casilla esta formada por 2x2 celdas)
- * @static
- */
-BlueBall.Entity.cellHeight = 32 / 2;
 
 /**
  * Calcula la posicion (en pixels) de una celda del mapa (cada casilla esta formada por 2x2 celdas)
@@ -69,8 +56,8 @@ BlueBall.Entity.cellHeight = 32 / 2;
 BlueBall.Entity.getCellPosition = function (x, y) {
 
     return {
-        "x": (x + 1) * BlueBall.Entity.cellWidth,
-        "y": (y + 1) * BlueBall.Entity.cellHeight
+        "x": (x + 1) * BlueBall.Config.cellSize.width,
+        "y": (y + 1) * BlueBall.Config.cellSize.height
     };
 
 };

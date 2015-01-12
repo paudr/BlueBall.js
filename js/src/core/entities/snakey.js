@@ -14,7 +14,6 @@ BlueBall.Snakey = function (game, x, y, key, frame) {
 };
 
 BlueBall.Snakey.prototype = Object.create(BlueBall.Mob.prototype);
-BlueBall.Snakey.prototype.constructor = BlueBall.Snakey;
 
 BlueBall.Snakey.prototype.lookAt = function (player) {
 

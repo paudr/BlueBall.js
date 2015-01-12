@@ -19,7 +19,6 @@ BlueBall.Level = function (name) {
 };
 
 BlueBall.Level.prototype = Object.create(Phaser.State.prototype);
-BlueBall.Level.prototype.constructor = BlueBall.Level;
 
 BlueBall.Level.PHASE_INITIAL = 0;
 BlueBall.Level.PHASE_HEARTS = 1;

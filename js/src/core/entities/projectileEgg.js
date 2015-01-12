@@ -14,4 +14,3 @@ BlueBall.ProjectileEgg = function (shooter, direction) {
 };
 
 BlueBall.ProjectileEgg.prototype = Object.create(BlueBall.Projectile.prototype);
-BlueBall.ProjectileEgg.prototype.constructor = BlueBall.ProjectileEgg;

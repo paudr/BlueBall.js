@@ -22,7 +22,6 @@ BlueBall.Projectile = function (shooter, direction, key, frame) {
 };
 
 BlueBall.Projectile.prototype = Object.create(BlueBall.Mob.prototype);
-BlueBall.Projectile.prototype.constructor = BlueBall.Projectile;
 
 BlueBall.Mob.prototype.getImpactingEntities = function (entities) {
 
@@ -96,7 +95,7 @@ BlueBall.Projectile.prototype.getImpacted = function(){
      
          if(entities2.length > 0){
              
-             return BlueBall.intersection(entities1, entities2);
+             return BlueBall.Helper.intersection(entities1, entities2);
 
          }
         

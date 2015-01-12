@@ -31,4 +31,3 @@ BlueBall.ProjectileGol = function (shooter, direction) {
 };
 
 BlueBall.ProjectileGol.prototype = Object.create(BlueBall.Projectile.prototype);
-BlueBall.ProjectileGol.prototype.constructor = BlueBall.ProjectileGol;

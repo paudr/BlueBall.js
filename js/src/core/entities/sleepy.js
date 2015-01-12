@@ -21,4 +21,3 @@ BlueBall.Sleepy = function (game, x, y, key, frame) {
 };
 
 BlueBall.Sleepy.prototype = Object.create(BlueBall.Mob.prototype);
-BlueBall.Sleepy.prototype.constructor = BlueBall.Sleepy;

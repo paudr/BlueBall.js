@@ -26,7 +26,6 @@ BlueBall.Gol = function (game, x, y, key, frame) {
 };
 
 BlueBall.Gol.prototype = Object.create(BlueBall.Shooter.prototype);
-BlueBall.Gol.prototype.constructor = BlueBall.Gol;
 
 Object.defineProperty(BlueBall.Gol.prototype, "lookingAt", {
 

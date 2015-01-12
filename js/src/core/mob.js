@@ -22,9 +22,12 @@ BlueBall.Mob = function (game, x, y, key, frame) {
     this.bridgeIndexes = [];
 
     /**
-     * @property {number} velocity - Velocidad a la que se mueve Mob por el mapa (en pixels por milisegundo)
+     * @property {number} speed - Velocidad a la que se mueve Mob por el mapa (en pixels por milisegundo)
      */
-    this.velocity = 3 * 32 / Phaser.Timer.SECOND;
+    this.speed = {
+        'x': BlueBall.Config.gameSpeed * BlueBall.Config.cellSize.width * 2 / Phaser.Timer.SECOND,
+        'y': BlueBall.Config.gameSpeed * BlueBall.Config.cellSize.height * 2 / Phaser.Timer.SECOND
+    };
 
     /**
      * @property {boolean} isMoving - True si Mob se esta moviendo, false en caso contrario
@@ -54,7 +57,6 @@ BlueBall.Mob = function (game, x, y, key, frame) {
 };
 
 BlueBall.Mob.prototype = Object.create(BlueBall.Entity.prototype);
-BlueBall.Mob.prototype.constructor = BlueBall.Mob;
 
 BlueBall.Mob.prototype.getPositionAt = function (direction) {
 
@@ -179,7 +181,7 @@ BlueBall.Mob.prototype.canMoveTo = function (direction) {
 
                     }
 
-                    pushing1 = BlueBall.intersection(pushing1, pushing2);
+                    pushing1 = BlueBall.Helper.intersection(pushing1, pushing2);
 
                     if (pushing1.length > 0 && pushing1.length === pushing2.length) {
 
@@ -283,7 +285,8 @@ BlueBall.Mob.prototype._updateMovement = function () {
 
     if (this.isMoving === true && this.wasPushed === false) {
 
-        var inc = this.game.time.elapsed * this.velocity,
+        var incX = this.game.time.elapsed * this.speed.x,
+            incY = this.game.time.elapsed * this.speed.y,
             direction = this._movingTo,
             x = 0,
             y = 0,
@@ -294,28 +297,28 @@ BlueBall.Mob.prototype._updateMovement = function () {
 
         switch (direction) {
         case Phaser.Tilemap.NORTH:
-            y -= inc;
+            y -= incY;
             if (this.y + y <= this._destPosition.y) {
                 y = this._destPosition.y - this.y;
                 lastMovement = true;
             }
             break;
         case Phaser.Tilemap.EAST:
-            x += inc;
+            x += incX;
             if (this.x + x >= this._destPosition.x) {
                 x = this._destPosition.x - this.x;
                 lastMovement = true;
             }
             break;
         case Phaser.Tilemap.SOUTH:
-            y += inc;
+            y += incY;
             if (this.y + y >= this._destPosition.y) {
                 y = this._destPosition.y - this.y;
                 lastMovement = true;
             }
             break;
         case Phaser.Tilemap.WEST:
-            x -= inc;
+            x -= incX;
             if (this.x + x <= this._destPosition.x) {
                 x = this._destPosition.x - this.x;
                 lastMovement = true;

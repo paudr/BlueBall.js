@@ -11,15 +11,14 @@ BlueBall.Chest = function (game, x, y, key, frame) {
 
     this.anchor.set(0.5, 0.33);
 
-    this.scale.x = (2 * BlueBall.Entity.cellWidth) / 44;
-    this.scale.y = (3 * BlueBall.Entity.cellWidth) / 48;
+    this.scale.x = (2 * BlueBall.Config.cellSize.width) / 44;
+    this.scale.y = (3 * BlueBall.Config.cellSize.height) / 48;
 
-    this.y -= BlueBall.Entity.cellHeight;
+    this.y -= BlueBall.Config.cellSize.height;
 
 };
 
 BlueBall.Chest.prototype = Object.create(BlueBall.Item.prototype);
-BlueBall.Chest.prototype.constructor = BlueBall.Chest;
 
 BlueBall.Chest.CLOSED = 'closed';
 BlueBall.Chest.OPENED = 'opened';

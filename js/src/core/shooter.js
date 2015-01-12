@@ -10,7 +10,6 @@ BlueBall.Shooter = function (game, x, y, key, frame) {
 };
 
 BlueBall.Shooter.prototype = Object.create(BlueBall.Mob.prototype);
-BlueBall.Shooter.prototype.constructor = BlueBall.Shooter;
 
 BlueBall.Shooter.prototype.shoot = function (direction) {
 

@@ -3,7 +3,6 @@
 BlueBall.Loader = function () {};
 
 BlueBall.Loader.prototype = Object.create(Phaser.State.prototype);
-BlueBall.Loader.prototype.constructor = BlueBall.Loader;
 
 BlueBall.Loader.prototype.preload = function () {
 

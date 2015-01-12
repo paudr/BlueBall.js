@@ -11,7 +11,6 @@ BlueBall.Exit = function (game, x, y, key, frame) {
 };
 
 BlueBall.Exit.prototype = Object.create(BlueBall.Item.prototype);
-BlueBall.Exit.prototype.constructor = BlueBall.Exit;
 
 BlueBall.Exit.prototype.open = function () {
 

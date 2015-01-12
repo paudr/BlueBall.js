@@ -9,7 +9,6 @@ BlueBall.Item = function (game, x, y, key, frame) {
 };
 
 BlueBall.Item.prototype = Object.create(BlueBall.Entity.prototype);
-BlueBall.Item.prototype.constructor = BlueBall.Item;
 
 BlueBall.Item.prototype.checkPlayerPosition = function (player) {
 

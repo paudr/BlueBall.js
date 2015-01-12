@@ -31,7 +31,6 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
 };
 
 BlueBall.Lolo.prototype = Object.create(BlueBall.Shooter.prototype);
-BlueBall.Lolo.prototype.constructor = BlueBall.Lolo;
 
 BlueBall.Lolo.prototype.moveTo = function (direction) {
 
