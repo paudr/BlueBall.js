@@ -2,7 +2,7 @@ var BlueBall = BlueBall || {};
 
 BlueBall.Snakey = function (game, x, y, key, frame) {
 
-    BlueBall.Mob.call(this, game, x, y, key, frame);
+    BlueBall.Mobile.call(this, game, x, y, key, frame);
 
     this.frameName = 'snakey3';
 
@@ -13,7 +13,7 @@ BlueBall.Snakey = function (game, x, y, key, frame) {
 
 };
 
-BlueBall.Snakey.prototype = Object.create(BlueBall.Mob.prototype);
+BlueBall.Snakey.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.Snakey.prototype.lookAt = function (player) {
 
@@ -63,7 +63,7 @@ BlueBall.Snakey.prototype.destroy = function () {
     this.level.onPhaseChanged.remove(this.phaseChanged, this);
     this.level.onPlayerMovementEnded.remove(this.lookAt, this);
 
-    BlueBall.Mob.prototype.destroy.apply(this, arguments);
+    BlueBall.Mobile.prototype.destroy.apply(this, arguments);
 
 };
 

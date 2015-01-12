@@ -3,7 +3,7 @@ var BlueBall = BlueBall || {};
 BlueBall.Projectile = function (shooter, direction, key, frame) {
 
 
-    BlueBall.Mob.call(this, shooter.game, shooter.cellPosition.x, shooter.cellPosition.y, key, frame);
+    BlueBall.Mobile.call(this, shooter.game, shooter.cellPosition.x, shooter.cellPosition.y, key, frame);
 
     shooter.level.layers.add(this);
 
@@ -21,9 +21,9 @@ BlueBall.Projectile = function (shooter, direction, key, frame) {
 
 };
 
-BlueBall.Projectile.prototype = Object.create(BlueBall.Mob.prototype);
+BlueBall.Projectile.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Mob.prototype.getImpactingEntities = function (entities) {
+BlueBall.Mobile.prototype.getImpactingEntities = function (entities) {
 
     return BlueBall.Entity.getEntitiesFromIndexArray(this.impactIndexes, entities);
 
@@ -31,7 +31,7 @@ BlueBall.Mob.prototype.getImpactingEntities = function (entities) {
 
 BlueBall.Projectile.prototype.moveTo = function () {
 
-    if (!BlueBall.Mob.prototype.moveTo.call(this, this.shootDirection)) {
+    if (!BlueBall.Mobile.prototype.moveTo.call(this, this.shootDirection)) {
 
         var impacted = this.getImpacted();
 

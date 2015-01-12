@@ -4,7 +4,7 @@ var BlueBall = BlueBall || {};
 
 BlueBall.Sleepy = function (game, x, y, key, frame) {
 
-    BlueBall.Mob.call(this, game, x, y, key, frame);
+    BlueBall.Mobile.call(this, game, x, y, key, frame);
 
     this.frameName = 'sleepyDown1';
 
@@ -20,4 +20,4 @@ BlueBall.Sleepy = function (game, x, y, key, frame) {
 
 };
 
-BlueBall.Sleepy.prototype = Object.create(BlueBall.Mob.prototype);
+BlueBall.Sleepy.prototype = Object.create(BlueBall.Mobile.prototype);

@@ -170,7 +170,7 @@ BlueBall.Lolo.prototype.stopAnimation = function (direction) {
 
 };
 
-Object.defineProperty(BlueBall.Mob.prototype, "eggs", {
+Object.defineProperty(BlueBall.Mobile.prototype, "eggs", {
 
     get: function () {
 

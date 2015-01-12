@@ -4,7 +4,7 @@ var BlueBall = BlueBall || {};
 
 BlueBall.Egg = function (target) {
 
-    BlueBall.Mob.call(this, target.game, target.cellPosition.x, target.cellPosition.y, 'eggSprites', 2);
+    BlueBall.Mobile.call(this, target.game, target.cellPosition.x, target.cellPosition.y, 'eggSprites', 2);
 
     this.frameName = 'eggNormal';
 
@@ -25,7 +25,7 @@ BlueBall.Egg = function (target) {
     this.event = this.game.time.events.add(Phaser.Timer.SECOND * 5, this.break, this);
 };
 
-BlueBall.Egg.prototype = Object.create(BlueBall.Mob.prototype);
+BlueBall.Egg.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.Egg.prototype.break = function () {
 
@@ -70,7 +70,7 @@ BlueBall.Egg.prototype.destroy = function () {
     this.game.time.events.remove(this.event);
     this.event = null;
 
-    BlueBall.Mob.prototype.destroy.apply(this, arguments);
+    BlueBall.Mobile.prototype.destroy.apply(this, arguments);
 
 };
 

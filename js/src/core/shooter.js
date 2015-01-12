@@ -2,14 +2,14 @@ var BlueBall = BlueBall || {};
 
 BlueBall.Shooter = function (game, x, y, key, frame) {
 
-    BlueBall.Mob.call(this, game, x, y, key, frame);
+    BlueBall.Mobile.call(this, game, x, y, key, frame);
 
     this.projectile = null;
     this.projectileClass = BlueBall.Projectile;
 
 };
 
-BlueBall.Shooter.prototype = Object.create(BlueBall.Mob.prototype);
+BlueBall.Shooter.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.Shooter.prototype.shoot = function (direction) {
 
