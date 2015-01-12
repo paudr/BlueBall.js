@@ -58,6 +58,8 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', 69, 'mobSprites', 15, true, false, this.entities, BlueBall.Sleepy, false);
     this.map.createFromObjects('entities', 99, 'loloSprites', 10, true, false, this.entities, BlueBall.Lolo, false);
 
+    this.player = this.entities.filter(function(entity) { return entity instanceof BlueBall.Lolo}).first;
+
     var eggCounterImage = this.game.add.sprite(420, 128, 'eggSprites', 1, this.layers);
     eggCounterImage.scale.set(2);
 
