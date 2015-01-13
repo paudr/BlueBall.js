@@ -82,6 +82,39 @@
         {
             "filename": "sleepySleep2",
             "frame": { "x": 124, "y": 296, "w": 34, "h": 34 }
+        },
+
+        {
+            "filename": "skullUp1",
+            "frame": { "x": 11, "y": 500, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "skullUp2",
+            "frame": { "x": 49, "y": 500, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "skullRight1",
+            "frame": { "x": 86, "y": 464, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "skullRight2",
+            "frame": { "x": 123, "y": 464, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "skullDown1",
+            "frame": { "x": 13, "y": 428, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "skullDown2",
+            "frame": { "x": 48, "y": 428, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "skullLeft1",
+            "frame": { "x": 13, "y": 464, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "skullLeft2",
+            "frame": { "x": 48, "y": 464, "w": 34, "h": 34 }
         }
 
     ]
