@@ -1,4 +1,4 @@
-var BlueBall = BlueBall || {};
+/*global BlueBall */
 
 BlueBall.Block = function (game, x, y, key, frame) {
 

@@ -1,6 +1,4 @@
-/*global Phaser */
-
-var BlueBall = BlueBall || {};
+/*global Phaser, BlueBall */
 
 BlueBall.Lolo = function (game, x, y, key, frame) {
 

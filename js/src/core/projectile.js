@@ -1,4 +1,4 @@
-var BlueBall = BlueBall || {};
+/*global BlueBall */
 
 BlueBall.Projectile = function (shooter, direction, key, frame) {
 

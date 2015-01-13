@@ -1,6 +1,5 @@
 /*global Phaser, BlueBall */
 
-
 BlueBall.Entity = function (game, x, y, key, frame) {
 
     var pos = BlueBall.Entity.getCellPosition(x, y);
