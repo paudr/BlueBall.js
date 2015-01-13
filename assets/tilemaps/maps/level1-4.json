@@ -92,7 +92,9 @@
                     "gid": 30,
                     "x": 2,
                     "y": 16,
-                    "properties": {}
+                    "properties": {
+                        "eggs": 2
+                    }
                 },
                 {
                     "gid": 30,
