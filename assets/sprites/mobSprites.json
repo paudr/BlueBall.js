@@ -44,43 +44,43 @@
         },
 
         {
-            "filename": "sleepyUp1",
+            "filename": "leeperUp1",
             "frame": { "x": 11, "y": 370, "w": 34, "h": 34 }
         },
         {
-            "filename": "sleepyUp2",
+            "filename": "leeperUp2",
             "frame": { "x": 47, "y": 370, "w": 34, "h": 34 }
         },
         {
-            "filename": "sleepyRight1",
+            "filename": "leeperRight1",
             "frame": { "x": 10, "y": 334, "w": 34, "h": 34 }
         },
         {
-            "filename": "sleepyRight2",
+            "filename": "leeperRight2",
             "frame": { "x": 45, "y": 334, "w": 34, "h": 34 }
         },
         {
-            "filename": "sleepyDown1",
+            "filename": "leeperDown1",
             "frame": { "x": 12, "y": 296, "w": 34, "h": 34 }
         },
         {
-            "filename": "sleepyDown2",
+            "filename": "leeperDown2",
             "frame": { "x": 50, "y": 296, "w": 34, "h": 34 }
         },
         {
-            "filename": "sleepyLeft1",
+            "filename": "leeperLeft1",
             "frame": { "x": 87, "y": 334, "w": 34, "h": 34 }
         },
         {
-            "filename": "sleepyLeft2",
+            "filename": "leeperLeft2",
             "frame": { "x": 122, "y": 334, "w": 34, "h": 34 }
         },
         {
-            "filename": "sleepySleep1",
+            "filename": "leeperSleep1",
             "frame": { "x": 87, "y": 296, "w": 34, "h": 34 }
         },
         {
-            "filename": "sleepySleep2",
+            "filename": "leeperSleep2",
             "frame": { "x": 124, "y": 296, "w": 34, "h": 34 }
         },
 

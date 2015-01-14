@@ -1,10 +1,10 @@
 /*global Phaser, BlueBall */
 
-BlueBall.Sleepy = function (game, x, y, key, frame) {
+BlueBall.Leeper = function (game, x, y, key, frame) {
 
     BlueBall.Mobile.call(this, game, x, y, key, frame);
 
-    this.frameName = 'sleepyDown1';
+    this.frameName = 'leeperDown1';
 
     this.gid = 69;
 
@@ -12,11 +12,11 @@ BlueBall.Sleepy = function (game, x, y, key, frame) {
 
     this.destroyOnExitOpen = true;
 
-    this.animations.add('Top', Phaser.Animation.generateFrameNames('sleepyUp', 1, 2, '', 1), 5, true);
-    this.animations.add('Right', Phaser.Animation.generateFrameNames('sleepyRight', 1, 2, '', 1), 5, true);
-    this.animations.add('Down', Phaser.Animation.generateFrameNames('sleepyDown', 1, 2, '', 1), 5, true);
-    this.animations.add('Left', Phaser.Animation.generateFrameNames('sleepyLeft', 1, 2, '', 1), 5, true);
-    this.animations.add('Sleep', Phaser.Animation.generateFrameNames('sleepySleep', 1, 2, '', 1), 1, true);
+    this.animations.add('Top', Phaser.Animation.generateFrameNames('leeperUp', 1, 2, '', 1), 5, true);
+    this.animations.add('Right', Phaser.Animation.generateFrameNames('leeperRight', 1, 2, '', 1), 5, true);
+    this.animations.add('Down', Phaser.Animation.generateFrameNames('leeperDown', 1, 2, '', 1), 5, true);
+    this.animations.add('Left', Phaser.Animation.generateFrameNames('leeperLeft', 1, 2, '', 1), 5, true);
+    this.animations.add('Sleep', Phaser.Animation.generateFrameNames('leeperSleep', 1, 2, '', 1), 1, true);
 
     this.lastDirection = null;
 
@@ -26,9 +26,9 @@ BlueBall.Sleepy = function (game, x, y, key, frame) {
 
 };
 
-BlueBall.Sleepy.prototype = Object.create(BlueBall.Mobile.prototype);
+BlueBall.Leeper.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Sleepy.prototype.getDirectionToLolo = function () {
+BlueBall.Leeper.prototype.getDirectionToLolo = function () {
 
     var distanceX = this.level.player.cellPosition.x - this.cellPosition.x,
         distanceY = this.level.player.cellPosition.y - this.cellPosition.y,
@@ -77,7 +77,7 @@ BlueBall.Sleepy.prototype.getDirectionToLolo = function () {
 
 };
 
-BlueBall.Sleepy.prototype.getFirstDirectionAvalible = function (directionToLolo) {
+BlueBall.Leeper.prototype.getFirstDirectionAvalible = function (directionToLolo) {
 
     var directions = [Phaser.Tilemap.NORTH, Phaser.Tilemap.EAST, Phaser.Tilemap.SOUTH, Phaser.Tilemap.WEST],
         orderedDirections = [],
@@ -121,7 +121,7 @@ BlueBall.Sleepy.prototype.getFirstDirectionAvalible = function (directionToLolo)
 
 };
 
-BlueBall.Sleepy.prototype.checkNextMovement = function () {
+BlueBall.Leeper.prototype.checkNextMovement = function () {
 
     var directionToLolo = this.getDirectionToLolo(),
         direction,
@@ -163,7 +163,7 @@ BlueBall.Sleepy.prototype.checkNextMovement = function () {
 
 };
 
-BlueBall.Sleepy.prototype.moveTo = function (direction) {
+BlueBall.Leeper.prototype.moveTo = function (direction) {
 
     if (BlueBall.Mobile.prototype.moveTo.call(this, direction)) {
         switch (direction) {
@@ -184,13 +184,13 @@ BlueBall.Sleepy.prototype.moveTo = function (direction) {
 
 };
 
-BlueBall.Sleepy.prototype.onMoved = function (direction) {
+BlueBall.Leeper.prototype.onMoved = function (direction) {
 
     this.checkNextMovement();
 
 };
 
-BlueBall.Sleepy.prototype.update = function () {
+BlueBall.Leeper.prototype.update = function () {
 
     if (!this.isMoving) {
 
@@ -202,7 +202,7 @@ BlueBall.Sleepy.prototype.update = function () {
 
 };
 
-BlueBall.Sleepy.prototype.destroy = function () {
+BlueBall.Leeper.prototype.destroy = function () {
 
     this.level.onPhaseChanged.remove(this.phaseChanged, this);
 
@@ -210,7 +210,7 @@ BlueBall.Sleepy.prototype.destroy = function () {
 
 };
 
-BlueBall.Sleepy.prototype.phaseChanged = function () {
+BlueBall.Leeper.prototype.phaseChanged = function () {
 
     switch (this.level.phase) {
 
