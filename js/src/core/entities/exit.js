@@ -6,7 +6,7 @@ BlueBall.Exit = function (game, x, y, key, frame) {
 
     this.frameName = 'doorClosed';
 
-    this.gid = 18;
+    this.gid = 15;
 
 };
 
@@ -15,13 +15,13 @@ BlueBall.Exit.prototype = Object.create(BlueBall.Item.prototype);
 BlueBall.Exit.prototype.open = function () {
 
     this.frameName = 'doorOpened';
-    this.gid = 17;
+    this.gid = 16;
 
 };
 
 BlueBall.Exit.prototype.onPlayerEnter = function () {
 
-    if (this.gid === 17) {
+    if (this.gid === 16) {
 
         this.level.catchExit();
 

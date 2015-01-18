@@ -10,11 +10,11 @@
         },
         {
             "filename": "doorClosed",
-            "frame": { "x": 160, "y": 32, "w": 32, "h": 32 }
+            "frame": { "x": 64, "y": 32, "w": 32, "h": 32 }
         },
         {
             "filename": "doorOpened",
-            "frame": { "x": 64, "y": 32, "w": 32, "h": 32 }
+            "frame": { "x": 96, "y": 32, "w": 32, "h": 32 }
         }
     ]
 }
