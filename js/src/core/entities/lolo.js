@@ -6,7 +6,7 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
 
     this.gid = 99;
 
-    this.collideIndexes.push(1, 2, 97, 81);
+    this.collideIndexes.push(69, 81, 93, 97);
     this.pushIndexes.push(29, 100);
     this.bridgeIndexes.push(16);
 

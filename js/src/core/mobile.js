@@ -7,7 +7,7 @@ BlueBall.Mobile = function (game, x, y, key, frame) {
     /**
      * @property {array} collideIndexes - Lista de indices de tipos de tiles con los que colisiona Mob
      */
-    this.collideIndexes = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 22];
+    this.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 22 ];
 
     /**
      * @property {array} pushIndexes - Lista de indices de tipos de entities a las que puede empujar Mob

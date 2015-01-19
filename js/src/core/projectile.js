@@ -9,7 +9,7 @@ BlueBall.Projectile = function (shooter, direction, key, frame) {
 
     this.velocity *= 2;
 
-    this.collideIndexes.push(1, 2);
+    this.collideIndexes = [ 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 29 ];
 
     this.impactIndexes = [];
 
