@@ -116,7 +116,9 @@ BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entit
 
         }
 
-    } else if (this.collideIndexes.indexOf(tile2.index) > -1) {
+    }
+
+    if (this.collideIndexes.indexOf(tile2.index) > -1) {
 
         entities2 = this.getBridgingEntities(entities2);
 
