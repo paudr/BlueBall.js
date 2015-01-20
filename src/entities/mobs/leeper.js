@@ -37,8 +37,8 @@ BlueBall.Leeper.prototype.getDirectionToLolo = function () {
 
     if (Math.abs(distanceX) >= Math.abs(distanceY)) {
 
-        if(distanceX >= 0) {
-            firstDirection =Phaser.Tilemap.EAST;
+        if (distanceX >= 0) {
+            firstDirection = Phaser.Tilemap.EAST;
         }
         else {
             firstDirection = Phaser.Tilemap.WEST;
@@ -87,8 +87,8 @@ BlueBall.Leeper.prototype.getFirstDirectionAvalible = function (directionToLolo)
         i,
         current;
 
-    var inc = function(value) { return value + 1; };
-    var dec = function(value) { return value - 1; };
+    var inc = function (value) { return value + 1; };
+    var dec = function (value) { return value - 1; };
 
     index = directions.indexOf(directionToLolo.principal);
 
@@ -105,7 +105,7 @@ BlueBall.Leeper.prototype.getFirstDirectionAvalible = function (directionToLolo)
 
     for (i = 0; i < 4; i = rotation(i)) {
         current = directions[(i + index) % 4];
-        if(current !== turnBack) {
+        if (current !== turnBack) {
             orderedDirections.push(current);
         }
     }
@@ -217,6 +217,16 @@ BlueBall.Leeper.prototype.phaseChanged = function () {
     case BlueBall.Level.PHASE_EXITS:
         this.toDestroy = true;
         break;
+
+    }
+
+};
+
+BlueBall.Leeper.prototype.fired = function(projectile) {
+
+    if (projectile instanceof BlueBall.ProjectileEgg) {
+
+        new BlueBall.Egg(this);
 
     }
 

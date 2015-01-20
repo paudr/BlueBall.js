@@ -44,7 +44,7 @@ BlueBall.Chest.prototype.onPlayerEnter = function () {
 
     if (this.status === BlueBall.Chest.OPENED) {
 
-        this.level.catchPearl(this);
+        this.getPearl();
 
     }
 

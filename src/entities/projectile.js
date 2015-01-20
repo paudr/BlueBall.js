@@ -31,6 +31,8 @@ BlueBall.Mobile.prototype.getImpactingEntities = function (entities) {
 
 BlueBall.Projectile.prototype.moveTo = function () {
 
+    var i, current;
+
     if (!BlueBall.Mobile.prototype.moveTo.call(this, this.shootDirection)) {
 
         var impacted = this.getImpacted();
@@ -40,9 +42,13 @@ BlueBall.Projectile.prototype.moveTo = function () {
 
         this.destroy(true);
 
-        if(impacted.length > 0) {
+        for (i = 0; i < impacted.length; i++) {
 
-            this.level.fired(this.shooter, impacted);
+            current = impacted[i];
+
+            if (typeof current.fired === 'function') {
+                current.fired(this);
+            }
 
         }
 
@@ -83,17 +89,17 @@ BlueBall.Projectile.prototype.onMoved = function () {
 
 };
 
-BlueBall.Projectile.prototype.getImpacted = function(){
+BlueBall.Projectile.prototype.getImpacted = function () {
 
     var positions = this.cellsAt(this.shootDirection),
         entities1 = this.getImpactingEntities(this.level.getEntitesAt(positions[0].x, positions[0].y)),
         entities2;
 
-    if(entities1.length > 0) {
+    if (entities1.length > 0) {
 
          entities2 = this.getImpactingEntities(this.level.getEntitesAt(positions[1].x, positions[1].y));
      
-         if(entities2.length > 0){
+         if (entities2.length > 0) {
              
              return BlueBall.Helper.intersection(entities1, entities2);
 

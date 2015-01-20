@@ -151,3 +151,13 @@ BlueBall.Gol.prototype.update = function () {
     BlueBall.Shooter.prototype.update.call(this);
 
 };
+
+BlueBall.Gol.prototype.fired = function (projectile) {
+
+    if (projectile instanceof BlueBall.ProjectileEgg) {
+
+        new BlueBall.Egg(this);
+
+    }
+
+};

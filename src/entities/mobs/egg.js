@@ -12,7 +12,7 @@ BlueBall.Egg = function (target) {
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);
 
-    this.collideIndexes.push(1, 2, 23, 30, 117, 97, 81);
+    this.collideIndexes.push(29, 30, 69, 81, 93, 97, 100, 117);
 
     this.level.entities.add(this);
 
@@ -20,12 +20,12 @@ BlueBall.Egg = function (target) {
 
     target.kill();
 
-    this.event = this.game.time.events.add(Phaser.Timer.SECOND * 5, this.break, this);
+    this.event = this.game.time.events.add(Phaser.Timer.SECOND * 5, this.breakEgg, this);
 };
 
 BlueBall.Egg.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Egg.prototype.break = function () {
+BlueBall.Egg.prototype.breakEgg = function () {
 
     this.frameName = 'eggBroken';
 
@@ -45,12 +45,16 @@ BlueBall.Egg.prototype.open = function () {
 
 };
 
-BlueBall.Egg.prototype.fired = function () {
+BlueBall.Egg.prototype.fired = function (projectile) {
 
-    this.game.time.events.remove(this.event);
+    if (projectile instanceof BlueBall.ProjectileEgg) {
 
-    this.event = this.game.time.events.add(Phaser.Timer.SECOND * 8, this.respawn, this);
-    this.kill();
+        this.game.time.events.remove(this.event);
+
+        this.event = this.game.time.events.add(Phaser.Timer.SECOND * 8, this.respawn, this);
+        this.kill();
+
+    }
 
 };
 

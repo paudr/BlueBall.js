@@ -184,7 +184,7 @@ Object.defineProperty(BlueBall.Mobile.prototype, "eggs", {
 
 });
 
-BlueBall.Lolo.prototype.destroy = function() {
+BlueBall.Lolo.prototype.destroy = function () {
 
     this.spacebar.onDown.remove(this.checkShoot, this);
     BlueBall.Shooter.prototype.destroy.apply(this, arguments);

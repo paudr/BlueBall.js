@@ -78,3 +78,13 @@ BlueBall.Snakey.prototype.phaseChanged = function () {
     }
 
 };
+
+BlueBall.Snakey.prototype.fired = function (projectile) {
+
+    if (projectile instanceof BlueBall.ProjectileEgg) {
+
+        new BlueBall.Egg(this);
+
+    }
+
+};

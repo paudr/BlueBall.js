@@ -27,7 +27,7 @@ BlueBall.Level.PHASE_EXITS = 3;
 
 BlueBall.Level.prototype.preload = function () {
 
-    this.game.load.tilemap(this.levelName, 'assets/tilemaps/maps/' + this.levelName + '.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.tilemap(this.levelName, 'assets/tilemaps/' + this.levelName + '.json', null, Phaser.Tilemap.TILED_JSON);
 
 };
 
@@ -59,7 +59,7 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', 93, 'mobSprites', 25, true, false, this.entities, BlueBall.Skull, false);
     this.map.createFromObjects('entities', 99, 'loloSprites', 10, true, false, this.entities, BlueBall.Lolo, false);
 
-    this.player = this.entities.filter(function(entity) { return entity instanceof BlueBall.Lolo; }).first;
+    this.player = this.entities.filter(function (entity) { return entity instanceof BlueBall.Lolo; }).first;
 
     var eggCounterImage = this.game.add.sprite(420, 128, 'eggSprites', 1, this.layers);
     eggCounterImage.scale.set(2);
@@ -239,50 +239,8 @@ BlueBall.Level.prototype.getEntitesAt = function (x, y) {
 
 };
 
-BlueBall.Level.prototype.catchHeart = function (heart, player) {
-
-    player.eggs = player.eggs + heart.eggs;
-
-    heart.toDestroy = true;
-
-};
-
-BlueBall.Level.prototype.catchPearl = function (chest) {
-
-    chest.getPearl();
-
-};
-
 BlueBall.Level.prototype.catchExit = function () {
 
     this.game.state.start(this.map.properties.next);
-
-};
-
-BlueBall.Level.prototype.fired = function (shooter, impacted) {
-
-    var i,
-        length,
-        current;
-
-    for (i = 0, length = impacted.length; i < length; i++) {
-
-        current = impacted[i];
-
-        if (current instanceof BlueBall.Lolo) {
-
-            // Hay que matar a Lolo
-
-        } else if (current instanceof BlueBall.Egg) {
-
-            current.fired();
-
-        } else {
-
-            new BlueBall.Egg(current);
-
-        }
-
-    }
 
 };

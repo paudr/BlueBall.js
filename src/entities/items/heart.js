@@ -20,6 +20,8 @@ BlueBall.Heart.prototype.eggs = 0;
 
 BlueBall.Heart.prototype.onPlayerEnter = function (player) {
 
-    this.level.catchHeart(this, player);
+    player.eggs = player.eggs + this.eggs;
+
+    this.toDestroy = true;
 
 };
