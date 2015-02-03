@@ -28,6 +28,8 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
     this._eggs = 0;
     this.lookingAt = Phaser.Tilemap.SOUTH;
 
+    this.lastCellPosition = { x: this.cellPosition.x, y: this.cellPosition.y };
+
 };
 
 BlueBall.Lolo.prototype = Object.create(BlueBall.Shooter.prototype);
@@ -36,17 +38,15 @@ BlueBall.Lolo.prototype.moveTo = function (direction) {
 
     this.lookingAt = direction;
 
-    if (BlueBall.Shooter.prototype.moveTo.call(this, direction)) {
-
-        this.level.onPlayerMovementStarted.dispatch(this, direction);
-
-    }
+    BlueBall.Shooter.prototype.moveTo.call(this, direction);
 
 };
 
 BlueBall.Lolo.prototype.nextAction = function (direction) {
 
-    this.level.onPlayerMovementEnded.dispatch(this, direction);
+    if (this.lastCellPosition.x !== this.cellPosition.x || this.lastCellPosition.y !== this.cellPosition.y) {
+        this.level.onPlayerMoved.dispatch(this);
+    }
 
     if (this.cursors.up.isDown) {
 

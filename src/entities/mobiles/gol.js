@@ -12,8 +12,7 @@ BlueBall.Gol = function (game, x, y, key, frame) {
     this.projectileClass = BlueBall.ProjectileGol;
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);
-    this.level.onPlayerMovementEnded.add(this.checkPlayerVisibleIn, this);
-    this.level.onPlayerMovementStarted.add(this.checkPlayerVisibleOut, this);
+    this.level.onPlayerMoved.add(this.checkShoot, this);
 
     this.lookingAt = Phaser.Tilemap.SOUTH;
 
@@ -52,60 +51,40 @@ Object.defineProperty(BlueBall.Gol.prototype, "lookingAt", {
 
 });
 
-BlueBall.Gol.prototype.checkPlayerVisibleIn = function (player) {
+BlueBall.Gol.prototype.checkShoot = function (player) {
 
-    if (this.isPlayerVisible === false && this.checkShoot(player.cellPosition)) {
-
-        this.isPlayerVisible = true;
-
-    }
-
-};
-
-BlueBall.Gol.prototype.checkPlayerVisibleOut = function (player, direction) {
-
-    if (this.isPlayerVisible === true && !this.checkShoot(player.cellsAt(direction)[0])) {
-
-        this.isPlayerVisible = false;
-
-    }
-
-};
-
-BlueBall.Gol.prototype.checkShoot = function (position) {
+    this.isPlayerVisible = false;
 
     switch (this._lookingAt) {
     case Phaser.Tilemap.NORTH:
-        if (position.y < this.cellPosition.y) {
-            if (this.cellPosition.x - 1 <= position.x && position.x <= this.cellPosition.x + 1) {
-                return true;
+        if (player.cellPosition.y < this.cellPosition.y) {
+            if (this.cellPosition.x - 1 <= player.cellPosition.x && player.cellPosition.x <= this.cellPosition.x + 1) {
+                this.isPlayerVisible = true;
             }
         }
         break;
     case Phaser.Tilemap.EAST:
-        if (position.x > this.cellPosition.x) {
-            if (this.cellPosition.y - 1 <= position.y && position.y <= this.cellPosition.y + 1) {
-                return true;
+        if (player.cellPosition.x > this.cellPosition.x) {
+            if (this.cellPosition.y - 1 <= player.cellPosition.y && player.cellPosition.y <= this.cellPosition.y + 1) {
+                this.isPlayerVisible = true;
             }
         }
         break;
     case Phaser.Tilemap.SOUTH:
-        if (position.y > this.cellPosition.y) {
-            if (this.cellPosition.x - 1 <= position.x && position.x <= this.cellPosition.x + 1) {
-                return true;
+        if (player.cellPosition.y > this.cellPosition.y) {
+            if (this.cellPosition.x - 1 <= player.cellPosition.x && player.cellPosition.x <= this.cellPosition.x + 1) {
+                this.isPlayerVisible = true;
             }
         }
         break;
     case Phaser.Tilemap.WEST:
-        if (position.x < this.cellPosition.x) {
-            if (this.cellPosition.y - 1 <= position.y && position.y <= this.cellPosition.y + 1) {
-                return true;
+        if (player.cellPosition.x < this.cellPosition.x) {
+            if (this.cellPosition.y - 1 <= player.cellPosition.y && player.cellPosition.y <= this.cellPosition.y + 1) {
+                this.isPlayerVisible = true;
             }
         }
         break;
     }
-
-    return false;
 
 };
 
@@ -129,8 +108,7 @@ BlueBall.Gol.prototype.phaseChanged = function () {
 BlueBall.Gol.prototype.destroy = function () {
 
     this.level.onPhaseChanged.remove(this.phaseChanged, this);
-    this.level.onPlayerMovementEnded.remove(this.checkPlayerVisibleIn, this);
-    this.level.onPlayerMovementEnded.remove(this.checkPlayerVisibleOut, this);
+    this.level.onPlayerMoved.remove(this.checkShoot, this);
 
     BlueBall.Shooter.prototype.destroy.apply(this, arguments);
 

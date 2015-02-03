@@ -12,8 +12,7 @@ BlueBall.Level = function (name) {
 
     this.phase = BlueBall.Level.PHASE_INITIAL;
 
-    this.onPlayerMovementStarted = null;
-    this.onPlayerMovementEnded = null;
+    this.onPlayerMoved = null;
     this.onPhaseChanged = null;
 
 };
@@ -33,8 +32,7 @@ BlueBall.Level.prototype.preload = function () {
 
 BlueBall.Level.prototype.create = function () {
 
-    this.onPlayerMovementStarted = new Phaser.Signal();
-    this.onPlayerMovementEnded = new Phaser.Signal();
+    this.onPlayerMoved = new Phaser.Signal();
     this.onPhaseChanged = new Phaser.Signal();
 
     this.map = this.game.add.tilemap(this.levelName);
@@ -83,8 +81,7 @@ BlueBall.Level.prototype.shutdown = function () {
 
     this.entities.destroy(true);
 
-    this.onPlayerMovementStarted.dispose();
-    this.onPlayerMovementEnded.dispose();
+    this.onPlayerMoved.dispose();
     this.onPhaseChanged.dispose();
 };
 

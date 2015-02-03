@@ -4,7 +4,7 @@ BlueBall.Goal = function (game, x, y, key, frame, options) {
 
     BlueBall.Entity.call(this, game, x, y, key, frame, options);
 
-    this.level.onPlayerMovementEnded.add(this.checkPlayerPosition, this);
+    this.level.onPlayerMoved.add(this.checkPlayerPosition, this);
 
 };
 
@@ -24,7 +24,7 @@ BlueBall.Goal.prototype.onPlayerEnter = function () {};
 
 BlueBall.Goal.prototype.destroy = function () {
 
-    this.level.onPlayerMovementEnded.remove(this.checkPlayerPosition, this);
+    this.level.onPlayerMoved.remove(this.checkPlayerPosition, this);
 
     BlueBall.Entity.prototype.destroy.apply(this, arguments);
 
