@@ -49,6 +49,9 @@ BlueBall.Level.prototype.create = function () {
 
     this.map.createLayer('environment', undefined, undefined, this.layers);
 
+    this.map.createFromObjects('entities', 99, 'loloSprites', 10, true, false, this.entities, BlueBall.Lolo, false);
+    this.player = this.entities.filter(function (entity) { return entity instanceof BlueBall.Lolo; }).first;
+
     this.map.createFromObjects('entities', 117, 'chestSprites', 0, true, false, this.entities, BlueBall.Chest, false);
     this.map.createFromObjects('entities', 30, 'tileSprites', 1, true, false, this.entities, BlueBall.Heart, false);
     this.map.createFromObjects('entities', 15, 'tileSprites', 3, true, false, this.entities, BlueBall.Exit, false);
@@ -57,9 +60,7 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', 81, 'mobSprites', 6, true, false, this.entities, BlueBall.Gol, false);
     this.map.createFromObjects('entities', 69, 'mobSprites', 14, true, false, this.entities, BlueBall.Leeper, false);
     this.map.createFromObjects('entities', 93, 'mobSprites', 24, true, false, this.entities, BlueBall.Skull, false);
-    this.map.createFromObjects('entities', 99, 'loloSprites', 10, true, false, this.entities, BlueBall.Lolo, false);
 
-    this.player = this.entities.filter(function (entity) { return entity instanceof BlueBall.Lolo; }).first;
 
     var eggCounterImage = this.game.add.sprite(420, 128, 'eggSprites', 1, this.layers);
     eggCounterImage.scale.set(2);
