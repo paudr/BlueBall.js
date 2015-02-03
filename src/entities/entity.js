@@ -1,6 +1,8 @@
 /*global Phaser, BlueBall */
 
-BlueBall.Entity = function (game, x, y, key, frame) {
+BlueBall.Entity = function (game, x, y, key, frame, options) {
+
+    options = options || {};
 
     var pos = BlueBall.Entity.getCellPosition(x, y);
 
@@ -8,37 +10,18 @@ BlueBall.Entity = function (game, x, y, key, frame) {
 
     this.anchor.set(0.5, 0.5);
 
-    /**
-     * @property {BlueBall.Level} level - Instancia del Level actual
-     */
-    this.level = this.game.state.getCurrentState();
+    this.level = this.game.state.getCurrentState(); // Instancia del Level actual
+    this.spawnPosition = { 'x': x, 'y': y }; // Numero de columna y fila de celda en la que aparece Entity
+    this.cellPosition = { 'x': x, 'y': y }; // Numero de columna y fila de celda en la que se encuentra la Entity
+    this.toDestroy = false; // Indica si Entity ha de ser destruido
 
-    /**
-     * @property {number} gid - Identificador del tipo de Entity
-     */
-    this.gid = -1;
+    if (typeof options === 'object') {
 
-    /**
-     * @property {object} spawnPosition - Numero de columna y fila de celda en la que aparece Entity
-     */
-    this.spawnPosition = {
-        'x': x,
-        'y': y
-    };
+        this.gid = typeof options.gid === 'number' ? options.gid : -1; // Identificador del tipo de Entity
+        //this.frameName = typeof options.frameName === 'string' ? options.frameName : null;
 
-    /**
-     * @property {object} cellPosition - Numero de columna y fila de celda en la que se encuentra la Entity
-     */
-    this.cellPosition = {
-        'x': x,
-        'y': y
-    };
-
-    /**
-     * @property {boolean} toDestroy - Indica si Entity ha de ser destruido
-     */
-    this.toDestroy = false;
-
+    }
+    
 };
 
 BlueBall.Entity.prototype = Object.create(Phaser.Sprite.prototype);

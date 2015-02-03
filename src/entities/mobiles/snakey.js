@@ -2,11 +2,9 @@
 
 BlueBall.Snakey = function (game, x, y, key, frame) {
 
-    BlueBall.Mobile.call(this, game, x, y, key, frame);
-
-    this.frameName = 'snakey3';
-
-    this.gid = 97;
+    BlueBall.Mobile.call(this, game, x, y, key, frame, {
+        gid: 97
+    });
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);
     this.level.onPlayerMovementEnded.add(this.lookAt, this);

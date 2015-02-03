@@ -2,7 +2,9 @@
 
 BlueBall.Lolo = function (game, x, y, key, frame) {
 
-    BlueBall.Shooter.call(this, game, x, y, key, frame);
+    BlueBall.Shooter.call(this, game, x, y, key, frame, {
+        gid: 99
+    });
 
     this.gid = 99;
 
@@ -42,88 +44,31 @@ BlueBall.Lolo.prototype.moveTo = function (direction) {
 
 };
 
-BlueBall.Lolo.prototype.onMoved = function (direction) {
+BlueBall.Lolo.prototype.nextAction = function (direction) {
 
     this.level.onPlayerMovementEnded.dispatch(this, direction);
 
-    this.checkNextMovement();
+    if (this.cursors.up.isDown) {
 
-};
+        this.animations.play('Top');
+        this.moveTo(Phaser.Tilemap.NORTH);
 
-BlueBall.Lolo.prototype.update = function () {
+    } else if (this.cursors.right.isDown) {
 
-    if (!this.isMoving) {
+        this.animations.play('Right');
+        this.moveTo(Phaser.Tilemap.EAST);
 
-        if (this.cursors.up.isDown) {
+    } else if (this.cursors.down.isDown) {
 
-            this.animations.play('Top');
-            this.moveTo(Phaser.Tilemap.NORTH);
+        this.animations.play('Down');
+        this.moveTo(Phaser.Tilemap.SOUTH);
 
-        } else if (this.cursors.right.isDown) {
+    } else if (this.cursors.left.isDown) {
 
-            this.animations.play('Right');
-            this.moveTo(Phaser.Tilemap.EAST);
+        this.animations.play('Left');
+        this.moveTo(Phaser.Tilemap.WEST);
 
-        } else if (this.cursors.down.isDown) {
-
-            this.animations.play('Down');
-            this.moveTo(Phaser.Tilemap.SOUTH);
-
-        } else if (this.cursors.left.isDown) {
-
-            this.animations.play('Left');
-            this.moveTo(Phaser.Tilemap.WEST);
-
-        } else {
-
-            this.stopAnimation(this.lookingAt);
-
-        }
-
-    }
-
-    BlueBall.Shooter.prototype.update.call(this);
-
-};
-
-BlueBall.Lolo.prototype.checkNextMovement = function () {
-
-    var stopAnim = false;
-
-    switch (this.lookingAt) {
-    case Phaser.Tilemap.NORTH:
-        if (this.cursors.up.isDown) {
-            this.moveTo(Phaser.Tilemap.NORTH);
-        } else {
-            stopAnim = true;
-        }
-        break;
-    case Phaser.Tilemap.EAST:
-        if (this.cursors.right.isDown) {
-            this.moveTo(Phaser.Tilemap.EAST);
-        } else {
-            stopAnim = true;
-        }
-        break;
-    case Phaser.Tilemap.SOUTH:
-        if (this.cursors.down.isDown) {
-            this.moveTo(Phaser.Tilemap.SOUTH);
-        } else {
-            stopAnim = true;
-        }
-        break;
-    case Phaser.Tilemap.WEST:
-        if (this.cursors.left.isDown) {
-            this.moveTo(Phaser.Tilemap.WEST);
-        } else {
-            stopAnim = true;
-        }
-        break;
-    default:
-        stopAnim = true;
-    }
-
-    if (stopAnim) {
+    } else {
 
         this.stopAnimation(this.lookingAt);
 

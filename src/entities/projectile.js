@@ -69,13 +69,13 @@ BlueBall.Projectile.prototype.canMoveTo = function (direction) {
 
     if (!collide1) {
 
-        collide1 = this.getCollidingEntities(this.level.getEntitesAt(positions[0].x, positions[0].y)).length > 0;
+        collide1 = BlueBall.Entity.getEntitiesFromIndexArray(this.collideIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y)).length > 0;
 
     }
 
     if (!collide2) {
 
-        collide2 = this.getCollidingEntities(this.level.getEntitesAt(positions[1].x, positions[1].y)).length > 0;
+        collide2 = BlueBall.Entity.getEntitiesFromIndexArray(this.collideIndexes, this.level.getEntitesAt(positions[1].x, positions[1].y)).length > 0;
 
     }
 
@@ -83,7 +83,7 @@ BlueBall.Projectile.prototype.canMoveTo = function (direction) {
 
 };
 
-BlueBall.Projectile.prototype.onMoved = function () {
+BlueBall.Projectile.prototype.nextAction = function () {
 
     this.moveTo();
 

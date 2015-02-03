@@ -1,8 +1,8 @@
 /*global BlueBall */
 
-BlueBall.Goal = function (game, x, y, key, frame) {
+BlueBall.Goal = function (game, x, y, key, frame, options) {
 
-    BlueBall.Entity.call(this, game, x, y, key, frame);
+    BlueBall.Entity.call(this, game, x, y, key, frame, options);
 
     this.level.onPlayerMovementEnded.add(this.checkPlayerPosition, this);
 

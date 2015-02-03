@@ -2,16 +2,12 @@
 
 BlueBall.Gol = function (game, x, y, key, frame) {
 
-    BlueBall.Shooter.call(this, game, x, y, key, frame);
-
-    this.frameName = 'gol1';
-
-    this.gid = 81;
+    BlueBall.Shooter.call(this, game, x, y, key, frame, {
+        gid: 81
+    });
 
     this.isAwaken = false;
     this.isPlayerVisible = false;
-
-    this.destroyOnExitOpen = true;
 
     this.projectileClass = BlueBall.ProjectileGol;
 

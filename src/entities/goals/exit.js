@@ -2,11 +2,9 @@
 
 BlueBall.Exit = function (game, x, y, key, frame) {
 
-    BlueBall.Goal.call(this, game, x, y, key, frame);
-
-    this.frameName = 'doorClosed';
-
-    this.gid = 15;
+    BlueBall.Goal.call(this, game, x, y, key, frame, {
+        gid: 15
+    });
 
 };
 

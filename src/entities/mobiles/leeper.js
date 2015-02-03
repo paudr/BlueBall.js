@@ -2,15 +2,11 @@
 
 BlueBall.Leeper = function (game, x, y, key, frame) {
 
-    BlueBall.Mobile.call(this, game, x, y, key, frame);
-
-    this.frameName = 'leeperDown1';
-
-    this.gid = 69;
+    BlueBall.Mobile.call(this, game, x, y, key, frame, {
+        gid: 69
+    });
 
     this.collideIndexes.push(29, 30, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 81, 93, 97, 100, 117);
-
-    this.destroyOnExitOpen = true;
 
     this.animations.add('Top', Phaser.Animation.generateFrameNames('leeperUp', 1, 2, '', 1), 5, true);
     this.animations.add('Right', Phaser.Animation.generateFrameNames('leeperRight', 1, 2, '', 1), 5, true);
@@ -184,21 +180,9 @@ BlueBall.Leeper.prototype.moveTo = function (direction) {
 
 };
 
-BlueBall.Leeper.prototype.onMoved = function (direction) {
+BlueBall.Leeper.prototype.nextAction = function (direction) {
 
     this.checkNextMovement();
-
-};
-
-BlueBall.Leeper.prototype.update = function () {
-
-    if (!this.isMoving) {
-
-        this.checkNextMovement();
-
-    }
-
-    BlueBall.Mobile.prototype.update.call(this);
 
 };
 

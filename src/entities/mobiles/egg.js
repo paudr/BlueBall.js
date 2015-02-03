@@ -2,13 +2,11 @@
 
 BlueBall.Egg = function (target) {
 
-    BlueBall.Mobile.call(this, target.game, target.cellPosition.x, target.cellPosition.y, 'eggSprites', 2);
-
-    this.frameName = 'eggNormal';
+    BlueBall.Mobile.call(this, target.game, target.cellPosition.x, target.cellPosition.y, 'eggSprites', 2, {
+        gid: 100
+    });
 
     this.scale.set(32 / 16);
-
-    this.gid = 100;
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);
 

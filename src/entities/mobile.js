@@ -1,8 +1,8 @@
 /*global Phaser, BlueBall */
 
-BlueBall.Mobile = function (game, x, y, key, frame) {
+BlueBall.Mobile = function (game, x, y, key, frame, options) {
 
-    BlueBall.Entity.call(this, game, x, y, key, frame);
+    BlueBall.Entity.call(this, game, x, y, key, frame, options);
 
     /**
      * @property {array} collideIndexes - Lista de indices de tipos de tiles con los que colisiona Mob
@@ -19,86 +19,20 @@ BlueBall.Mobile = function (game, x, y, key, frame) {
      */
     this.bridgeIndexes = [];
 
-    /**
-     * @property {number} speed - Velocidad a la que se mueve Mob por el mapa (en pixels por milisegundo)
-     */
-    this.speed = {
+    this.speed = { // Velocidad a la que se mueve Mobile por el mapa (en pixels por milisegundo)
         'x': BlueBall.Config.gameSpeed * BlueBall.Config.cellSize.width * 2 / Phaser.Timer.SECOND,
         'y': BlueBall.Config.gameSpeed * BlueBall.Config.cellSize.height * 2 / Phaser.Timer.SECOND
     };
 
-    /**
-     * @property {boolean} isMoving - True si Mob se esta moviendo, false en caso contrario
-     */
-    this.isMoving = false;
-
-    /**
-     * @property {boolean} wasPushed - True si Mob esta siendo empujado, false en caso contrario
-     */
-    this.wasPushed = false;
-
-    /**
-     * @property {array} _pushing - Entities que se estan empujando
-     */
-    this._pushing = [];
-
-    /**
-     * @property {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} _movingTo - Direccion en la que se esta moviendo la Mob
-     */
-    this._movingTo = null;
-
-    /**
-     * @property {object} _destPosition - Coordenadas de la posición (en pixels) a la que se dirige Mob
-     */
-    this._destPosition = null;
+    this.isMoving = false; // True si Mobile se esta moviendo, false en caso contrario
+    this.wasPushed = false; // True si Mobile esta siendo empujado, false en caso contrario
+    this._pushing = []; // Entities que se estan empujando
+    this._movingTo = null; // Direccion en la que se esta moviendo la Mobile
+    this._destPosition = null; // Coordenadas de la posición (en pixels) a la que se dirige Mobile
 
 };
 
 BlueBall.Mobile.prototype = Object.create(BlueBall.Entity.prototype);
-
-BlueBall.Mobile.prototype.getPositionAt = function (direction) {
-
-    var position = {
-        'x': this.cellPosition.x,
-        'y': this.cellPosition.y
-    };
-
-    switch (direction) {
-    case Phaser.Tilemap.NORTH:
-        position.y--;
-        break;
-    case Phaser.Tilemap.EAST:
-        position.x++;
-        break;
-    case Phaser.Tilemap.SOUTH:
-        position.y++;
-        break;
-    case Phaser.Tilemap.WEST:
-        position.x--;
-        break;
-    }
-
-    return position;
-
-};
-
-BlueBall.Mobile.prototype.getCollidingEntities = function (entities) {
-
-    return BlueBall.Entity.getEntitiesFromIndexArray(this.collideIndexes, entities);
-
-};
-
-BlueBall.Mobile.prototype.getPushingEntities = function (entities) {
-
-    return BlueBall.Entity.getEntitiesFromIndexArray(this.pushIndexes, entities);
-
-};
-
-BlueBall.Mobile.prototype.getBridgingEntities = function (entities) {
-
-    return BlueBall.Entity.getEntitiesFromIndexArray(this.bridgeIndexes, entities);
-
-};
 
 BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entities2) {
 
@@ -108,7 +42,7 @@ BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entit
 
     if (this.collideIndexes.indexOf(tile1.index) > -1) {
 
-        entities1 = this.getBridgingEntities(entities1);
+        entities1 = BlueBall.Entity.getEntitiesFromIndexArray(this.bridgeIndexes, entities1);
 
         if (entities1.length === 0) {
 
@@ -120,7 +54,7 @@ BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entit
 
     if (this.collideIndexes.indexOf(tile2.index) > -1) {
 
-        entities2 = this.getBridgingEntities(entities2);
+        entities2 = BlueBall.Entity.getEntitiesFromIndexArray(this.bridgeIndexes, entities1);
 
         if (entities2.length === 0) {
 
@@ -136,7 +70,7 @@ BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entit
 
 BlueBall.Mobile.prototype.isEntitiesColliding = function (entities1, entities2) {
 
-    entities1 = this.getCollidingEntities(entities1);
+    entities1 = BlueBall.Entity.getEntitiesFromIndexArray(this.collideIndexes, entities1);
 
     if (entities1.length > 0) {
 
@@ -144,7 +78,7 @@ BlueBall.Mobile.prototype.isEntitiesColliding = function (entities1, entities2) 
 
     }
 
-    entities2 = this.getCollidingEntities(entities2);
+    entities2 = BlueBall.Entity.getEntitiesFromIndexArray(this.collideIndexes, entities2);
 
     if (entities2.length > 0) {
 
@@ -168,8 +102,8 @@ BlueBall.Mobile.prototype.canMoveTo = function (direction) {
 
             if (!this.isEntitiesColliding(entities1, entities2)) {
 
-                var pushing1 = this.getPushingEntities(entities1),
-                    pushing2 = this.getPushingEntities(entities2),
+                var pushing1 = BlueBall.Entity.getEntitiesFromIndexArray(this.pushIndexes, entities1),
+                    pushing2 = BlueBall.Entity.getEntitiesFromIndexArray(this.pushIndexes, entities2),
                     i,
                     length;
 
@@ -221,7 +155,7 @@ BlueBall.Mobile.prototype.moveTo = function (direction) {
 
         if (this.pushIndexes.length > 0) {
 
-            this._pushing = this.getPushingEntities(this.level.getEntitesAt(positions[0].x, positions[0].y));
+            this._pushing = BlueBall.Entity.getEntitiesFromIndexArray(this.pushIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y));
 
         }
 
@@ -273,15 +207,9 @@ BlueBall.Mobile.prototype.moveTo = function (direction) {
 
 };
 
-/**
- * Sobreescribir esta funcion para controlar las acciones a realizar cuando se ha finalizado un movimiento
- * @method BlueBall.Mobile#onMoved
- * @memberof BlueBall.Mobile
- * @param {Phaser.Tilemap.NORTH|Phaser.Tilemap.EAST|Phaser.Tilemap.SOUTH|Phaser.Tilemap.WEST} direction - Dirección en la que se ha movido la Mob
- */
-BlueBall.Mobile.prototype.onMoved = function () {};
+BlueBall.Mobile.prototype.nextAction = function () {};
 
-BlueBall.Mobile.prototype._updateMovement = function () {
+BlueBall.Mobile.prototype.update = function () {
 
     if (this.isMoving === true && this.wasPushed === false) {
 
@@ -350,16 +278,15 @@ BlueBall.Mobile.prototype._updateMovement = function () {
 
             this.isMoving = false;
             this._movingTo = null;
-            this.onMoved(direction);
+            this.nextAction();
 
         }
 
     }
+    else {
 
-};
+        this.nextAction();
 
-BlueBall.Mobile.prototype.update = function () {
-
-    this._updateMovement();
+    }
 
 };

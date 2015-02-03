@@ -2,15 +2,11 @@
 
 BlueBall.Skull = function (game, x, y, key, frame) {
 
-    BlueBall.Mobile.call(this, game, x, y, key, frame);
-
-    this.frameName = 'skullDown1';
-
-    this.gid = 93;
+    BlueBall.Mobile.call(this, game, x, y, key, frame, {
+        gid: 93
+    });
 
     this.collideIndexes.push(1, 2, 97, 81, 30, 117);
-
-    this.destroyOnExitOpen = true;
 
     this.animations.add('Top', Phaser.Animation.generateFrameNames('skullUp', 1, 2, '', 1), 5, true);
     this.animations.add('Right', Phaser.Animation.generateFrameNames('skullRight', 1, 2, '', 1), 5, true);
