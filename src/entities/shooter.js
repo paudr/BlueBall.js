@@ -1,8 +1,8 @@
 /*global BlueBall */
 
-BlueBall.Shooter = function (game, x, y, key, frame) {
+BlueBall.Shooter = function (game, x, y, key, frame, options) {
 
-    BlueBall.Mobile.call(this, game, x, y, key, frame);
+    BlueBall.Mobile.call(this, game, x, y, key, frame, options);
 
     this.projectile = null;
     this.projectileClass = BlueBall.Projectile;
