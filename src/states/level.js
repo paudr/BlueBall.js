@@ -43,6 +43,16 @@ BlueBall.Level.prototype.create = function () {
     this.layers.x = 50;
     this.layers.y = 50;
 
+    var eggCounterImage = this.game.add.sprite(420, 128, 'eggSprites', 1, this.layers);
+    eggCounterImage.scale.set(2);
+
+    this.eggCounterText = this.game.add.text(426, 156, '0', {
+        'font': '32px Arial',
+        'fill': '#ffffff',
+        'align': 'center'
+    }, this.layers);
+    this.eggCounterText.setShadow(2, 0, '#666666');
+
     this.map.addTilesetImage('AdventuresOfLolo3', 'AdventuresOfLolo3');
 
     this.map.createLayer('environment', undefined, undefined, this.layers);
@@ -60,16 +70,6 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', 69, 'mobSprites', 14, true, false, this.entities, BlueBall.Leeper, false);
     this.map.createFromObjects('entities', 93, 'mobSprites', 24, true, false, this.entities, BlueBall.Skull, false);
 
-
-    var eggCounterImage = this.game.add.sprite(420, 128, 'eggSprites', 1, this.layers);
-    eggCounterImage.scale.set(2);
-
-    this.eggCounterText = this.game.add.text(426, 156, '0', {
-        'font': '32px Arial',
-        'fill': '#ffffff',
-        'align': 'center'
-    }, this.layers);
-    this.eggCounterText.setShadow(2, 0, '#666666');
 
     this.layers.bringToTop(this.entities);
 

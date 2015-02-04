@@ -25,7 +25,7 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
     this.spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     this.spacebar.onDown.add(this.checkShoot, this);
 
-    this._eggs = 0;
+    this.eggs = 0;
     this.lookingAt = Phaser.Tilemap.SOUTH;
 
     this.lastCellPosition = { x: this.cellPosition.x, y: this.cellPosition.y };
@@ -45,6 +45,8 @@ BlueBall.Lolo.prototype.moveTo = function (direction) {
 BlueBall.Lolo.prototype.nextAction = function (direction) {
 
     if (this.lastCellPosition.x !== this.cellPosition.x || this.lastCellPosition.y !== this.cellPosition.y) {
+        this.lastCellPosition.x = this.cellPosition.x;
+        this.lastCellPosition.y = this.cellPosition.y;
         this.level.onPlayerMoved.dispatch(this);
     }
 
@@ -78,7 +80,7 @@ BlueBall.Lolo.prototype.nextAction = function (direction) {
 
 BlueBall.Lolo.prototype.checkShoot = function () {
 
-    if (this._eggs > 0) {
+    if (this.eggs > 0) {
 
         if (this.shoot(this.lookingAt)) {
 
