@@ -50,22 +50,18 @@ BlueBall.Lolo.prototype.nextAction = function (direction) {
 
     if (this.cursors.up.isDown) {
 
-        this.animations.play('Top');
         this.moveTo(Phaser.Tilemap.NORTH);
 
     } else if (this.cursors.right.isDown) {
 
-        this.animations.play('Right');
         this.moveTo(Phaser.Tilemap.EAST);
 
     } else if (this.cursors.down.isDown) {
 
-        this.animations.play('Down');
         this.moveTo(Phaser.Tilemap.SOUTH);
 
     } else if (this.cursors.left.isDown) {
 
-        this.animations.play('Left');
         this.moveTo(Phaser.Tilemap.WEST);
 
     } else {

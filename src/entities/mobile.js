@@ -161,15 +161,19 @@ BlueBall.Mobile.prototype.moveTo = function (direction) {
 
         switch (direction) {
         case Phaser.Tilemap.NORTH:
+            this.animations.play('Top');
             this.cellPosition.y--;
             break;
         case Phaser.Tilemap.EAST:
+            this.animations.play('Right');
             this.cellPosition.x++;
             break;
         case Phaser.Tilemap.SOUTH:
+            this.animations.play('Down');
             this.cellPosition.y++;
             break;
         case Phaser.Tilemap.WEST:
+            this.animations.play('Left');
             this.cellPosition.x--;
             break;
         }
@@ -278,6 +282,7 @@ BlueBall.Mobile.prototype.update = function () {
 
             this.isMoving = false;
             this._movingTo = null;
+
             this.nextAction();
 
         }

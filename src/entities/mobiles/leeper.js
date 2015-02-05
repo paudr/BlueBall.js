@@ -117,7 +117,7 @@ BlueBall.Leeper.prototype.getFirstDirectionAvalible = function (directionToLolo)
 
 };
 
-BlueBall.Leeper.prototype.checkNextMovement = function () {
+BlueBall.Leeper.prototype.nextAction = function () {
 
     var directionToLolo = this.getDirectionToLolo(),
         direction,
@@ -156,33 +156,6 @@ BlueBall.Leeper.prototype.checkNextMovement = function () {
             this.moveTo(this.lastDirection);
         }
     }
-
-};
-
-BlueBall.Leeper.prototype.moveTo = function (direction) {
-
-    if (BlueBall.Mobile.prototype.moveTo.call(this, direction)) {
-        switch (direction) {
-        case Phaser.Tilemap.NORTH:
-            this.animations.play('Top');
-            break;
-        case Phaser.Tilemap.EAST:
-            this.animations.play('Right');
-            break;
-        case Phaser.Tilemap.SOUTH:
-            this.animations.play('Down');
-            break;
-        case Phaser.Tilemap.WEST:
-            this.animations.play('Left');
-            break;
-        }
-    }
-
-};
-
-BlueBall.Leeper.prototype.nextAction = function (direction) {
-
-    this.checkNextMovement();
 
 };
 

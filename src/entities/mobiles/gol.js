@@ -113,6 +113,9 @@ BlueBall.Gol.prototype.phaseChanged = function () {
 
     case BlueBall.Level.PHASE_EXITS:
         this.toDestroy = true;
+        if (this.projectile !== null) {
+            this.projectile.destroy();
+        }
         break;
 
     }
@@ -128,15 +131,13 @@ BlueBall.Gol.prototype.destroy = function () {
 
 };
 
-BlueBall.Gol.prototype.update = function () {
+BlueBall.Gol.prototype.nextAction = function () {
 
     if (this.alive && this.isAwaken && this.isPlayerVisible) {
 
         this.shoot(this.lookingAt);
 
     }
-
-    BlueBall.Mobile.prototype.update.call(this);
 
 };
 
