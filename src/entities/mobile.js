@@ -54,7 +54,7 @@ BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entit
 
     if (this.collideIndexes.indexOf(tile2.index) > -1) {
 
-        entities2 = BlueBall.Entity.getEntitiesFromIndexArray(this.bridgeIndexes, entities1);
+        entities2 = BlueBall.Entity.getEntitiesFromIndexArray(this.bridgeIndexes, entities2);
 
         if (entities2.length === 0) {
 
