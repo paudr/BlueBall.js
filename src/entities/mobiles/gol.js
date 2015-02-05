@@ -2,23 +2,23 @@
 
 BlueBall.Gol = function (game, x, y, key, frame) {
 
-    BlueBall.Shooter.call(this, game, x, y, key, frame, {
+    BlueBall.Mobile.call(this, game, x, y, key, frame, {
         gid: 81
     });
 
     this.isAwaken = false;
     this.isPlayerVisible = false;
 
-    this.projectileClass = BlueBall.ProjectileGol;
-
     this.level.onPhaseChanged.add(this.phaseChanged, this);
     this.level.onPlayerMoved.add(this.checkShoot, this);
 
     this.lookingAt = Phaser.Tilemap.SOUTH;
 
+    this.projectile = null;
+
 };
 
-BlueBall.Gol.prototype = Object.create(BlueBall.Shooter.prototype);
+BlueBall.Gol.prototype = Object.create(BlueBall.Mobile.prototype);
 
 Object.defineProperty(BlueBall.Gol.prototype, "lookingAt", {
 
@@ -50,6 +50,20 @@ Object.defineProperty(BlueBall.Gol.prototype, "lookingAt", {
     }
 
 });
+
+BlueBall.Gol.prototype.shoot = function (direction) {
+
+    if (this.projectile === null) {
+
+        this.projectile = new BlueBall.ProjectileGol(this, direction);
+
+        return true;
+
+    }
+
+    return false;
+
+};
 
 BlueBall.Gol.prototype.checkShoot = function (player) {
 
@@ -110,7 +124,7 @@ BlueBall.Gol.prototype.destroy = function () {
     this.level.onPhaseChanged.remove(this.phaseChanged, this);
     this.level.onPlayerMoved.remove(this.checkShoot, this);
 
-    BlueBall.Shooter.prototype.destroy.apply(this, arguments);
+    BlueBall.Mobile.prototype.destroy.apply(this, arguments);
 
 };
 
@@ -122,7 +136,7 @@ BlueBall.Gol.prototype.update = function () {
 
     }
 
-    BlueBall.Shooter.prototype.update.call(this);
+    BlueBall.Mobile.prototype.update.call(this);
 
 };
 

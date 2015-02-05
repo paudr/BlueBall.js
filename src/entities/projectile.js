@@ -38,7 +38,6 @@ BlueBall.Projectile.prototype.moveTo = function () {
         var impacted = this.getImpacted();
 
         this.shooter.projectile = null;
-        this.shooter.impact(impacted);
 
         this.destroy(true);
 

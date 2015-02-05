@@ -2,17 +2,13 @@
 
 BlueBall.Lolo = function (game, x, y, key, frame) {
 
-    BlueBall.Shooter.call(this, game, x, y, key, frame, {
+    BlueBall.Mobile.call(this, game, x, y, key, frame, {
         gid: 99
     });
-
-    this.gid = 99;
 
     this.collideIndexes.push(69, 81, 93, 97);
     this.pushIndexes.push(29, 100);
     this.bridgeIndexes.push(16);
-
-    this.projectileClass = BlueBall.ProjectileEgg;
 
     this.animations.add('Top', Phaser.Animation.generateFrameNames('loloUp', 0, 6, '', 1), 10, true);
     this.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 0, 6, '', 1), 10, true);
@@ -30,15 +26,17 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
 
     this.lastCellPosition = { x: this.cellPosition.x, y: this.cellPosition.y };
 
+    this.projectile = null;
+
 };
 
-BlueBall.Lolo.prototype = Object.create(BlueBall.Shooter.prototype);
+BlueBall.Lolo.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.Lolo.prototype.moveTo = function (direction) {
 
     this.lookingAt = direction;
 
-    BlueBall.Shooter.prototype.moveTo.call(this, direction);
+    BlueBall.Mobile.prototype.moveTo.call(this, direction);
 
 };
 
@@ -75,6 +73,20 @@ BlueBall.Lolo.prototype.nextAction = function (direction) {
         this.stopAnimation(this.lookingAt);
 
     }
+
+};
+
+BlueBall.Lolo.prototype.shoot = function (direction) {
+
+    if (this.projectile === null) {
+
+        this.projectile = new BlueBall.ProjectileEgg(this, direction);
+
+        return true;
+
+    }
+
+    return false;
 
 };
 
@@ -134,6 +146,6 @@ Object.defineProperty(BlueBall.Mobile.prototype, "eggs", {
 BlueBall.Lolo.prototype.destroy = function () {
 
     this.spacebar.onDown.remove(this.checkShoot, this);
-    BlueBall.Shooter.prototype.destroy.apply(this, arguments);
+    BlueBall.Mobile.prototype.destroy.apply(this, arguments);
 
 };
