@@ -15,13 +15,11 @@ BlueBall.Entity = function (game, x, y, key, frame, options) {
     this.cellPosition = { 'x': x, 'y': y }; // Numero de columna y fila de celda en la que se encuentra la Entity
     this.toDestroy = false; // Indica si Entity ha de ser destruido
 
-    if (typeof options === 'object') {
+    this.gid = typeof options.gid === 'number' ? options.gid : -1; // Identificador del tipo de Entity
 
-        this.gid = typeof options.gid === 'number' ? options.gid : -1; // Identificador del tipo de Entity
-        //this.frameName = typeof options.frameName === 'string' ? options.frameName : null;
+    this.canBePushed = typeof options.canBePushed === 'boolean' ? options.canBePushed : true;
+    this.canBeCaptured = typeof options.canBeCaptured === 'boolean' ? options.canBeCaptured : true;
 
-    }
-    
 };
 
 BlueBall.Entity.prototype = Object.create(Phaser.Sprite.prototype);

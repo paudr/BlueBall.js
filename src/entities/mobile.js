@@ -121,7 +121,7 @@ BlueBall.Mobile.prototype.canMoveTo = function (direction) {
 
                         for (i = 0, length = pushing1.length; i < length; i++) {
 
-                            if (!pushing1[i].canMoveTo(direction)) {
+                            if (!pushing1[i].canBePushed || !pushing1[i].canMoveTo(direction)) {
 
                                 return false;
 
@@ -211,7 +211,15 @@ BlueBall.Mobile.prototype.moveTo = function (direction) {
 
 };
 
-BlueBall.Mobile.prototype.nextAction = function () {};
+BlueBall.Mobile.prototype.fired = function (shoot) {
+
+    if (shoot instanceof BlueBall.ProjectileEgg && this.canBeCaptured) {
+
+        new BlueBall.Egg(this);
+
+    }
+
+};
 
 BlueBall.Mobile.prototype.update = function () {
 
@@ -295,3 +303,5 @@ BlueBall.Mobile.prototype.update = function () {
     }
 
 };
+
+BlueBall.Mobile.prototype.nextAction = function () {};

@@ -178,13 +178,3 @@ BlueBall.Leeper.prototype.phaseChanged = function () {
     }
 
 };
-
-BlueBall.Leeper.prototype.fired = function(projectile) {
-
-    if (projectile instanceof BlueBall.ProjectileEgg) {
-
-        new BlueBall.Egg(this);
-
-    }
-
-};

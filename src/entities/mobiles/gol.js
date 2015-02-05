@@ -140,13 +140,3 @@ BlueBall.Gol.prototype.nextAction = function () {
     }
 
 };
-
-BlueBall.Gol.prototype.fired = function (projectile) {
-
-    if (projectile instanceof BlueBall.ProjectileEgg) {
-
-        new BlueBall.Egg(this);
-
-    }
-
-};

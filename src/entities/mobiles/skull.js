@@ -59,13 +59,3 @@ BlueBall.Skull.prototype.phaseChanged = function () {
     }
 
 };
-
-BlueBall.Skull.prototype.fired = function (projectile) {
-
-    if (projectile instanceof BlueBall.ProjectileEgg) {
-
-        new BlueBall.Egg(this);
-
-    }
-
-};
