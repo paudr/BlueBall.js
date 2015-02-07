@@ -14,6 +14,8 @@ BlueBall.Leeper = function (game, x, y, key, frame) {
     this.animations.add('Left', Phaser.Animation.generateFrameNames('leeperLeft', 1, 2, '', 1), 5, true);
     this.animations.add('Sleep', Phaser.Animation.generateFrameNames('leeperSleep', 1, 2, '', 1), 1, true);
 
+    this.isSleeping = false;
+
     this.lastDirection = null;
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);
@@ -119,42 +121,57 @@ BlueBall.Leeper.prototype.getFirstDirectionAvalible = function (directionToLolo)
 
 BlueBall.Leeper.prototype.nextAction = function () {
 
-    var directionToLolo = this.getDirectionToLolo(),
-        direction,
-        turnBack;
+    if (!this.isSleeping) {
 
-    if (this.lastDirection === null) {
-        direction = this.getFirstDirectionAvalible(directionToLolo);
-        if (direction !== directionToLolo.principal) {
-            this.lastDirection = direction;
-        }
-        this.moveTo(direction);
-    }
-    else {
-        turnBack = (this.lastDirection + 2) % 4;
+        if (this.canTouch(this.level.player) > 0) {
 
-        if (directionToLolo.principal !== turnBack && this.canMoveTo(directionToLolo.principal)) {
-            this.lastDirection = null;
-            this.moveTo(directionToLolo.principal);
-        }
-        else if (directionToLolo.secondary !== turnBack && this.canMoveTo(directionToLolo.secondary)) {
-            this.lastDirection = directionToLolo.secondary;
-            this.moveTo(directionToLolo.secondary);
-        }
-        else if (directionToLolo.principal === this.lastDirection && this.canMoveTo(directionToLolo.principal)) {
-            this.lastDirection = null;
-            this.moveTo(directionToLolo.principal);
-        }
-        else if (directionToLolo.secondary === this.lastDirection && this.canMoveTo(directionToLolo.secondary)) {
-            this.moveTo(directionToLolo.secondary);
-        }
-        else if (this.canMoveTo(this.lastDirection)) {
-            this.moveTo(this.lastDirection);
+            this.isSleeping = true;
+            this.canBeCaptured = false;
+            this.animations.play('Sleep');
+
         }
         else {
-            this.lastDirection = this.getFirstDirectionAvalible(directionToLolo);
-            this.moveTo(this.lastDirection);
+
+            var directionToLolo = this.getDirectionToLolo(),
+                direction,
+                turnBack;
+
+            if (this.lastDirection === null) {
+                direction = this.getFirstDirectionAvalible(directionToLolo);
+                if (direction !== directionToLolo.principal) {
+                    this.lastDirection = direction;
+                }
+                this.moveTo(direction);
+            }
+            else {
+                turnBack = (this.lastDirection + 2) % 4;
+
+                if (directionToLolo.principal !== turnBack && this.canMoveTo(directionToLolo.principal)) {
+                    this.lastDirection = null;
+                    this.moveTo(directionToLolo.principal);
+                }
+                else if (directionToLolo.secondary !== turnBack && this.canMoveTo(directionToLolo.secondary)) {
+                    this.lastDirection = directionToLolo.secondary;
+                    this.moveTo(directionToLolo.secondary);
+                }
+                else if (directionToLolo.principal === this.lastDirection && this.canMoveTo(directionToLolo.principal)) {
+                    this.lastDirection = null;
+                    this.moveTo(directionToLolo.principal);
+                }
+                else if (directionToLolo.secondary === this.lastDirection && this.canMoveTo(directionToLolo.secondary)) {
+                    this.moveTo(directionToLolo.secondary);
+                }
+                else if (this.canMoveTo(this.lastDirection)) {
+                    this.moveTo(this.lastDirection);
+                }
+                else {
+                    this.lastDirection = this.getFirstDirectionAvalible(directionToLolo);
+                    this.moveTo(this.lastDirection);
+                }
+            }
+
         }
+
     }
 
 };

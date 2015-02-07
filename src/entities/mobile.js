@@ -211,6 +211,39 @@ BlueBall.Mobile.prototype.moveTo = function (direction) {
 
 };
 
+BlueBall.Mobile.prototype.canTouch = function (entity) {
+
+    var diffX = Math.abs(this.cellPosition.x - entity.cellPosition.x),
+        diffY = Math.abs(this.cellPosition.y - entity.cellPosition.y);
+
+    if (diffX > 2 || diffY > 2) {
+        return 0; // No touch
+    }
+
+    if (diffX < 2 && diffY < 2) {
+        return -1; // Overlap
+    }
+
+    if (diffX === 0 && diffY === 2) {
+        return 1; // Full touch
+    }
+    else if (diffX === 1 && diffY === 2) {
+        return 2; // Partial touch
+    }
+    else if (diffX === 2) {
+        if (diffY === 0) {
+            return 1; // Full touch
+        }
+        else if (diffY === 1) {
+            return 2; // Partial touch
+        }
+    }
+    else {
+        return 0; // No touch
+    }
+
+};
+
 BlueBall.Mobile.prototype.fired = function (shoot) {
 
     if (shoot instanceof BlueBall.ProjectileEgg && this.canBeCaptured) {
