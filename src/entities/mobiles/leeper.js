@@ -101,9 +101,17 @@ BlueBall.Leeper.prototype.performMovement = function(lolo_pos) {
         return;
     }
 
-    var temp = 0;
-    if (this.lastDirection === lolo_pos.principal) temp = lolo_pos.secondary; else temp = lolo_pos.principal;
-    var tercera_via = Math.abs((this.lastDirection + temp + turnback) - 6 );
+    var useddirs = [];
+
+    if (useddirs.indexOf(this.lastDirection) === -1) useddirs.push(this.lastDirection);
+    if (useddirs.indexOf(lolo_pos.principal) === -1) useddirs.push(lolo_pos.principal);
+    if (useddirs.indexOf(lolo_pos.secondary) === -1) useddirs.push(lolo_pos.secondary);
+    if (useddirs.indexOf(turnback) === -1) useddirs.push(turnback);
+
+    var total = 0;
+    useddirs.forEach(function(element, index, array) { total += element; });
+
+    var tercera_via = Math.abs( total - 6 );
 
 
     if ( this.canMoveTo(tercera_via) ) {
