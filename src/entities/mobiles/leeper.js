@@ -75,54 +75,55 @@ BlueBall.Leeper.prototype.getDirectionToLolo = function () {
 
 };
 
-BlueBall.Leeper.prototype.getFirstDirectionAvalible = function (directionToLolo) {
 
-    var directions = [Phaser.Tilemap.NORTH, Phaser.Tilemap.EAST, Phaser.Tilemap.SOUTH, Phaser.Tilemap.WEST],
-        orderedDirections = [],
-        turnBack = null,
-        rotation,
-        index,
-        i,
-        current;
+BlueBall.Leeper.prototype.performMovement = function(lolo_pos) {
 
-    var inc = function (value) { return value + 1; };
-    var dec = function (value) { return value - 1; };
+    var turnback = (this.lastDirection + 2) % 4;
 
-    index = directions.indexOf(directionToLolo.principal);
 
-    if (directionToLolo.secondDirection === Phaser.Tilemap.SOUTH || Phaser.Tilemap.EAST) {
-        rotation = inc;
-    }
-    else {
-        rotation = dec;
+    if ( this.canMoveTo(lolo_pos.principal) && (lolo_pos.principal !== turnback)  )
+    {
+        this.lastDirection = lolo_pos.principal;
+        this.moveTo(this.lastDirection);
+        return;
     }
 
-    if (this.lastDirection !== null) {
-        turnBack = (this.lastDirection + 2) % 4;
+    if ( this.canMoveTo(lolo_pos.secondary) && (lolo_pos.secondary !== turnback)  )
+    {
+        this.lastDirection = lolo_pos.secondary;
+        this.moveTo(this.lastDirection);
+        return;
     }
 
-    for (i = 0; i < 4; i = rotation(i)) {
-        current = directions[(i + index) % 4];
-        if (current !== turnBack) {
-            orderedDirections.push(current);
-        }
+    if ( this.canMoveTo(this.lastDirection)  )
+    {
+        this.moveTo(this.lastDirection);
+        return;
     }
 
-    orderedDirections.push(turnBack);
+    var temp = 0;
+    if (this.lastDirection === lolo_pos.principal) temp = lolo_pos.secondary; else temp = lolo_pos.principal;
+    var tercera_via = Math.abs((this.lastDirection + temp + turnback) - 6 );
 
-    for (i = 0; i < 4; i = rotation(i)) {
-        current = orderedDirections[i];
-        if (this.canMoveTo(current)) {
-            return current;
-        }
+
+    if ( this.canMoveTo(tercera_via) ) {
+        this.lastDirection = tercera_via;
+        this.moveTo(this.lastDirection);
+        return;
+
     }
+
+
+    this.lastDirection = turnback;
+    this.moveTo(this.lastDirection);
+
 
 };
 
 BlueBall.Leeper.prototype.nextAction = function () {
 
-    if (!this.isSleeping) {
 
+    if (!this.isSleeping) {
         if (this.canTouch(this.level.player) > 0) {
 
             this.isSleeping = true;
@@ -132,42 +133,18 @@ BlueBall.Leeper.prototype.nextAction = function () {
         }
         else {
 
-            var directionToLolo = this.getDirectionToLolo(),
-                direction,
-                turnBack;
+            var directionToLolo = this.getDirectionToLolo();
 
             if (this.lastDirection === null) {
-                direction = this.getFirstDirectionAvalible(directionToLolo);
-                if (direction !== directionToLolo.principal) {
-                    this.lastDirection = direction;
-                }
-                this.moveTo(direction);
+
+                this.lastDirection = directionToLolo.principal;
+                this.performMovement(directionToLolo);
+
             }
             else {
-                turnBack = (this.lastDirection + 2) % 4;
 
-                if (directionToLolo.principal !== turnBack && this.canMoveTo(directionToLolo.principal)) {
-                    this.lastDirection = null;
-                    this.moveTo(directionToLolo.principal);
-                }
-                else if (directionToLolo.secondary !== turnBack && this.canMoveTo(directionToLolo.secondary)) {
-                    this.lastDirection = directionToLolo.secondary;
-                    this.moveTo(directionToLolo.secondary);
-                }
-                else if (directionToLolo.principal === this.lastDirection && this.canMoveTo(directionToLolo.principal)) {
-                    this.lastDirection = null;
-                    this.moveTo(directionToLolo.principal);
-                }
-                else if (directionToLolo.secondary === this.lastDirection && this.canMoveTo(directionToLolo.secondary)) {
-                    this.moveTo(directionToLolo.secondary);
-                }
-                else if (this.canMoveTo(this.lastDirection)) {
-                    this.moveTo(this.lastDirection);
-                }
-                else {
-                    this.lastDirection = this.getFirstDirectionAvalible(directionToLolo);
-                    this.moveTo(this.lastDirection);
-                }
+                this.performMovement(directionToLolo);
+
             }
 
         }
