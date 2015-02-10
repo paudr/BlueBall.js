@@ -26,7 +26,7 @@ BlueBall.Leeper = function (game, x, y, key, frame) {
 
 BlueBall.Leeper.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Leeper.prototype.getDirectionToLolo = function () {
+BlueBall.Leeper.prototype.getDirectionToPlayer = function () {
 
     var distanceX = this.level.player.cellPosition.x - this.cellPosition.x,
         distanceY = this.level.player.cellPosition.y - this.cellPosition.y,
@@ -76,60 +76,46 @@ BlueBall.Leeper.prototype.getDirectionToLolo = function () {
 };
 
 
-BlueBall.Leeper.prototype.performMovement = function(lolo_pos) {
+BlueBall.Leeper.prototype.performMovement = function(playerPosition) {
 
     var turnback = (this.lastDirection + 2) % 4;
 
 
-    if ( this.canMoveTo(lolo_pos.principal) && (lolo_pos.principal !== turnback)  )
+    if (this.canMoveTo(playerPosition.principal) && playerPosition.principal !== turnback)
     {
-        this.lastDirection = lolo_pos.principal;
+        this.lastDirection = playerPosition.principal;
         this.moveTo(this.lastDirection);
         return;
     }
 
-    if ( this.canMoveTo(lolo_pos.secondary) && (lolo_pos.secondary !== turnback)  )
+    if (this.canMoveTo(playerPosition.secondary) && playerPosition.secondary !== turnback)
     {
-        this.lastDirection = lolo_pos.secondary;
+        this.lastDirection = playerPosition.secondary;
         this.moveTo(this.lastDirection);
         return;
     }
 
-    if ( this.canMoveTo(this.lastDirection)  )
+    if (this.canMoveTo(this.lastDirection))
     {
         this.moveTo(this.lastDirection);
         return;
     }
 
-    var useddirs = [];
+    var thirdDirection = 6 - (playerPosition.principal + playerPosition.secondary);
 
-    if (useddirs.indexOf(this.lastDirection) === -1) useddirs.push(this.lastDirection);
-    if (useddirs.indexOf(lolo_pos.principal) === -1) useddirs.push(lolo_pos.principal);
-    if (useddirs.indexOf(lolo_pos.secondary) === -1) useddirs.push(lolo_pos.secondary);
-    if (useddirs.indexOf(turnback) === -1) useddirs.push(turnback);
-
-    var total = 0;
-    useddirs.forEach(function(element, index, array) { total += element; });
-
-    var tercera_via = Math.abs( total - 6 );
-
-
-    if ( this.canMoveTo(tercera_via) ) {
-        this.lastDirection = tercera_via;
-        this.moveTo(this.lastDirection);
-        return;
-
+    if(this.lastDirection === playerPosition.principal || this.lastDirection === playerPosition.secondary) {
+        thirdDirection -= turnback;
+    }
+    else {
+        thirdDirection -= this.lastDirection;
     }
 
-
-    this.lastDirection = turnback;
+    this.lastDirection = this.canMoveTo(thirdDirection) ? thirdDirection : turnback;
     this.moveTo(this.lastDirection);
-
 
 };
 
 BlueBall.Leeper.prototype.nextAction = function () {
-
 
     if (!this.isSleeping) {
         if (this.canTouch(this.level.player) > 0) {
@@ -141,19 +127,15 @@ BlueBall.Leeper.prototype.nextAction = function () {
         }
         else {
 
-            var directionToLolo = this.getDirectionToLolo();
+            var directionToLolo = this.getDirectionToPlayer();
 
             if (this.lastDirection === null) {
 
                 this.lastDirection = directionToLolo.principal;
-                this.performMovement(directionToLolo);
 
             }
-            else {
 
-                this.performMovement(directionToLolo);
-
-            }
+            this.performMovement(directionToLolo);
 
         }
 
