@@ -86,11 +86,11 @@
 
         {
             "filename": "skullUp1",
-            "frame": { "x": 11, "y": 524, "w": 34, "h": 34 }
+            "frame": { "x": 87, "y": 452, "w": 34, "h": 34 }
         },
         {
             "filename": "skullUp2",
-            "frame": { "x": 49, "y": 524, "w": 34, "h": 34 }
+            "frame": { "x": 124, "y": 452, "w": 34, "h": 34 }
         },
         {
             "filename": "skullRight1",
