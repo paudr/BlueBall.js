@@ -11,6 +11,7 @@ BlueBall.Config = {
     },
 
     /* Base speed for game entities */
-    'gameSpeed': 3.0
+    'gameSpeed': 3.0,
+    'skullSpeed': 4.0
 
 };
