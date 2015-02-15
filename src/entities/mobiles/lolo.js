@@ -47,13 +47,13 @@ BlueBall.Lolo.prototype.moveTo = function (direction) {
 
 BlueBall.Lolo.prototype.nextAction = function (direction) {
 
-    if (this.alive) {
+    if (this.lastCellPosition.x !== this.cellPosition.x || this.lastCellPosition.y !== this.cellPosition.y) {
+        this.lastCellPosition.x = this.cellPosition.x;
+        this.lastCellPosition.y = this.cellPosition.y;
+        this.level.onPlayerMoved.dispatch(this);
+    }
 
-        if (this.lastCellPosition.x !== this.cellPosition.x || this.lastCellPosition.y !== this.cellPosition.y) {
-            this.lastCellPosition.x = this.cellPosition.x;
-            this.lastCellPosition.y = this.cellPosition.y;
-            this.level.onPlayerMoved.dispatch(this);
-        }
+    if (this.alive) {
 
         if (this.cursors.up.isDown) {
 
@@ -137,6 +137,13 @@ BlueBall.Lolo.prototype.die = function () {
     this.alive = false;
     this.animations.play('Die');
     this.level.onPlayerDead.dispatch(this);
+
+};
+
+BlueBall.Lolo.prototype.win = function () {
+
+    this.alive = false;
+    this.animations.play('Win');
 
 };
 

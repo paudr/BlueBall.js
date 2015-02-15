@@ -248,7 +248,16 @@ BlueBall.Level.prototype.getEntitesAt = function (x, y) {
 
 BlueBall.Level.prototype.catchExit = function () {
 
-    this.game.state.start(this.map.properties.next);
+    this.phase = BlueBall.Level.PHASE_ENDED;
+    this.onPhaseChanged.dispatch(this);
+
+    this.player.win();
+
+    this.game.time.events.add(Phaser.Timer.HALF, function() {
+
+        this.game.state.start(this.map.properties.next);
+
+    }, this);
 
 };
 
