@@ -14,6 +14,8 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
     this.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 0, 6, '', 1), 10, true);
     this.animations.add('Down', Phaser.Animation.generateFrameNames('loloDown', 0, 6, '', 1), 10, true);
     this.animations.add('Left', Phaser.Animation.generateFrameNames('loloLeft', 0, 6, '', 1), 10, true);
+    this.animations.add('Win', Phaser.Animation.generateFrameNames('loloWin', 0, 2, '', 1), 10, true);
+    this.animations.add('Die', Phaser.Animation.generateFrameNames('loloDie', 0, 4, '', 1), 10, true);
 
     this.scale.set(32 / 17);
 
