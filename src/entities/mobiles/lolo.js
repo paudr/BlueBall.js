@@ -23,6 +23,9 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
     this.spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     this.spacebar.onDown.add(this.checkShoot, this);
 
+    this.suicideKey = game.input.keyboard.addKey(Phaser.Keyboard.R);
+    this.suicideKeyPressed = null;
+
     this.eggs = 0;
     this.lookingAt = Phaser.Tilemap.SOUTH;
 
@@ -162,6 +165,37 @@ Object.defineProperty(BlueBall.Mobile.prototype, "eggs", {
     }
 
 });
+
+BlueBall.Lolo.prototype.update = function () {
+
+    if (this.suicideKey.isDown) {
+
+        if (this.suicideKeyPressed === null) {
+
+            this.suicideKeyPressed = this.game.time.time;
+
+        }
+
+    }
+    else {
+
+        if (this.suicideKeyPressed !== null) {
+
+            this.suicideKeyPressed = null;
+
+        }
+
+    }
+
+    if(this.suicideKeyPressed !== null && this.game.time.elapsedSecondsSince(this.suicideKeyPressed) >= 3) {
+
+        this.die();
+
+    }
+
+    BlueBall.Mobile.prototype.update.call(this);
+
+};
 
 BlueBall.Lolo.prototype.destroy = function () {
 
