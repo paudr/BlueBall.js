@@ -147,6 +147,21 @@ BlueBall.Mobile.prototype.canMoveTo = function (direction) {
 
 BlueBall.Mobile.prototype.moveTo = function (direction) {
 
+    switch (direction) {
+    case Phaser.Tilemap.NORTH:
+        this.animations.play('Top');
+        break;
+    case Phaser.Tilemap.EAST:
+        this.animations.play('Right');
+        break;
+    case Phaser.Tilemap.SOUTH:
+        this.animations.play('Down');
+        break;
+    case Phaser.Tilemap.WEST:
+        this.animations.play('Left');
+        break;
+    }
+
     if (this.canMoveTo(direction)) {
 
         var positions = this.cellsAt(direction),
@@ -161,19 +176,15 @@ BlueBall.Mobile.prototype.moveTo = function (direction) {
 
         switch (direction) {
         case Phaser.Tilemap.NORTH:
-            this.animations.play('Top');
             this.cellPosition.y--;
             break;
         case Phaser.Tilemap.EAST:
-            this.animations.play('Right');
             this.cellPosition.x++;
             break;
         case Phaser.Tilemap.SOUTH:
-            this.animations.play('Down');
             this.cellPosition.y++;
             break;
         case Phaser.Tilemap.WEST:
-            this.animations.play('Left');
             this.cellPosition.x--;
             break;
         }
