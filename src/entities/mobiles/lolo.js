@@ -10,12 +10,12 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
     this.pushIndexes.push(29, 100);
     this.bridgeIndexes.push(16);
 
-    this.animations.add('Top', Phaser.Animation.generateFrameNames('loloUp', 0, 6, '', 1), 10, true);
-    this.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 0, 6, '', 1), 10, true);
-    this.animations.add('Down', Phaser.Animation.generateFrameNames('loloDown', 0, 6, '', 1), 10, true);
-    this.animations.add('Left', Phaser.Animation.generateFrameNames('loloLeft', 0, 6, '', 1), 10, true);
-    this.animations.add('Win', Phaser.Animation.generateFrameNames('loloWin', 0, 2, '', 1), 10, true);
-    this.animations.add('Die', Phaser.Animation.generateFrameNames('loloDie', 0, 4, '', 1), 10, true);
+    this.animations.add('Top', Phaser.Animation.generateFrameNames('loloUp', 1, 6, '', 1), 10, true);
+    this.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 1, 6, '', 1), 10, true);
+    this.animations.add('Down', Phaser.Animation.generateFrameNames('loloDown', 1, 6, '', 1), 10, true);
+    this.animations.add('Left', Phaser.Animation.generateFrameNames('loloLeft', 1, 6, '', 1), 10, true);
+    this.animations.add('Win', Phaser.Animation.generateFrameNames('loloWin', 1, 2, '', 1), 10, true);
+    this.animations.add('Die', Phaser.Animation.generateFrameNames('loloDie', 1, 4, '', 1), 10, true);
 
     this.scale.set(32 / 17);
 
@@ -44,31 +44,35 @@ BlueBall.Lolo.prototype.moveTo = function (direction) {
 
 BlueBall.Lolo.prototype.nextAction = function (direction) {
 
-    if (this.lastCellPosition.x !== this.cellPosition.x || this.lastCellPosition.y !== this.cellPosition.y) {
-        this.lastCellPosition.x = this.cellPosition.x;
-        this.lastCellPosition.y = this.cellPosition.y;
-        this.level.onPlayerMoved.dispatch(this);
-    }
+    if (this.alive) {
 
-    if (this.cursors.up.isDown) {
+        if (this.lastCellPosition.x !== this.cellPosition.x || this.lastCellPosition.y !== this.cellPosition.y) {
+            this.lastCellPosition.x = this.cellPosition.x;
+            this.lastCellPosition.y = this.cellPosition.y;
+            this.level.onPlayerMoved.dispatch(this);
+        }
 
-        this.moveTo(Phaser.Tilemap.NORTH);
+        if (this.cursors.up.isDown) {
 
-    } else if (this.cursors.right.isDown) {
+            this.moveTo(Phaser.Tilemap.NORTH);
 
-        this.moveTo(Phaser.Tilemap.EAST);
+        } else if (this.cursors.right.isDown) {
 
-    } else if (this.cursors.down.isDown) {
+            this.moveTo(Phaser.Tilemap.EAST);
 
-        this.moveTo(Phaser.Tilemap.SOUTH);
+        } else if (this.cursors.down.isDown) {
 
-    } else if (this.cursors.left.isDown) {
+            this.moveTo(Phaser.Tilemap.SOUTH);
 
-        this.moveTo(Phaser.Tilemap.WEST);
+        } else if (this.cursors.left.isDown) {
 
-    } else {
+            this.moveTo(Phaser.Tilemap.WEST);
 
-        this.stopAnimation(this.lookingAt);
+        } else {
+
+            this.stopAnimation(this.lookingAt);
+
+        }
 
     }
 
@@ -121,6 +125,24 @@ BlueBall.Lolo.prototype.stopAnimation = function (direction) {
         break;
     default:
         this.frame = 10;
+    }
+
+};
+
+BlueBall.Lolo.prototype.die = function () {
+
+    this.alive = false;
+    this.animations.play('Die');
+    this.level.onPlayerDead.dispatch(this);
+
+};
+
+BlueBall.Lolo.prototype.fired = function (shoot) {
+
+    if (shoot instanceof BlueBall.ProjectileGol) {
+
+        this.die();
+
     }
 
 };

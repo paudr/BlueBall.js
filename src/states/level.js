@@ -13,6 +13,7 @@ BlueBall.Level = function (name) {
     this.phase = BlueBall.Level.PHASE_INITIAL;
 
     this.onPlayerMoved = null;
+    this.onPlayerDead = null;
     this.onPhaseChanged = null;
 
 };
@@ -34,7 +35,10 @@ BlueBall.Level.prototype.preload = function () {
 BlueBall.Level.prototype.create = function () {
 
     this.onPlayerMoved = new Phaser.Signal();
+    this.onPlayerDead = new Phaser.Signal();
     this.onPhaseChanged = new Phaser.Signal();
+
+    this.onPlayerDead.add(this.playerDead, this);
 
     this.map = this.game.add.tilemap(this.levelName);
 
@@ -82,8 +86,11 @@ BlueBall.Level.prototype.shutdown = function () {
 
     this.entities.destroy(true);
 
+    this.onPlayerDead.remove(this.playerDead, this);
+
     this.onPlayerMoved.dispose();
     this.onPhaseChanged.dispose();
+
 };
 
 BlueBall.Level.prototype.update = function () {
@@ -242,5 +249,18 @@ BlueBall.Level.prototype.getEntitesAt = function (x, y) {
 BlueBall.Level.prototype.catchExit = function () {
 
     this.game.state.start(this.map.properties.next);
+
+};
+
+BlueBall.Level.prototype.playerDead = function () {
+
+    this.phase = BlueBall.Level.PHASE_ENDED;
+    this.onPhaseChanged.dispatch(this);
+
+    this.game.time.events.add(Phaser.Timer.SECOND * 1, function() {
+
+        this.game.state.start(this.levelName, true, false);
+
+    }, this);
 
 };
