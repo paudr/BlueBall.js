@@ -8,11 +8,6 @@ BlueBall.Skull = function (game, x, y, key, frame) {
 
     this.collideIndexes.push(29, 30, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 81, 93, 97, 100, 117);
 
-    this.speed = { 
-        'x': BlueBall.Config.skullSpeed * BlueBall.Config.cellSize.width * 2 / Phaser.Timer.SECOND,
-        'y': BlueBall.Config.skullSpeed * BlueBall.Config.cellSize.height * 2 / Phaser.Timer.SECOND
-    };
-
     this.animations.add('Top', Phaser.Animation.generateFrameNames('skullUp', 1, 2, '', 1), 5, true);
     this.animations.add('Right', Phaser.Animation.generateFrameNames('skullRight', 1, 2, '', 1), 5, true);
     this.animations.add('Down', Phaser.Animation.generateFrameNames('skullDown', 1, 2, '', 1), 5, true);
