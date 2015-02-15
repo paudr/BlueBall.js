@@ -115,15 +115,25 @@ BlueBall.Skull.prototype.nextAction = function () {
 
     if (this.isAwaken && this.alive) {
 
-        var directionToLolo = this.getDirectionToPlayer();
+        if (this.canTouch(this.level.player) > 0) {
 
-        if (this.lastDirection === null) {
+            this.level.player.die();
 
-            this.lastDirection = directionToLolo.principal;
+        }
+        else {
+
+            var directionToLolo = this.getDirectionToPlayer();
+
+            if (this.lastDirection === null) {
+
+                this.lastDirection = directionToLolo.principal;
+
+            }
+
+            this.performMovement(directionToLolo);
 
         }
 
-        this.performMovement(directionToLolo);
     }
 
 };
