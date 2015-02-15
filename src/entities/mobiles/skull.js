@@ -146,6 +146,7 @@ BlueBall.Skull.prototype.phaseChanged = function () {
 
 
     case BlueBall.Level.PHASE_EXITS:
+    case BlueBall.Level.PHASE_ENDED:
         this.toDestroy = true;
         break;
 

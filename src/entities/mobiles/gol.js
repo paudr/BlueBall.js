@@ -112,6 +112,7 @@ BlueBall.Gol.prototype.phaseChanged = function () {
         break;
 
     case BlueBall.Level.PHASE_EXITS:
+    case BlueBall.Level.PHASE_ENDED:
         this.toDestroy = true;
         if (this.projectile !== null) {
             this.projectile.destroy();

@@ -23,6 +23,7 @@ BlueBall.Level.PHASE_INITIAL = 0;
 BlueBall.Level.PHASE_HEARTS = 1;
 BlueBall.Level.PHASE_PEARLS = 2;
 BlueBall.Level.PHASE_EXITS = 3;
+BlueBall.Level.PHASE_ENDED = 4;
 
 BlueBall.Level.prototype.preload = function () {
 

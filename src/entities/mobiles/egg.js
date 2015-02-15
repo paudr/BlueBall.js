@@ -79,6 +79,7 @@ BlueBall.Egg.prototype.phaseChanged = function () {
     switch (this.level.phase) {
 
     case BlueBall.Level.PHASE_EXITS:
+    case BlueBall.Level.PHASE_ENDED:
         this.toDestroy = true;
         break;
 
