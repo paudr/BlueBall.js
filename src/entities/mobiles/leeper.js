@@ -26,6 +26,23 @@ BlueBall.Leeper = function (game, x, y, key, frame) {
 
 BlueBall.Leeper.prototype = Object.create(BlueBall.Mobile.prototype);
 
+Object.defineProperty(BlueBall.Leeper.prototype, "lookingAt", {
+
+    get: function () {
+
+        return this._lookingAt;
+
+    },
+
+    set: function (value) {
+
+        this._lookingAt = value;
+        this.lastDirection = value;
+
+    }
+
+});
+
 BlueBall.Leeper.prototype.getDirectionToPlayer = function () {
 
     var distanceX = this.level.player.cellPosition.x - this.cellPosition.x,
@@ -74,7 +91,6 @@ BlueBall.Leeper.prototype.getDirectionToPlayer = function () {
     };
 
 };
-
 
 BlueBall.Leeper.prototype.performMovement = function(playerPosition) {
 
@@ -148,6 +164,14 @@ BlueBall.Leeper.prototype.destroy = function () {
     this.level.onPhaseChanged.remove(this.phaseChanged, this);
 
     BlueBall.Mobile.prototype.destroy.apply(this, arguments);
+
+};
+
+BlueBall.Leeper.prototype.respawn = function () {
+
+    BlueBall.Mobile.prototype.respawn.apply(this, arguments);
+
+    this.lastDirection = this.lookingAt;
 
 };
 

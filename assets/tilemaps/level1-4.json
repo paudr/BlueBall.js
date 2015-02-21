@@ -160,19 +160,25 @@
                     "gid": 93,
                     "x": 8,
                     "y": 4,
-                    "properties": {}
+                    "properties": {
+                        "lookingAt": 2
+                    }
                 },
                 {
                     "gid": 93,
                     "x": 18,
                     "y": 14,
-                    "properties": {}
+                    "properties": {
+                        "lookingAt": 2
+                    }
                 },
                 {
                     "gid": 93,
                     "x": 8,
                     "y": 24,
-                    "properties": {}
+                    "properties": {
+                        "lookingAt": 2
+                    }
                 }
             ]
         }

@@ -124,7 +124,9 @@
                     "gid": 69,
                     "x": 2,
                     "y": 20,
-                    "properties": {}
+                    "properties": {
+                        "lookingAt": 0
+                    }
                 }
             ]
         }

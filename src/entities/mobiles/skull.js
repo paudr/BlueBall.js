@@ -23,6 +23,23 @@ BlueBall.Skull = function (game, x, y, key, frame) {
 
 BlueBall.Skull.prototype = Object.create(BlueBall.Mobile.prototype);
 
+Object.defineProperty(BlueBall.Skull.prototype, "lookingAt", {
+
+    get: function () {
+
+        return this._lookingAt;
+
+    },
+
+    set: function (value) {
+
+        this._lookingAt = value;
+        this.lastDirection = value;
+
+    }
+
+});
+
 BlueBall.Skull.prototype.getDirectionToPlayer = function () {
 
     var distanceX = this.level.player.cellPosition.x - this.cellPosition.x,
@@ -144,6 +161,14 @@ BlueBall.Skull.prototype.destroy = function () {
     this.level.onPhaseChanged.remove(this.phaseChanged, this);
 
     BlueBall.Mobile.prototype.destroy.apply(this, arguments);
+
+};
+
+BlueBall.Skull.prototype.respawn = function () {
+
+    BlueBall.Mobile.prototype.respawn.apply(this, arguments);
+
+    this.lastDirection = this.lookingAt;
 
 };
 
