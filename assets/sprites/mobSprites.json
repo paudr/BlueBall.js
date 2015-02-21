@@ -115,6 +115,79 @@
         {
             "filename": "skullLeft2",
             "frame": { "x": 48, "y": 488, "w": 34, "h": 34 }
+        },
+
+        {
+            "filename": "rockyUp1",
+            "frame": { "x": 12, "y": 187, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyUp2",
+            "frame": { "x": 50, "y": 186, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyUp3",
+            "frame": { "x": 87, "y": 185, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyUp4",
+            "frame": { "x": 123, "y": 186, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyUp5",
+            "frame": { "x": 160, "y": 186, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyRight1",
+            "frame": { "x": 12, "y": 230, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyRight2",
+            "frame": { "x": 50, "y": 230, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyRight3",
+            "frame": { "x": 88, "y": 230, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyRight4",
+            "frame": { "x": 126, "y": 230, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyDown1",
+            "frame": { "x": 12, "y": 148, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyDown2",
+            "frame": { "x": 50, "y": 148, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyDown3",
+            "frame": { "x": 86, "y": 148, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyDown4",
+            "frame": { "x": 124, "y": 148, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyDown5",
+            "frame": { "x": 160, "y": 148, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyLeft1",
+            "frame": { "x": 13, "y": 268, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyLeft2",
+            "frame": { "x": 52, "y": 268, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyLeft3",
+            "frame": { "x": 89, "y": 268, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "rockyLeft4",
+            "frame": { "x": 129, "y": 268, "w": 34, "h": 34 }
         }
 
     ]
