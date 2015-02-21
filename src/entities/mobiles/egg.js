@@ -10,7 +10,7 @@ BlueBall.Egg = function (target) {
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);
 
-    this.collideIndexes.push(29, 30, 69, 81, 93, 97, 100, 117);
+    this.collideIndexes.push(29, 30, 69, 73, 81, 93, 97, 100, 117);
 
     this.level.entities.add(this);
 
