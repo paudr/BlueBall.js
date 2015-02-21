@@ -8,7 +8,7 @@
     "properties": {
         "world": 1,
         "level": 4,
-        "next": "level1-1"
+        "next": "level1-5"
     },
     "tilesets": [
         {
