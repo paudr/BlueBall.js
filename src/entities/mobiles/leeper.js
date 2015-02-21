@@ -80,7 +80,6 @@ BlueBall.Leeper.prototype.performMovement = function(playerPosition) {
 
     var turnback = (this.lastDirection + 2) % 4;
 
-
     if (this.canMoveTo(playerPosition.principal) && playerPosition.principal !== turnback)
     {
         this.lastDirection = playerPosition.principal;
@@ -118,6 +117,7 @@ BlueBall.Leeper.prototype.performMovement = function(playerPosition) {
 BlueBall.Leeper.prototype.nextAction = function () {
 
     if (!this.isSleeping) {
+
         if (this.canTouch(this.level.player) > 0) {
 
             this.isSleeping = true;

@@ -13,6 +13,7 @@ BlueBall.Skull = function (game, x, y, key, frame) {
     this.animations.add('Down', Phaser.Animation.generateFrameNames('skullDown', 1, 2, '', 1), 5, true);
     this.animations.add('Left', Phaser.Animation.generateFrameNames('skullLeft', 1, 2, '', 1), 5, true);
 
+    this.lastDirection = null;
 
     this.isAwaken = false;
 
