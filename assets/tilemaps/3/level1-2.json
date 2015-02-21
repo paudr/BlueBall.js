@@ -1,0 +1,118 @@
+{
+    "version": 1,
+    "width": 13,
+    "height": 14,
+    "tilewidth": 32,
+    "tileheight": 32,
+    "orientation": "orthogonal",
+    "properties": {
+        "world": 1,
+        "level": 2,
+        "next": "level1-3"
+    },
+    "tilesets": [
+        {
+            "name": "AdventuresOfLolo3",
+            "image": "AdventuresOfLolo3.png",
+            "imagewidth": 384,
+            "imageheight": 352,
+            "tilewidth": 32,
+            "tileheight": 32,
+            "firstgid": 1,
+            "margin": 0,
+            "spacing": 0,
+            "properties": {},
+            "tileproperties": {}
+        }
+    ],
+    "layers": [
+        {
+            "name": "environment",
+            "type": "tilelayer",
+            "x": 0,
+            "y": 0,
+            "width": 13,
+            "height": 14,
+            "visible": true,
+            "opacity": 1,
+            "properties": {},
+            "data": [
+                 4,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5, 5 ,  6,
+                 7,  8,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                 7, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  7,
+                11,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5, 13
+            ]
+        },
+        {
+            "name": "entities",
+            "type": "objectgroup",
+            "x": 0,
+            "y": 0,
+            "width": 13,
+            "height": 14,
+            "visible": true,
+            "opacity": 1,
+            "properties": {},
+            "objects": [
+                {
+                    "gid": 99,
+                    "x": 12,
+                    "y": 24,
+                    "properties": {}
+                },
+                {
+                    "gid": 15,
+                    "x": 12,
+                    "y": 2,
+                    "properties": {}
+                },
+                {
+                    "gid": 30,
+                    "x": 12,
+                    "y": 12,
+                    "properties": {}
+                },
+                {
+                    "gid": 117,
+                    "x": 12,
+                    "y": 8,
+                    "properties": {}
+                },
+                {
+                    "gid": 29,
+                    "x": 8,
+                    "y": 18,
+                    "properties": {}
+                },
+                {
+                    "gid": 29,
+                    "x": 16,
+                    "y": 18,
+                    "properties": {}
+                },
+                {
+                    "gid": 98,
+                    "x": 6,
+                    "y": 16,
+                    "properties": {}
+                },
+                {
+                    "gid": 98,
+                    "x": 18,
+                    "y": 16,
+                    "properties": {}
+                }
+            ]
+        }
+    ]
+}
