@@ -28,7 +28,7 @@ BlueBall.Level.PHASE_ENDED = 4;
 
 BlueBall.Level.prototype.preload = function () {
 
-    this.game.load.tilemap(this.levelName, 'assets/tilemaps/' + this.levelName + '.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.tilemap(this.levelName, 'assets/tilemaps/' + BlueBall.Config.levelPrefix + this.levelName + '.json', null, Phaser.Tilemap.TILED_JSON);
 
 };
 
