@@ -26,3 +26,13 @@ BlueBall.ProjectileGol = function (shooter, direction) {
 };
 
 BlueBall.ProjectileGol.prototype = Object.create(BlueBall.Projectile.prototype);
+
+BlueBall.ProjectileGol.prototype.impact = function (target) {
+
+    if (target instanceof BlueBall.Player) {
+
+        target.die();
+
+    }
+
+};

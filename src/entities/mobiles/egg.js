@@ -43,16 +43,12 @@ BlueBall.Egg.prototype.open = function () {
 
 };
 
-BlueBall.Egg.prototype.fired = function (projectile) {
+BlueBall.Egg.prototype.die = function () {
 
-    if (projectile instanceof BlueBall.ProjectileEgg) {
+    this.game.time.events.remove(this.event);
 
-        this.game.time.events.remove(this.event);
-
-        this.event = this.game.time.events.add(Phaser.Timer.SECOND * 8, this.respawn, this);
-        this.kill();
-
-    }
+    this.event = this.game.time.events.add(Phaser.Timer.SECOND * 8, this.respawn, this);
+    this.kill();
 
 };
 

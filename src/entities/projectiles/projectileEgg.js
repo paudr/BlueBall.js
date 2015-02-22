@@ -40,3 +40,18 @@ BlueBall.ProjectileEgg.prototype.canMoveTo = function (direction) {
     return !(collide1 && collide2);
 
 };
+
+BlueBall.ProjectileEgg.prototype.impact = function (target) {
+
+    if (target instanceof BlueBall.Egg) {
+
+        target.die();
+
+    }
+    else if (target.canBeCaptured === true) {
+
+        new BlueBall.Egg(target);
+
+    }
+
+};

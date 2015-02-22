@@ -260,16 +260,6 @@ BlueBall.Mobile.prototype.canTouch = function (entity) {
 
 };
 
-BlueBall.Mobile.prototype.fired = function (shoot) {
-
-    if (shoot instanceof BlueBall.ProjectileEgg && this.canBeCaptured) {
-
-        new BlueBall.Egg(this);
-
-    }
-
-};
-
 BlueBall.Mobile.prototype.update = function () {
 
     if (this.isMoving === true && this.wasPushed === false) {

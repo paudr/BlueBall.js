@@ -151,16 +151,6 @@ BlueBall.Player.prototype.win = function () {
 
 };
 
-BlueBall.Player.prototype.fired = function (shoot) {
-
-    if (shoot instanceof BlueBall.ProjectileGol) {
-
-        this.die();
-
-    }
-
-};
-
 Object.defineProperty(BlueBall.Mobile.prototype, "eggs", {
 
     get: function () {

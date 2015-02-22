@@ -35,18 +35,13 @@ BlueBall.Projectile.prototype.moveTo = function () {
 
         for (i = 0; i < impacted.length; i++) {
 
-            current = impacted[i];
-
-            if (typeof current.fired === 'function') {
-                current.fired(this);
-            }
+            this.impact(impacted[i]);
 
         }
 
     }
 
 };
-
 
 BlueBall.Projectile.prototype.nextAction = function () {
 
@@ -75,3 +70,5 @@ BlueBall.Projectile.prototype.getImpacted = function () {
     return [];
 
 };
+
+BlueBall.Projectile.prototype.impact = function () {};

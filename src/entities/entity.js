@@ -153,5 +153,3 @@ BlueBall.Entity.prototype.respawn = function () {
 };
 
 BlueBall.Entity.prototype.canMoveTo = function() { return false; };
-
-BlueBall.Entity.prototype.fired = function() {};
