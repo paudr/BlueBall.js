@@ -41,6 +41,28 @@ BlueBall.ProjectileEgg.prototype.canMoveTo = function (direction) {
 
 };
 
+BlueBall.ProjectileEgg.prototype.getImpacted = function () {
+
+    var positions = this.cellsAt(this.shootDirection),
+        entities1 = BlueBall.Entity.getEntitiesFromIndexArray(this.impactIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y)),
+        entities2;
+
+    if (entities1.length > 0) {
+
+         entities2 = BlueBall.Entity.getEntitiesFromIndexArray(this.impactIndexes, this.level.getEntitesAt(positions[1].x, positions[1].y));
+     
+         if (entities2.length > 0) {
+             
+             return BlueBall.Helper.intersection(entities1, entities2);
+
+         }
+        
+    }
+    
+    return [];
+
+};
+
 BlueBall.ProjectileEgg.prototype.impact = function (target) {
 
     if (target instanceof BlueBall.Egg) {

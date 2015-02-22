@@ -1,3 +1,4 @@
+/*global Phaser */
 /*exported BlueBall */
 
 var BlueBall = {
@@ -31,6 +32,29 @@ var BlueBall = {
                 item = array1[i];
 
                 if (array2.indexOf(item) > -1) {
+
+                    result.push(item);
+
+                }
+
+            }
+
+            return result;
+
+        },
+
+        'union': function (array1, array2) {
+
+            var result = array1.slice(),
+                i,
+                length,
+                item;
+
+            for (i = 0, length = array2.length; i < length; i++) {
+
+                item = array2[i];
+
+                if (result.indexOf(item) < 0) {
 
                     result.push(item);
 
