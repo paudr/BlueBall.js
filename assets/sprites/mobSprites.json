@@ -1,5 +1,6 @@
 {
     "frames": [
+
         {
             "filename": "snakey1",
             "frame": { "x": 14, "y": 29, "w": 34, "h": 34 }
@@ -188,6 +189,24 @@
         {
             "filename": "rockyLeft4",
             "frame": { "x": 129, "y": 268, "w": 34, "h": 34 }
+        },
+
+        {
+            "filename": "medusa1",
+            "frame": { "x": 275, "y": 133, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "medusa2",
+            "frame": { "x": 277, "y": 174, "w": 34, "h": 34 }
+        },
+
+        {
+            "filename": "projectileMedusa1",
+            "frame": { "x": 314, "y": 184, "w": 24, "h": 16 }
+        },
+        {
+            "filename": "projectileMedusa2",
+            "frame": { "x": 345, "y": 184, "w": 16, "h": 24 }
         }
 
     ]
