@@ -13,8 +13,6 @@ BlueBall.Projectile = function (shooter, direction, key, frame) {
 
     this.shootDirection = direction;
 
-    this.moveTo();
-
 };
 
 BlueBall.Projectile.prototype = Object.create(BlueBall.Mobile.prototype);
