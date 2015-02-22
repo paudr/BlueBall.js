@@ -4,26 +4,6 @@ BlueBall.Mobile = function (game, x, y, key, frame, options) {
 
     BlueBall.Entity.call(this, game, x, y, key, frame, options);
 
-    /**
-     * @property {array} collideIndexes - Lista de indices de tipos de tiles con los que colisiona Mob
-     */
-    this.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 22 ];
-
-    /**
-     * @property {array} slowdownIndexes - Lista de indices de tipos de tiles que relentizan a Mob
-     */
-    this.slowdownIndexes = [];
-
-    /**
-     * @property {array} pushIndexes - Lista de indices de tipos de entities a las que puede empujar Mob
-     */
-    this.pushIndexes = [];
-
-    /**
-     * @property {array} bridgeIndexes - Lista de indices de tipos de entities a las que puede hacer de puente a Mob
-     */
-    this.bridgeIndexes = [];
-
     this.speed = { // Velocidad a la que se mueve Mobile por el mapa (en pixels por milisegundo)
         'x': BlueBall.Config.gameSpeed * BlueBall.Config.cellSize.width * 2 / Phaser.Timer.SECOND,
         'y': BlueBall.Config.gameSpeed * BlueBall.Config.cellSize.height * 2 / Phaser.Timer.SECOND
@@ -38,6 +18,26 @@ BlueBall.Mobile = function (game, x, y, key, frame, options) {
 };
 
 BlueBall.Mobile.prototype = Object.create(BlueBall.Entity.prototype);
+
+/**
+ * @property {array} collideIndexes - Lista de indices de tipos de tiles con los que colisiona Mob
+ */
+BlueBall.Mobile.prototype.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 22, 29, 30, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+
+/**
+ * @property {array} slowdownIndexes - Lista de indices de tipos de tiles que relentizan a Mob
+ */
+BlueBall.Mobile.prototype.slowdownIndexes = [];
+
+/**
+ * @property {array} pushIndexes - Lista de indices de tipos de entities a las que puede empujar Mob
+ */
+BlueBall.Mobile.prototype.pushIndexes = [];
+
+/**
+ * @property {array} bridgeIndexes - Lista de indices de tipos de entities a las que puede hacer de puente a Mob
+ */
+BlueBall.Mobile.prototype.bridgeIndexes = [];
 
 BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entities2) {
 

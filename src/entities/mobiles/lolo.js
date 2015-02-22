@@ -6,11 +6,6 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
         gid: 99
     });
 
-    this.collideIndexes.push(69, 73, 81, 93, 97);
-    this.slowdownIndexes.push(37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52);
-    this.pushIndexes.push(29, 100);
-    this.bridgeIndexes.push(16);
-
     this.animations.add('Top', Phaser.Animation.generateFrameNames('loloUp', 1, 6, '', 1), 10, true);
     this.animations.add('Right', Phaser.Animation.generateFrameNames('loloRight', 1, 6, '', 1), 10, true);
     this.animations.add('Down', Phaser.Animation.generateFrameNames('loloDown', 1, 6, '', 1), 10, true);
@@ -37,6 +32,14 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
 };
 
 BlueBall.Lolo.prototype = Object.create(BlueBall.Mobile.prototype);
+
+BlueBall.Lolo.prototype.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 22, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99 ];
+
+BlueBall.Lolo.prototype.slowdownIndexes = [ 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52 ];
+
+BlueBall.Lolo.prototype.pushIndexes = [ 29, 100 ];
+
+BlueBall.Lolo.prototype.bridgeIndexes = [ 16 ];
 
 BlueBall.Lolo.prototype.moveTo = function (direction) {
 

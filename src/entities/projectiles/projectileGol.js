@@ -21,9 +21,6 @@ BlueBall.ProjectileGol = function (shooter, direction) {
         break;
     }
 
-    this.collideIndexes.push(69, 81, 93, 97, 99, 100);
-    this.impactIndexes.push(99);
-
     this.animations.play('anim');
 
 };

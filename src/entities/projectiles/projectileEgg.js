@@ -12,3 +12,7 @@ BlueBall.ProjectileEgg = function (shooter, direction) {
 };
 
 BlueBall.ProjectileEgg.prototype = Object.create(BlueBall.Projectile.prototype);
+
+BlueBall.Projectile.prototype.collideIndexes = [ 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 29, 30, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+
+BlueBall.Projectile.prototype.impactIndexes = [ 69, 73, 77, 81, 85, 89, 93, 97, 98, 100 ];
