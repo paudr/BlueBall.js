@@ -138,15 +138,15 @@ BlueBall.Skull.prototype.nextAction = function () {
         }
         else {
 
-            var directionToLolo = this.getDirectionToPlayer();
+            var directionToPlayer = this.getDirectionToPlayer();
 
             if (this.lastDirection === null) {
 
-                this.lastDirection = directionToLolo.principal;
+                this.lastDirection = directionToPlayer.principal;
 
             }
 
-            this.performMovement(directionToLolo);
+            this.performMovement(directionToPlayer);
 
         }
 

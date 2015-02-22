@@ -7,7 +7,7 @@ BlueBall.Loader.prototype = Object.create(Phaser.State.prototype);
 BlueBall.Loader.prototype.preload = function () {
 
     this.game.load.image('AdventuresOfLolo3', 'assets/tilemaps/AdventuresOfLolo3.png');
-    this.game.load.atlas('loloSprites', 'assets/sprites/loloSprites.png', 'assets/sprites/loloSprites.json');
+    this.game.load.atlas('playerSprites', 'assets/sprites/playerSprites.png', 'assets/sprites/playerSprites.json');
     this.game.load.atlas('tileSprites', 'assets/tilemaps/AdventuresOfLolo3.png', 'assets/sprites/tileSprites.json');
     this.game.load.atlas('chestSprites', 'assets/sprites/chestSprites.png', 'assets/sprites/chestSprites.json');
     this.game.load.atlas('mobSprites', 'assets/sprites/mobSprites.png', 'assets/sprites/mobSprites.json');
@@ -35,6 +35,6 @@ BlueBall.Loader.prototype.create = function () {
 
     }
 
-    this.game.state.start('level1-1');
+    this.game.state.start('level1-3');
 
 };

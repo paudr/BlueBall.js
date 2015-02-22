@@ -6,7 +6,7 @@ BlueBall.Heart = function (game, x, y, key, frame) {
         gid: 30
     });
 
-    this.eggs = 0; // Cantidad de disparos que obtiene Lolo por coger el Heart
+    this.eggs = 0; // Cantidad de disparos que obtiene Player por coger el Heart
 
 };
 
