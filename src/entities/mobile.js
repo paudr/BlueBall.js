@@ -10,6 +10,11 @@ BlueBall.Mobile = function (game, x, y, key, frame, options) {
     this.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 22 ];
 
     /**
+     * @property {array} slowdownIndexes - Lista de indices de tipos de tiles que relentizan a Mob
+     */
+    this.slowdownIndexes = [];
+
+    /**
      * @property {array} pushIndexes - Lista de indices de tipos de entities a las que puede empujar Mob
      */
     this.pushIndexes = [];
@@ -269,8 +274,9 @@ BlueBall.Mobile.prototype.update = function () {
 
     if (this.isMoving === true && this.wasPushed === false) {
 
-        var incX = this.game.time.elapsed * this.speed.x,
-            incY = this.game.time.elapsed * this.speed.y,
+        var slowdownTile = this.slowdownIndexes.indexOf(this.level.map.getTile(this.cellPosition.x >> 1, this.cellPosition.y >> 1, 'environment', true).index || 0) > -1,
+            incX = this.game.time.elapsed * (slowdownTile ? this.speed.x * 0.5 : this.speed.x),
+            incY = this.game.time.elapsed * (slowdownTile ? this.speed.y * 0.5 : this.speed.y),
             direction = this._movingTo,
             x = 0,
             y = 0,

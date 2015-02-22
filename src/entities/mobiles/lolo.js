@@ -7,6 +7,7 @@ BlueBall.Lolo = function (game, x, y, key, frame) {
     });
 
     this.collideIndexes.push(69, 73, 81, 93, 97);
+    this.slowdownIndexes.push(37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52);
     this.pushIndexes.push(29, 100);
     this.bridgeIndexes.push(16);
 
