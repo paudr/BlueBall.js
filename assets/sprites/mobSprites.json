@@ -207,6 +207,15 @@
         {
             "filename": "projectileMedusa2",
             "frame": { "x": 345, "y": 184, "w": 16, "h": 24 }
+        },
+
+        {
+            "filename": "donmedusa1",
+            "frame": { "x": 279, "y": 239, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "donmedusa2",
+            "frame": { "x": 315, "y": 239, "w": 34, "h": 34 }
         }
 
     ]

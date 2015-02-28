@@ -76,6 +76,7 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', 93, 'mobSprites', 24, true, false, this.entities, BlueBall.Skull, false);
     this.map.createFromObjects('entities', 73, 'mobSprites', 38, true, false, this.entities, BlueBall.Rocky, false);
     this.map.createFromObjects('entities', 98, 'mobSprites', 46, true, false, this.entities, BlueBall.Medusa, false);
+    this.map.createFromObjects('entities', 85, 'mobSprites', 50, true, false, this.entities, BlueBall.DonMedusa, false);
 
 
     this.layers.bringToTop(this.entities);
