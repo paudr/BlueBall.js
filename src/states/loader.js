@@ -35,6 +35,6 @@ BlueBall.Loader.prototype.create = function () {
 
     }
 
-    this.game.state.start('level2-3');
+    this.game.state.start('level1-1');
 
 };
