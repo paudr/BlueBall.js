@@ -126,7 +126,13 @@ BlueBall.Rocky.prototype.checkIfCanWaitForPlayer = function () {
             this.isWaiting = false;
 
         }
-        else if ((Math.abs(this.cellPosition.y - this.level.player.cellPosition.y) <= 1 && Math.abs(this.cellPosition.x - this.level.player.cellPosition.x) <= 6) || this.canTouch(this.level.player)) {
+        else if (Math.abs(this.cellPosition.y - this.level.player.cellPosition.y) <= 1 && Math.abs(this.cellPosition.x - this.level.player.cellPosition.x) <= 6) {
+
+            this.isWaiting = true;
+
+        }
+
+        if (this.canTouch(this.level.player)) {
 
             this.isWaiting = true;
 
@@ -145,6 +151,7 @@ BlueBall.Rocky.prototype.performMovement = function() {
 
         if (!this.moveTo(this.lastDirection)) {
             this.isRunning = false;
+            this.checkIfCanWaitForPlayer();
         }
 
     }
