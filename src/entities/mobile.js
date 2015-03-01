@@ -337,6 +337,14 @@ BlueBall.Mobile.prototype.update = function () {
             this.isMoving = false;
             this._movingTo = null;
 
+            for (i = 0, length = this._pushing.length; i < length; i++) {
+
+                this._pushing[i].nextAction();
+
+            }
+
+            this._pushing = [];
+
             this.nextAction();
 
         }
