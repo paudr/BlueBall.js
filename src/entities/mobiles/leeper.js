@@ -20,6 +20,8 @@ BlueBall.Leeper = function (game, x, y, key, frame) {
 
     this.currentOptions = null;
 
+    this.isAwaken = false;
+
 };
 
 BlueBall.Leeper.prototype = Object.create(BlueBall.Mobile.prototype);
@@ -130,7 +132,7 @@ BlueBall.Leeper.prototype.performMovement = function(playerPosition) {
 
 BlueBall.Leeper.prototype.nextAction = function () {
 
-    if (!this.isSleeping) {
+    if (this.isAwaken === true && !this.isSleeping) {
 
         if (this.canTouch(this.level.player) > 0) {
 
@@ -176,6 +178,10 @@ BlueBall.Leeper.prototype.respawn = function () {
 BlueBall.Leeper.prototype.phaseChanged = function () {
 
     switch (this.level.phase) {
+
+    case BlueBall.Level.PHASE_HEARTS:
+        this.isAwaken = true;
+        break;
 
     case BlueBall.Level.PHASE_EXITS:
     case BlueBall.Level.PHASE_ENDED:

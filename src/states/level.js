@@ -81,8 +81,6 @@ BlueBall.Level.prototype.create = function () {
 
     this.layers.bringToTop(this.entities);
 
-    this.phase = BlueBall.Level.PHASE_HEARTS;
-
 };
 
 BlueBall.Level.prototype.shutdown = function () {
@@ -101,6 +99,15 @@ BlueBall.Level.prototype.update = function () {
     this.checkEntitiesToDestroy();
 
     switch (this.phase) {
+
+    case BlueBall.Level.PHASE_INITIAL:
+        if (this.player.isMoving === true) {
+
+            this.phase = BlueBall.Level.PHASE_HEARTS;
+            this.onPhaseChanged.dispatch(this);
+
+        }
+        break;
 
     case BlueBall.Level.PHASE_HEARTS:
         if (this.countHearts() === 0) {

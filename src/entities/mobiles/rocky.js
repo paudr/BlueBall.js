@@ -22,6 +22,8 @@ BlueBall.Rocky = function (game, x, y, key, frame) {
 
     this.currentOptions = null;
 
+    this.isAwaken = false;
+
 };
 
 BlueBall.Rocky.prototype = Object.create(BlueBall.Mobile.prototype);
@@ -182,16 +184,20 @@ BlueBall.Rocky.prototype.performMovement = function() {
 
 BlueBall.Rocky.prototype.nextAction = function () {
 
-    if (this.lastDirection === null) {
+    if (this.isAwaken === true) {
 
-        this.lastDirection = this.lookingAt;
+        if (this.lastDirection === null) {
+
+            this.lastDirection = this.lookingAt;
+
+        }
+
+        this.checkIfCanRunToPlayer();
+        this.checkIfCanWaitForPlayer();
+
+        this.performMovement();
 
     }
-
-    this.checkIfCanRunToPlayer();
-    this.checkIfCanWaitForPlayer();
-
-    this.performMovement();
 
 };
 
@@ -214,6 +220,10 @@ BlueBall.Rocky.prototype.respawn = function () {
 BlueBall.Rocky.prototype.phaseChanged = function () {
 
     switch (this.level.phase) {
+
+    case BlueBall.Level.PHASE_HEARTS:
+        this.isAwaken = true;
+        break;
 
     case BlueBall.Level.PHASE_EXITS:
     case BlueBall.Level.PHASE_ENDED:

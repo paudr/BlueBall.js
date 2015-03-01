@@ -17,6 +17,8 @@ BlueBall.DonMedusa = function (game, x, y, key, frame) {
 
     this.lastDirection = null;
 
+    this.isAwaken = false;
+
 };
 
 BlueBall.DonMedusa.prototype = Object.create(BlueBall.Mobile.prototype);
@@ -55,13 +57,17 @@ BlueBall.DonMedusa.prototype.checkShoot = function (player) {
 
 BlueBall.DonMedusa.prototype.nextAction = function () {
 
-    this.checkShoot(this.level.player);
+    if (this.isAwaken === true) {
 
-    if (this.projectile === null && this.lastDirection !== null) {
+        this.checkShoot(this.level.player);
 
-        if (!this.moveTo(this.lastDirection)) {
+        if (this.projectile === null && this.lastDirection !== null) {
 
-            this.lastDirection = (this.lastDirection + 2) % 4;
+            if (!this.moveTo(this.lastDirection)) {
+
+                this.lastDirection = (this.lastDirection + 2) % 4;
+
+            }
 
         }
 
@@ -81,6 +87,10 @@ BlueBall.DonMedusa.prototype.destroy = function () {
 BlueBall.DonMedusa.prototype.phaseChanged = function () {
 
     switch (this.level.phase) {
+
+    case BlueBall.Level.PHASE_HEARTS:
+        this.isAwaken = true;
+        break;
 
     case BlueBall.Level.PHASE_EXITS:
     case BlueBall.Level.PHASE_ENDED:
