@@ -122,7 +122,13 @@ BlueBall.Mobile.prototype.canMoveTo = function (direction) {
 
                     pushing1 = BlueBall.Helper.intersection(pushing1, pushing2);
 
-                    if (pushing1.length > 0 && pushing1.length === pushing2.length) {
+                    if (pushing1.length !== pushing2.length) {
+
+                        return false;
+
+                    }
+
+                    if (pushing1.length > 0) {
 
                         for (i = 0, length = pushing1.length; i < length; i++) {
 
