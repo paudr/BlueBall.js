@@ -24,6 +24,10 @@ BlueBall.Rocky = function (game, x, y, key, frame) {
 
     this.isAwaken = false;
 
+    this.runSpeed = {
+        x: this.speed.x / 2,
+        y: this.speed.y / 2,
+    };
 };
 
 BlueBall.Rocky.prototype = Object.create(BlueBall.Mobile.prototype);
@@ -62,12 +66,12 @@ Object.defineProperty(BlueBall.Rocky.prototype, "isRunning", {
         if (this._isRunning !== value) {
 
             if (value) {
-                this.speed.x *= 1.5;
-                this.speed.y *= 1.5;
+                this.speed.x += this.runSpeed.x;
+                this.speed.y += this.runSpeed.y;
             }
             else {
-                this.speed.x /= 1.5;
-                this.speed.y /= 1.5;
+                this.speed.x -= this.runSpeed.x;
+                this.speed.y -= this.runSpeed.y;
             }
 
             this._isRunning = value;
