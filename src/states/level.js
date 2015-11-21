@@ -10,8 +10,6 @@ BlueBall.Level = function (name) {
     this.exit = null;
     this.eggCounterText = null;
 
-    this.phase = BlueBall.Level.PHASE_INITIAL;
-
     this.onPlayerMoved = null;
     this.onPlayerDead = null;
     this.onPhaseChanged = null;
@@ -33,6 +31,8 @@ BlueBall.Level.prototype.preload = function () {
 };
 
 BlueBall.Level.prototype.create = function () {
+
+    this.phase = BlueBall.Level.PHASE_INITIAL;
 
     this.onPlayerMoved = new Phaser.Signal();
     this.onPlayerDead = new Phaser.Signal();
