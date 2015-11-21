@@ -15,6 +15,12 @@ BlueBall.Mobile = function (game, x, y, key, frame, options) {
     this._movingTo = null; // Direccion en la que se esta moviendo la Mobile
     this._destPosition = null; // Coordenadas de la posición (en pixels) a la que se dirige Mobile
 
+    this.animationNames = {};
+    this.animationNames[Phaser.Tilemap.NORTH] = 'Top';
+    this.animationNames[Phaser.Tilemap.EAST] = 'Right';
+    this.animationNames[Phaser.Tilemap.SOUTH] = 'Down';
+    this.animationNames[Phaser.Tilemap.WEST] = 'Left';
+
 };
 
 BlueBall.Mobile.prototype = Object.create(BlueBall.Entity.prototype);
@@ -158,20 +164,7 @@ BlueBall.Mobile.prototype.canMoveTo = function (direction) {
 
 BlueBall.Mobile.prototype.moveTo = function (direction) {
 
-    switch (direction) {
-    case Phaser.Tilemap.NORTH:
-        this.animations.play('Top');
-        break;
-    case Phaser.Tilemap.EAST:
-        this.animations.play('Right');
-        break;
-    case Phaser.Tilemap.SOUTH:
-        this.animations.play('Down');
-        break;
-    case Phaser.Tilemap.WEST:
-        this.animations.play('Left');
-        break;
-    }
+    this.animations.play(this.animationNames[direction]);
 
     if (this.canMoveTo(direction)) {
 
