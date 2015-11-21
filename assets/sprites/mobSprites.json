@@ -192,6 +192,28 @@
         },
 
         {
+            "filename": "alma1",
+            "frame": { "x": 16, "y": 90, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "alma2",
+            "frame": { "x": 54, "y": 90, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "alma3",
+            "frame": { "x": 92, "y": 90, "w": 34, "h": 34 }
+        },
+
+        {
+            "filename": "almaRunning1",
+            "frame": { "x": 129, "y": 90, "w": 34, "h": 34 }
+        },
+        {
+            "filename": "almaRunning2",
+            "frame": { "x": 165, "y": 90, "w": 34, "h": 34 }
+        },
+
+        {
             "filename": "medusa1",
             "frame": { "x": 275, "y": 133, "w": 34, "h": 34 }
         },

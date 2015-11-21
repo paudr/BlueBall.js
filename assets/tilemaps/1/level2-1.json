@@ -113,6 +113,30 @@
                     "properties": {}
                 },
                 {
+                    "gid": 29,
+                    "x": 6,
+                    "y": 14,
+                    "properties": {}
+                },
+                {
+                    "gid": 29,
+                    "x": 18,
+                    "y": 14,
+                    "properties": {}
+                },
+                {
+                    "gid": 29,
+                    "x": 8,
+                    "y": 22,
+                    "properties": {}
+                },
+                {
+                    "gid": 29,
+                    "x": 16,
+                    "y": 22,
+                    "properties": {}
+                },
+                {
                     "gid": 117,
                     "x": 12,
                     "y": 4,
