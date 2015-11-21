@@ -43,55 +43,6 @@ Object.defineProperty(BlueBall.Leeper.prototype, "lookingAt", {
 
 });
 
-BlueBall.Leeper.prototype.getDirectionToPlayer = function () {
-
-    var distanceX = this.level.player.cellPosition.x - this.cellPosition.x,
-        distanceY = this.level.player.cellPosition.y - this.cellPosition.y,
-        firstDirection,
-        secondDirection;
-
-    if (Math.abs(distanceX) >= Math.abs(distanceY)) {
-
-        if (distanceX >= 0) {
-            firstDirection = Phaser.Tilemap.EAST;
-        }
-        else {
-            firstDirection = Phaser.Tilemap.WEST;
-        }
-
-        if(distanceY >= 0) {
-            secondDirection = Phaser.Tilemap.SOUTH;
-        }
-        else {
-            secondDirection = Phaser.Tilemap.NORTH;
-        }
-
-    }
-    else {
-
-        if (distanceY >= 0) {
-            firstDirection = Phaser.Tilemap.SOUTH;
-        }
-        else {
-            firstDirection = Phaser.Tilemap.NORTH;
-        }
-
-        if (distanceX >= 0) {
-            secondDirection = Phaser.Tilemap.EAST;
-        }
-        else {
-            secondDirection = Phaser.Tilemap.WEST;
-        }
-
-    }
-
-    return {
-        'principal': firstDirection,
-        'secondary': secondDirection
-    };
-
-};
-
 BlueBall.Leeper.prototype.performMovement = function(playerPosition) {
 
     var turnback = (this.lastDirection + 2) % 4;
@@ -143,7 +94,7 @@ BlueBall.Leeper.prototype.nextAction = function () {
         }
         else {
 
-            var directionToPlayer = this.getDirectionToPlayer();
+            var directionToPlayer = BlueBall.Helper.getDirectionTo(this, this.level.player);
 
             if (this.lastDirection === null) {
 

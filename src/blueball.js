@@ -68,6 +68,55 @@ var BlueBall = {
 
             return result;
 
+        },
+
+        'getDirectionTo': function (source, target) {
+
+            var distanceX = target.cellPosition.x - source.cellPosition.x,
+                distanceY = target.cellPosition.y - source.cellPosition.y,
+                firstDirection,
+                secondDirection;
+
+            if (Math.abs(distanceX) >= Math.abs(distanceY)) {
+
+                if (distanceX >= 0) {
+                    firstDirection = Phaser.Tilemap.EAST;
+                }
+                else {
+                    firstDirection = Phaser.Tilemap.WEST;
+                }
+
+                if(distanceY >= 0) {
+                    secondDirection = Phaser.Tilemap.SOUTH;
+                }
+                else {
+                    secondDirection = Phaser.Tilemap.NORTH;
+                }
+
+            }
+            else {
+
+                if (distanceY >= 0) {
+                    firstDirection = Phaser.Tilemap.SOUTH;
+                }
+                else {
+                    firstDirection = Phaser.Tilemap.NORTH;
+                }
+
+                if (distanceX >= 0) {
+                    secondDirection = Phaser.Tilemap.EAST;
+                }
+                else {
+                    secondDirection = Phaser.Tilemap.WEST;
+                }
+
+            }
+
+            return {
+                'principal': firstDirection,
+                'secondary': secondDirection
+            };
+
         }
 
     }
