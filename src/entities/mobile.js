@@ -261,7 +261,11 @@ BlueBall.Mobile.prototype.canTouch = function (entity) {
 
 BlueBall.Mobile.prototype.update = function () {
 
-    if (this.isMoving === true && this.wasPushed === false) {
+    if (this.isMoving === false) {
+
+        this.nextAction();
+        
+    } else if (this.wasPushed === false) {
 
         var slowdownTile = this.slowdownIndexes.indexOf(this.level.map.getTile(this.cellPosition.x >> 1, this.cellPosition.y >> 1, 'environment', true).index || 0) > -1,
             incX = this.game.time.elapsed * (slowdownTile ? this.speed.x * 0.5 : this.speed.x),
@@ -341,11 +345,6 @@ BlueBall.Mobile.prototype.update = function () {
             this.nextAction();
 
         }
-
-    }
-    else {
-
-        this.nextAction();
 
     }
 
