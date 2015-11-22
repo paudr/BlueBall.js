@@ -15,8 +15,6 @@ BlueBall.WaterEgg = function (target) {
 
     this.target = target.target;
 
-    this.sinkEgg(3);
-
 };
 
 BlueBall.WaterEgg.prototype = Object.create(BlueBall.Mobile.prototype);
@@ -73,9 +71,29 @@ BlueBall.WaterEgg.prototype.isPlayerInWater = function() {
 
 };
 
+BlueBall.WaterEgg.prototype.nextAction = function() {
+
+    var tile = this.level.map.getTile(this.cellPosition.x >> 1, this.cellPosition.y >> 1, 'environment', true);
+    var canMove = false;
+
+    if (typeof tile.properties.direction === 'number') {
+
+        canMove = this.moveTo(tile.properties.direction);
+
+    }
+    
+    if (!canMove && !this.event) {
+
+        this.sinkEgg(3);
+
+    }
+
+};
+
 BlueBall.WaterEgg.prototype.kill = function() {
 
     this.level.waterEgg = null;
+    this.toDestroy = true;
     return BlueBall.Mobile.prototype.kill.apply(this, arguments);
 
 };

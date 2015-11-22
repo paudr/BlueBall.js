@@ -24,7 +24,9 @@ BlueBall.Egg.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.Egg.prototype.collideIndexesWithOutWater = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 29, 30, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
 
-BlueBall.Egg.prototype.collideIndexesWithWater = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 29, 30, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+BlueBall.Egg.prototype.indexesWater = [ 18, 19, 20, 21, 22 ];
+
+BlueBall.Egg.prototype.collideIndexesWithWater = BlueBall.Egg.prototype.collideIndexesWithOutWater.concat(BlueBall.Egg.prototype.indexesWater);
 
 Object.defineProperty(BlueBall.Egg.prototype, 'collideIndexes', {
     get: function() {
@@ -58,7 +60,7 @@ BlueBall.Egg.prototype.open = function () {
 
     this.target.revive();
 
-    this.destroy(true);
+    this.toDestroy = true;
 
 };
 
@@ -75,7 +77,7 @@ BlueBall.Egg.prototype.respawn = function () {
 
     this.event = null;
     this.target.respawn();
-    this.destroy();
+    this.toDestroy = true;
 
 };
 
@@ -93,10 +95,18 @@ BlueBall.Egg.prototype.isInWater = function() {
         { x: posAltX, y: posAltY }
     ];
 
+    var tileIndex;
+
     for (var i = 0; i < positions.length; i++) {
-        if (this.level.map.getTile(positions[i].x, positions[i].y, 'environment', true).index !== 22) {
+
+        tileIndex = this.level.map.getTile(positions[i].x, positions[i].y, 'environment', true).index;
+
+        if (this.indexesWater.indexOf(tileIndex) === -1) {
+
             return false;
+
         }
+
     }
 
     return true;
