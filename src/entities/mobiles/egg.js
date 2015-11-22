@@ -22,7 +22,25 @@ BlueBall.Egg = function (target) {
 
 BlueBall.Egg.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Egg.prototype.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 29, 30, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+BlueBall.Egg.prototype.collideIndexesWithOutWater = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 29, 30, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+
+BlueBall.Egg.prototype.collideIndexesWithWater = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 22, 29, 30, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+
+Object.defineProperty(BlueBall.Egg.prototype, 'collideIndexes', {
+    get: function() {
+
+        if (this.level.waterEgg instanceof BlueBall.WaterEgg) {
+
+            return BlueBall.Egg.prototype.collideIndexesWithWater;
+
+        } else {
+
+            return BlueBall.Egg.prototype.collideIndexesWithOutWater;
+
+        }
+
+    }
+});
 
 BlueBall.Egg.prototype.breakEgg = function () {
 

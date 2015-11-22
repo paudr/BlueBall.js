@@ -11,6 +11,7 @@ BlueBall.WaterEgg = function (target) {
     this.level.onPhaseChanged.add(this.phaseChanged, this);
 
     this.level.entities.addAt(this, 0);
+    this.level.waterEgg = this;
 
     this.target = target.target;
 
@@ -20,7 +21,7 @@ BlueBall.WaterEgg = function (target) {
 
 BlueBall.WaterEgg.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.WaterEgg.prototype.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 29, 30, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+BlueBall.WaterEgg.prototype.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 29, 30, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
 
 BlueBall.WaterEgg.prototype.sinkEgg = function(level) {
 
@@ -72,12 +73,10 @@ BlueBall.WaterEgg.prototype.isPlayerInWater = function() {
 
 };
 
-BlueBall.WaterEgg.prototype.die = function () {
+BlueBall.WaterEgg.prototype.kill = function() {
 
-    this.game.time.events.remove(this.event);
-
-    this.event = this.game.time.events.add(Phaser.Timer.SECOND * 8, this.respawn, this);
-    this.kill();
+    this.level.waterEgg = null;
+    return BlueBall.Mobile.prototype.kill.apply(this, arguments);
 
 };
 

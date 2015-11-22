@@ -9,6 +9,7 @@ BlueBall.Level = function (name) {
     this.player = null;
     this.exit = null;
     this.eggCounterText = null;
+    this.waterEgg = null;
 
     this.onPlayerMoved = null;
     this.onPlayerDead = null;
