@@ -10,13 +10,14 @@ BlueBall.Egg = function (target) {
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);
 
-    this.level.entities.add(this);
+    this.level.entities.addAt(this, 0);
 
     this.target = target;
 
     target.kill();
 
     this.event = this.game.time.events.add(Phaser.Timer.SECOND * 5, this.breakEgg, this);
+
 };
 
 BlueBall.Egg.prototype = Object.create(BlueBall.Mobile.prototype);
@@ -57,6 +58,40 @@ BlueBall.Egg.prototype.respawn = function () {
     this.event = null;
     this.target.respawn();
     this.destroy();
+
+};
+
+BlueBall.Egg.prototype.isInWater = function() {
+
+    var posMainX = this.cellPosition.x >> 1;
+    var posMainY = this.cellPosition.y >> 1;
+    var posAltX = (this.cellPosition.x + 1) >> 1;
+    var posAltY = (this.cellPosition.y + 1) >> 1;
+
+    var positions = [
+        { x: posMainX, y: posMainY },
+        { x: posMainX, y: posAltY },
+        { x: posAltX, y: posMainY },
+        { x: posAltX, y: posAltY }
+    ];
+
+    for (var i = 0; i < positions.length; i++) {
+        if (this.level.map.getTile(positions[i].x, positions[i].y, 'environment', true).index !== 22) {
+            return false;
+        }
+    }
+
+    return true;
+
+};
+
+BlueBall.Egg.prototype.nextAction = function() {
+
+    if (this.isInWater()) {
+
+        var newEgg = new BlueBall.WaterEgg(this);
+        this.toDestroy = true;
+    }
 
 };
 

@@ -39,7 +39,7 @@ BlueBall.Player.prototype.slowdownIndexes = [ 37, 38, 39, 40, 41, 42, 43, 44, 45
 
 BlueBall.Player.prototype.pushIndexes = [ 29, 100 ];
 
-BlueBall.Player.prototype.bridgeIndexes = [ 16 ];
+BlueBall.Player.prototype.bridgeIndexes = [ 16, 101 ];
 
 BlueBall.Player.prototype.moveTo = function (direction) {
 
