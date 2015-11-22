@@ -28,7 +28,7 @@ BlueBall.Mobile.prototype = Object.create(BlueBall.Entity.prototype);
 /**
  * @property {array} collideIndexes - Lista de indices de tipos de tiles con los que colisiona Mob
  */
-BlueBall.Mobile.prototype.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 22, 29, 30, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+BlueBall.Mobile.prototype.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 29, 30, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
 
 /**
  * @property {array} slowdownIndexes - Lista de indices de tipos de tiles que relentizan a Mob

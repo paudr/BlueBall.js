@@ -22,7 +22,20 @@
             "margin": 0,
             "spacing": 0,
             "properties": {},
-            "tileproperties": {}
+            "tileproperties": {
+                "18": {
+                    "direction": 0
+                },
+                "19": {
+                    "direction": 1
+                },
+                "20": {
+                    "direction": 2
+                },
+                "21": {
+                    "direction": 3
+                }
+            }
         }
     ],
     "layers": [
