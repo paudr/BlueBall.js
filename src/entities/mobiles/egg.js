@@ -115,7 +115,7 @@ BlueBall.Egg.prototype.isInWater = function() {
 
 BlueBall.Egg.prototype.nextAction = function() {
 
-    if (this.isInWater()) {
+    if (this.isInWater() && this.level.waterEgg === null) {
 
         var newEgg = new BlueBall.WaterEgg(this);
         this.toDestroy = true;

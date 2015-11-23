@@ -32,10 +32,11 @@ BlueBall.WaterEgg.prototype.sinkEgg = function(level) {
         } else {
 
             this.event = this.game.time.events.add(Phaser.Timer.SECOND * 8, this.respawn, this);
+            this.level.waterEgg = null;
+            this.kill();
 
         }
 
-        this.kill();
 
     } else {
 
@@ -87,14 +88,6 @@ BlueBall.WaterEgg.prototype.nextAction = function() {
         this.sinkEgg(3);
 
     }
-
-};
-
-BlueBall.WaterEgg.prototype.kill = function() {
-
-    this.level.waterEgg = null;
-    this.toDestroy = true;
-    return BlueBall.Mobile.prototype.kill.apply(this, arguments);
 
 };
 
