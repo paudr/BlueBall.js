@@ -6,6 +6,9 @@ BlueBall.WaterEgg = function (target) {
         gid: 101
     });
 
+    this.speed.x /= 2;
+    this.speed.y /= 2;
+
     this.scale.set(32 / 16);
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);
@@ -72,20 +75,43 @@ BlueBall.WaterEgg.prototype.isPlayerInWater = function() {
 
 };
 
+BlueBall.WaterEgg.prototype.isPlayerAbove = function() {
+
+    var distanceX = Math.abs(this.level.player.cellPosition.x - this.cellPosition.x);
+    var distanceY = Math.abs(this.level.player.cellPosition.y - this.cellPosition.y);
+
+    if (distanceX === 0 && distanceY === 0) {
+        return 2; // Full above
+    }
+
+    if (distanceX <= 1 && distanceY <= 1) {
+        return 1; // Partially above
+    }
+
+    return 0;
+
+};
+
 BlueBall.WaterEgg.prototype.nextAction = function() {
 
     var tile = this.level.map.getTile(this.cellPosition.x >> 1, this.cellPosition.y >> 1, 'environment', true);
     var canMove = false;
+    var playerAbove = this.isPlayerAbove();
 
-    if (typeof tile.properties.direction === 'number') {
+    if (playerAbove !== 1) {
 
-        canMove = this.moveTo(tile.properties.direction);
+        if (typeof tile.properties.direction === 'number' && playerAbove !== 1) {
 
-    }
-    
-    if (!canMove && !this.event) {
+            // TODO: Falta empujar a Player
+            canMove = this.moveTo(tile.properties.direction);
 
-        this.sinkEgg(3);
+        }
+
+        if (!canMove && !this.event && playerAbove !== 1) {
+
+            this.sinkEgg(3);
+
+        }
 
     }
 
