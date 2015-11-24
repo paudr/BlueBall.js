@@ -17,6 +17,8 @@ var BlueBall = {
         game.state.add('level2-1', new BlueBall.Level('level2-1'));
         game.state.add('level2-2', new BlueBall.Level('level2-2'));
         game.state.add('level2-3', new BlueBall.Level('level2-3'));
+        game.state.add('level2-4', new BlueBall.Level('level2-4'));
+        game.state.add('level2-5', new BlueBall.Level('level2-5'));
 
         game.state.start('boot');
 

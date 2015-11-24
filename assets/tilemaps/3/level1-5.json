@@ -8,7 +8,7 @@
     "properties": {
         "world": 1,
         "level": 5,
-        "next": "level1-1"
+        "next": "level2-1"
     },
     "tilesets": [
         {
@@ -23,17 +23,29 @@
             "spacing": 0,
             "properties": {},
             "tileproperties": {
-                "18": {
+                "17": {
                     "direction": 0
                 },
-                "19": {
+                "18": {
                     "direction": 1
                 },
-                "20": {
+                "19": {
                     "direction": 2
                 },
-                "21": {
+                "20": {
                     "direction": 3
+                },
+                "24": {
+                    "direction": 2
+                },
+                "25": {
+                    "direction": 3
+                },
+                "26": {
+                    "direction": 0
+                },
+                "27": {
+                    "direction": 2
                 }
             }
         }
