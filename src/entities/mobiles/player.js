@@ -44,6 +44,8 @@ BlueBall.Player.prototype.pushIndexes = [ 29, 100 ];
 
 BlueBall.Player.prototype.bridgeIndexes = [ 101, 118 ];
 
+BlueBall.Player.prototype.arrowIndexes = [ 24, 25, 26, 27 ];
+
 BlueBall.Player.prototype.moveTo = function (direction) {
 
     this.lookingAt = direction;

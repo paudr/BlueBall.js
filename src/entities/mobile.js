@@ -45,17 +45,19 @@ BlueBall.Mobile.prototype.pushIndexes = [];
  */
 BlueBall.Mobile.prototype.bridgeIndexes = [];
 
-BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entities2) {
+/**
+ * @property {array} arrowIndexes - Lista de indices de tipos de tiles del tipo arrow
+ */
+BlueBall.Mobile.prototype.arrowIndexes = [];
 
-    var positions = this.cellsAt(direction),
-        tile1 = this.level.map.getTile(positions[0].x >> 1, positions[0].y >> 1, 'environment', true),
-        tile2 = this.level.map.getTile(positions[1].x >> 1, positions[1].y >> 1, 'environment', true);
+BlueBall.Mobile.prototype.isCellColliding = function (direction, tile, entities) {
+    
+    if (this.collideIndexes.indexOf(tile.index) > -1) {
 
-    if (this.collideIndexes.indexOf(tile1.index) > -1) {
 
-        entities1 = BlueBall.Entity.getEntitiesFromIndexArray(this.bridgeIndexes, entities1);
+        entities = BlueBall.Entity.getEntitiesFromIndexArray(this.bridgeIndexes, entities);
 
-        if (entities1.length === 0) {
+        if (entities.length === 0) {
 
             return true;
 
@@ -63,11 +65,9 @@ BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entit
 
     }
 
-    if (this.collideIndexes.indexOf(tile2.index) > -1) {
+    if (this.arrowIndexes.indexOf(tile.index) > -1) {
 
-        entities2 = BlueBall.Entity.getEntitiesFromIndexArray(this.bridgeIndexes, entities2);
-
-        if (entities2.length === 0) {
+        if (direction === tile.properties.direction) {
 
             return true;
 
@@ -76,6 +76,16 @@ BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entit
     }
 
     return false;
+
+};
+
+BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entities2) {
+
+    var positions = this.cellsAt(direction),
+        tile1 = this.level.map.getTile(positions[0].x >> 1, positions[0].y >> 1, 'environment', true),
+        tile2 = this.level.map.getTile(positions[1].x >> 1, positions[1].y >> 1, 'environment', true);
+
+    return this.isCellColliding(direction, tile1, entities1) || this.isCellColliding(direction, tile2, entities2);
 
 };
 
