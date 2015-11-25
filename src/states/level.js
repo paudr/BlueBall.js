@@ -8,12 +8,13 @@ BlueBall.Level = function (name) {
     this.entities = null;
     this.player = null;
     this.exit = null;
-    this.eggCounterText = null;
     this.waterEgg = null;
 
     this.onPlayerMoved = null;
     this.onPlayerDead = null;
     this.onPhaseChanged = null;
+
+    this.gui = null;
 
 };
 
@@ -49,15 +50,7 @@ BlueBall.Level.prototype.create = function () {
     this.layers.x = 50;
     this.layers.y = 50;
 
-    var eggCounterImage = this.game.add.sprite(420, 128, 'eggSprites', 1, this.layers);
-    eggCounterImage.scale.set(2);
-
-    this.eggCounterText = this.game.add.text(426, 156, '0', {
-        'font': '32px Arial',
-        'fill': '#ffffff',
-        'align': 'center'
-    }, this.layers);
-    this.eggCounterText.setShadow(2, 0, '#666666');
+    this.gui = new BlueBall.Gui(this);
 
     this.map.addTilesetImage('AdventuresOfLolo3', 'AdventuresOfLolo3');
 
@@ -79,7 +72,6 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', 77, 'mobSprites', 46, true, false, this.entities, BlueBall.Alma, false);
     this.map.createFromObjects('entities', 98, 'mobSprites', 51, true, false, this.entities, BlueBall.Medusa, false);
     this.map.createFromObjects('entities', 85, 'mobSprites', 55, true, false, this.entities, BlueBall.DonMedusa, false);
-
 
     this.layers.bringToTop(this.entities);
 

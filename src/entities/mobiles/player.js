@@ -162,7 +162,8 @@ Object.defineProperty(BlueBall.Mobile.prototype, "eggs", {
     set: function (value) {
 
         this._eggs = value;
-        this.level.eggCounterText.text = value.toString();
+        this.level.gui.setEggCount(value);
+
     }
 
 });
