@@ -8,7 +8,12 @@
     "properties": {
         "world": 2,
         "level": 1,
-        "next": "level2-2"
+        "next": "level2-2",
+        "powers": {
+            "2": "arrow",
+            "4": "bridge",
+            "6": "hammer"
+        }
     },
     "tilesets": [
         {
@@ -87,13 +92,7 @@
             "height": 14,
             "visible": true,
             "opacity": 1,
-            "properties": {
-                "powers": {
-                    "2": "arrow",
-                    "4": "bridge",
-                    "6": "hammer"
-                }
-            },
+            "properties": {},
             "objects": [
                 {
                     "gid": 99,

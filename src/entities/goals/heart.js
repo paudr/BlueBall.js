@@ -14,6 +14,7 @@ BlueBall.Heart.prototype = Object.create(BlueBall.Goal.prototype);
 
 BlueBall.Heart.prototype.onPlayerEnter = function (player) {
 
+    player.incHearts();
     player.eggs = player.eggs + this.eggs;
 
     this.toDestroy = true;

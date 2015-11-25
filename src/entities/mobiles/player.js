@@ -23,6 +23,9 @@ BlueBall.Player = function (game, x, y, key, frame) {
     this.suicideKeyPressed = null;
 
     this.eggs = 0;
+    this.hearts = 0;
+    this.powers = [];
+
     this.lookingAt = Phaser.Tilemap.SOUTH;
 
     this.lastCellPosition = { x: this.cellPosition.x, y: this.cellPosition.y };
@@ -203,5 +206,18 @@ BlueBall.Player.prototype.destroy = function () {
 
     this.spacebar.onDown.remove(this.checkShoot, this);
     BlueBall.Mobile.prototype.destroy.apply(this, arguments);
+
+};
+
+BlueBall.Player.prototype.incHearts = function() {
+
+    this.hearts++;
+
+    if (this.level.map.properties.powers && this.level.map.properties.powers[this.hearts]) {
+
+        this.powers.push(this.level.map.properties.powers[this.hearts]);
+        this.level.gui.setCurrentPower(this.powers[0]);
+
+    }
 
 };
