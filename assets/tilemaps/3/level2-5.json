@@ -10,7 +10,7 @@
         "level": 5,
         "next": "level1-1",
         "powers": {
-            "2": "hammer"
+            "hammer": [ 2 ]
         }
     },
     "tilesets": [

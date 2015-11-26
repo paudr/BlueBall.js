@@ -10,9 +10,9 @@
         "level": 4,
         "next": "level2-5",
         "powers": {
-            "2": "arrow",
-            "3": "hammer",
-            "4": "bridge"
+            "arrow": [ 2 ],
+            "hammer": [ 3 ],
+            "bridge": [ 4 ]
         }
     },
     "tilesets": [

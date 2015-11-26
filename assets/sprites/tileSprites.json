@@ -17,6 +17,10 @@
             "frame": { "x": 96, "y": 32, "w": 32, "h": 32 }
         },
         {
+            "filename": "powerEmpty",
+            "frame": { "x": 128, "y": 256, "w": 32, "h": 32 }
+        },
+        {
             "filename": "powerArrow",
             "frame": { "x": 160, "y": 256, "w": 32, "h": 32 }
         },

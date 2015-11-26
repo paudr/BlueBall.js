@@ -16,15 +16,22 @@ BlueBall.Player = function (game, x, y, key, frame) {
     this.scale.set(32 / 17);
 
     this.cursors = game.input.keyboard.createCursorKeys();
-    this.spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-    this.spacebar.onDown.add(this.checkShoot, this);
+    this.keyShoot = game.input.keyboard.addKey(Phaser.Keyboard.Z);
+    this.keyShoot.onDown.add(this.checkShoot, this);
+
+    this.keyPower = game.input.keyboard.addKey(Phaser.Keyboard.X);
+    this.keyPower.onDown.add(this.checkPower, this);
 
     this.suicideKey = game.input.keyboard.addKey(Phaser.Keyboard.R);
     this.suicideKeyPressed = null;
 
     this.eggs = 0;
     this.hearts = 0;
-    this.powers = [];
+    this.powers = {
+        'arrow': 0,
+        'bridge': 0,
+        'hammer': 0
+    };
 
     this.lookingAt = Phaser.Tilemap.SOUTH;
 
@@ -118,6 +125,23 @@ BlueBall.Player.prototype.checkShoot = function () {
 
 };
 
+BlueBall.Player.prototype.checkPower = function () {
+
+    var power = this.powers.shift();
+
+    switch (power) {
+
+        case 'arrow':
+            break;
+        case 'bridge':
+            break;
+        case 'hammer':
+            break;
+
+    }
+
+};
+
 BlueBall.Player.prototype.stopAnimation = function (direction) {
 
     this.animations.stop();
@@ -206,19 +230,34 @@ BlueBall.Player.prototype.update = function () {
 
 BlueBall.Player.prototype.destroy = function () {
 
-    this.spacebar.onDown.remove(this.checkShoot, this);
+    this.keyShoot.onDown.remove(this.checkShoot, this);
+    this.keyPower.onDown.remove(this.checkPower, this);
     BlueBall.Mobile.prototype.destroy.apply(this, arguments);
 
 };
 
 BlueBall.Player.prototype.incHearts = function() {
 
+    var powers = [ 'arrow', 'bridge', 'hammer' ];
+    var i;
+    var counts;
+
     this.hearts++;
 
-    if (this.level.map.properties.powers && this.level.map.properties.powers[this.hearts]) {
+    if (this.level.map.properties.powers) {
 
-        this.powers.push(this.level.map.properties.powers[this.hearts]);
-        this.level.gui.setCurrentPower(this.powers[0]);
+        for (i = 0; i < powers.length; i++) {
+
+            counts = this.level.map.properties.powers[powers[i]];
+
+            if (counts && counts.indexOf(this.hearts) > -1) {
+
+                this.powers[powers[i]] += 1;
+                this.level.gui.setPower(powers[i], 'available');
+
+            }
+
+        }
 
     }
 

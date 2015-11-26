@@ -18,8 +18,18 @@ BlueBall.Gui = function(level) {
     this.powerArrowImage = this.game.add.sprite(420, 288, 'tileSprites', 'powerArrow', this.level.layers);
     this.powerBridgeImage = this.game.add.sprite(420, 320, 'tileSprites', 'powerBridge', this.level.layers);
     this.powerHammerImage = this.game.add.sprite(420, 352, 'tileSprites', 'powerHammer', this.level.layers);
-    this.setCurrentPower();
 
+    this.powerArrowImage.visible = false;
+    this.powerBridgeImage.visible = false;
+    this.powerHammerImage.visible = false;
+
+    this.powerArrowEmptyImage = this.game.add.sprite(420, 288, 'tileSprites', 'powerEmpty', this.level.layers);
+    this.powerBridgeEmptyImage = this.game.add.sprite(420, 320, 'tileSprites', 'powerEmpty', this.level.layers);
+    this.powerHammerEmptyImage = this.game.add.sprite(420, 352, 'tileSprites', 'powerEmpty', this.level.layers);
+
+    this.powerArrowEmptyImage.visible = false;
+    this.powerBridgeEmptyImage.visible = false;
+    this.powerHammerEmptyImage.visible = false;
 };
 
 BlueBall.Gui.prototype = Object.create(null);
@@ -30,22 +40,44 @@ BlueBall.Gui.prototype.setEggCount = function(count) {
 
 };
 
-BlueBall.Gui.prototype.setCurrentPower = function(power) {
+BlueBall.Gui.prototype.setPower = function(power, status) {
 
-    this.powerArrowImage.visible = false;
-    this.powerBridgeImage.visible = false;
-    this.powerHammerImage.visible = false;
+    var sprite;
+    var empty;
 
     switch (power) {
         case 'arrow':
-            this.powerArrowImage.visible = true;
+            sprite = this.powerArrowImage;
+            empty = this.powerArrowEmptyImage;
             break;
         case 'bridge':
-            this.powerBridgeImage.visible = true;
+            sprite = this.powerBridgeImage;
+            empty = this.powerBridgeEmptyImage;
             break;
         case 'hammer':
-            this.powerHammerImage.visible = true;
+            sprite = this.powerHammerImage;
+            empty = this.powerHammerEmptyImage;
             break;
     }
 
+    switch (status) {
+        case 'available':
+            this.powerArrowImage.visible = true;
+            sprite.alpha = 1;
+            empty.visible = false;
+            break;
+        case 'unavailable':
+            this.powerArrowImage.visible = true;
+            sprite.alpha = 0.5;
+            empty.visible = false;
+            break;
+        case 'empty':
+            this.powerArrowImage.visible = false;
+            empty.visible = true;
+            break;
+        case 'hidden':
+            this.powerArrowImage.visible = false;
+            empty.visible = false;
+            break;
+    }
 };
