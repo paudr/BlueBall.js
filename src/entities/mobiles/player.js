@@ -22,8 +22,8 @@ BlueBall.Player = function (game, x, y, key, frame) {
     this.keyPower = game.input.keyboard.addKey(Phaser.Keyboard.X);
     this.keyPower.onDown.add(this.checkPower, this);
 
-    this.suicideKey = game.input.keyboard.addKey(Phaser.Keyboard.R);
-    this.suicideKeyPressed = null;
+    this.restartKey = game.input.keyboard.addKey(Phaser.Keyboard.R);
+    this.restartKeyPressed = null;
 
     this.eggs = 0;
     this.hearts = 0;
@@ -125,18 +125,76 @@ BlueBall.Player.prototype.checkShoot = function () {
 
 };
 
+BlueBall.Player.prototype.lookingAtTile = function() {
+
+    if (this.cellPosition.x % 2 === 0 && this.cellPosition.y % 2 === 0) {
+
+        var xTile = this.cellPosition.x >> 1;
+        var yTile = this.cellPosition.y >> 1;
+
+        switch (this.lookingAt) {
+            case Phaser.Tilemap.NORTH:
+                yTile -= 1;
+                break;
+            case Phaser.Tilemap.EAST:
+                xTile += 1;
+                break;
+            case Phaser.Tilemap.SOUTH:
+                yTile += 1;
+                break;
+            case Phaser.Tilemap.WEST:
+                xTile -= 1;
+                break;
+        }
+
+        return this.level.map.getTile(xTile, yTile, 'environment', true);
+
+    }
+
+};
+
+BlueBall.Player.prototype.applyArrowPower = function(tile) {
+
+    var direction = tile.properties.direction;
+    var notChanged = true;
+    var i;
+
+    while (notChanged) {
+
+        direction = (direction + 1) % 4;
+
+        for (i = 0; i < this.arrowIndexes.length; i++) {
+
+            if (this.level.map.tilesets[0].tileProperties[this.arrowIndexes[i]].direction === direction) {
+
+                this.level.map.putTile(null, tile.x, tile.y);
+                this.level.map.putTile(this.arrowIndexes[i] + 1, tile.x, tile.y);
+                this.powers.arrow--;
+                if (this.powers.arrow <= 0) {
+                    this.level.gui.setPower('arrow', 'empty');
+                }
+                notChanged = false;
+                break;
+
+            }
+
+        }
+
+    }
+
+};
+
 BlueBall.Player.prototype.checkPower = function () {
 
-    var power = this.powers.shift();
+    var tile = this.lookingAtTile();
 
-    switch (power) {
+    if(tile) {
 
-        case 'arrow':
-            break;
-        case 'bridge':
-            break;
-        case 'hammer':
-            break;
+        if (this.arrowIndexes.indexOf(tile.index) > -1 && this.powers.arrow > 0) {
+
+            this.applyArrowPower(tile);
+
+        }
 
     }
 
@@ -199,26 +257,26 @@ Object.defineProperty(BlueBall.Mobile.prototype, "eggs", {
 
 BlueBall.Player.prototype.update = function () {
 
-    if (this.suicideKey.isDown) {
+    if (this.restartKey.isDown) {
 
-        if (this.suicideKeyPressed === null) {
+        if (this.restartKeyPressed === null) {
 
-            this.suicideKeyPressed = this.game.time.time;
+            this.restartKeyPressed = this.game.time.time;
 
         }
 
     }
     else {
 
-        if (this.suicideKeyPressed !== null) {
+        if (this.restartKeyPressed !== null) {
 
-            this.suicideKeyPressed = null;
+            this.restartKeyPressed = null;
 
         }
 
     }
 
-    if(this.suicideKeyPressed !== null && this.game.time.elapsedSecondsSince(this.suicideKeyPressed) >= 3) {
+    if(this.restartKeyPressed !== null && this.game.time.elapsedSecondsSince(this.restartKeyPressed) >= 3) {
 
         this.die();
 
