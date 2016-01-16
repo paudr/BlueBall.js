@@ -62,21 +62,21 @@ BlueBall.Gui.prototype.setPower = function(power, status) {
 
     switch (status) {
         case 'available':
-            this.powerArrowImage.visible = true;
+            sprite.visible = true;
             sprite.alpha = 1;
             empty.visible = false;
             break;
         case 'unavailable':
-            this.powerArrowImage.visible = true;
+            sprite.visible = true;
             sprite.alpha = 0.5;
             empty.visible = false;
             break;
         case 'empty':
-            this.powerArrowImage.visible = false;
+            sprite.visible = false;
             empty.visible = true;
             break;
         case 'hidden':
-            this.powerArrowImage.visible = false;
+            sprite.visible = false;
             empty.visible = false;
             break;
     }
