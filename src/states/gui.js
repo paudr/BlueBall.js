@@ -30,6 +30,9 @@ BlueBall.Gui = function(level) {
     this.powerArrowEmptyImage.visible = false;
     this.powerBridgeEmptyImage.visible = false;
     this.powerHammerEmptyImage.visible = false;
+
+    this.showAvailablePowers();
+
 };
 
 BlueBall.Gui.prototype = Object.create(null);
@@ -80,4 +83,24 @@ BlueBall.Gui.prototype.setPower = function(power, status) {
             empty.visible = false;
             break;
     }
+};
+
+BlueBall.Gui.prototype.showAvailablePowers = function () {
+
+    if (this.level.map.properties.powers) {
+
+        var powers = Object.keys(this.level.map.properties.powers);
+
+        for (var i = 0; i < powers.length; i++) {
+
+            if (this.level.map.properties.powers[powers[i]] && this.level.map.properties.powers[powers[i]].length > 0) {
+
+                this.setPower(powers[i], 'unavailable');
+
+            }
+
+        }
+
+    }
+
 };
