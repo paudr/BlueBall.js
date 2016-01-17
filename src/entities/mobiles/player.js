@@ -155,6 +155,12 @@ BlueBall.Player.prototype.lookingAtTile = function() {
 
 };
 
+BlueBall.Player.prototype.applyHammerPower = function(tile) {
+
+    this.level.map.putTile(36, tile.x, tile.y);
+
+}
+
 BlueBall.Player.prototype.applyArrowPower = function(tile) {
 
     var direction = tile.properties.direction;
@@ -206,7 +212,11 @@ BlueBall.Player.prototype.checkPower = function () {
 
     if(tile) {
 
-        if (this.arrowIndexes.indexOf(tile.index) > -1 && this.powers.arrow > 0) {
+        if (tile.index === 1 && this.powers.hammer > 0) {
+
+            this.applyHammerPower(tile);
+
+        } else if (this.arrowIndexes.indexOf(tile.index) > -1 && this.powers.arrow > 0) {
 
             this.applyArrowPower(tile);
 
