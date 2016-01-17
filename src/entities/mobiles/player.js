@@ -296,7 +296,7 @@ BlueBall.Player.prototype.destroy = function () {
 
 BlueBall.Player.prototype.incHearts = function() {
 
-    var powers = [ 'arrow', 'bridge', 'hammer' ];
+    var powers = Object.keys(this.powers);
     var i;
     var counts;
 
