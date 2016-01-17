@@ -53,6 +53,8 @@ BlueBall.Player.prototype.bridgeIndexes = [ 101, 118 ];
 
 BlueBall.Player.prototype.arrowIndexes = [ 24, 25, 26, 27 ];
 
+BlueBall.Player.prototype.waterIndexes = [ 18, 19, 20, 21, 22 ];
+
 BlueBall.Player.prototype.moveTo = function (direction) {
 
     this.lookingAt = direction;
@@ -184,6 +186,20 @@ BlueBall.Player.prototype.applyArrowPower = function(tile) {
 
 };
 
+BlueBall.Player.prototype.applyBridgePower = function(tile) {
+
+    if (this.lookingAt === Phaser.Tilemap.NORTH || this.lookingAt === Phaser.Tilemap.SOUTH) {
+
+        this.level.map.putTile(23, tile.x, tile.y);
+
+    } else {
+
+        this.level.map.putTile(24, tile.x, tile.y);
+
+    }
+
+}
+
 BlueBall.Player.prototype.checkPower = function () {
 
     var tile = this.lookingAtTile();
@@ -194,6 +210,9 @@ BlueBall.Player.prototype.checkPower = function () {
 
             this.applyArrowPower(tile);
 
+        } else if (this.waterIndexes.indexOf(tile.index) > -1 && this.powers.bridge > 0) {
+
+            this.applyBridgePower(tile);
         }
 
     }
