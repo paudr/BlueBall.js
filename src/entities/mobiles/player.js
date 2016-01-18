@@ -158,10 +158,7 @@ BlueBall.Player.prototype.lookingAtTile = function() {
 BlueBall.Player.prototype.applyHammerPower = function(tile) {
 
     this.level.map.putTile(36, tile.x, tile.y);
-    this.powers.hammer--;
-    if (this.powers.hammer <= 0) {
-        this.level.gui.setPower('hammer', 'empty');
-    }
+    this.markPowerAsUsed('hammer');
 
 }
 
@@ -181,10 +178,7 @@ BlueBall.Player.prototype.applyArrowPower = function(tile) {
 
                 this.level.map.putTile(null, tile.x, tile.y);
                 this.level.map.putTile(this.arrowIndexes[i], tile.x, tile.y);
-                this.powers.arrow--;
-                if (this.powers.arrow <= 0) {
-                    this.level.gui.setPower('arrow', 'empty');
-                }
+                this.markPowerAsUsed('arrow');
                 notChanged = false;
                 break;
 
@@ -208,9 +202,36 @@ BlueBall.Player.prototype.applyBridgePower = function(tile) {
 
     }
 
-    this.powers.bridge--;
-    if (this.powers.bridge <= 0) {
-        this.level.gui.setPower('bridge', 'empty');
+    this.markPowerAsUsed('bridge');
+
+}
+
+BlueBall.Player.prototype.markPowerAsUsed = function(power) {
+
+    this.powers[power] -= 1;
+
+    if (this.powers[power] <= 0) {
+
+        this.level.gui.setPower(power, 'empty');
+
+        counts = this.level.map.properties.powers[power];
+
+        if (counts) {
+
+            var next = counts.find((function(num) { return num > this.hearts}).bind(this));
+
+            if (typeof next === 'undefined') {
+
+                this.level.gui.setPower(power, 'empty');
+
+            } else {
+
+                this.level.gui.setPower(power, 'unavailable');
+
+            }
+
+        }
+
     }
 
 }
