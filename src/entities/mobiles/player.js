@@ -164,6 +164,7 @@ BlueBall.Player.prototype.applyHammerPower = function(tile) {
 
 BlueBall.Player.prototype.applyArrowPower = function(tile) {
 
+    var firstgid = this.level.map.tilesets[0].firstgid;
     var direction = tile.properties.direction;
     var notChanged = true;
     var i;
@@ -174,10 +175,10 @@ BlueBall.Player.prototype.applyArrowPower = function(tile) {
 
         for (i = 0; i < this.arrowIndexes.length; i++) {
 
-            if (this.level.map.tilesets[0].tileProperties[this.arrowIndexes[i] - 1].direction === direction) {
+            if (this.level.map.tilesets[0].tileProperties[this.arrowIndexes[i] - firstgid].direction === direction) {
 
-                this.level.map.putTile(null, tile.x, tile.y);
-                this.level.map.putTile(this.arrowIndexes[i], tile.x, tile.y);
+                tile = this.level.map.putTile(this.arrowIndexes[i], tile.x, tile.y);
+                tile.properties = Phaser.Utils.mixin(this.level.map.tilesets[0].tileProperties[tile.index - firstgid], tile.properties);
                 this.markPowerAsUsed('arrow');
                 notChanged = false;
                 break;
