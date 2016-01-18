@@ -340,6 +340,8 @@ BlueBall.Player.prototype.incHearts = function() {
 
     this.hearts++;
 
+    var nextHearts = this.hearts + 1;
+
     if (this.level.map.properties.powers) {
 
         for (i = 0; i < powers.length; i++) {
@@ -350,6 +352,14 @@ BlueBall.Player.prototype.incHearts = function() {
 
                 this.powers[powers[i]] += 1;
                 this.level.gui.setPower(powers[i], 'available');
+
+                this.level.blinkHearts(false);
+
+            }
+
+            if (counts && counts.indexOf(nextHearts) > -1) {
+
+                this.level.blinkHearts(true);
 
             }
 

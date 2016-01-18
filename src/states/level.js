@@ -277,3 +277,17 @@ BlueBall.Level.prototype.playerDead = function () {
     }, this);
 
 };
+
+BlueBall.Level.prototype.blinkHearts = function(start) {
+
+    for (var i = 0; i < this.entities.length; i++) {
+
+        if (this.entities.getAt(i) instanceof BlueBall.Heart) {
+
+            this.entities.getAt(i).blink(start);
+
+        }
+
+    }
+
+}
