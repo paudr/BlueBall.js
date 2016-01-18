@@ -51,7 +51,7 @@ BlueBall.Mobile.prototype.bridgeIndexes = [];
 BlueBall.Mobile.prototype.arrowIndexes = [];
 
 BlueBall.Mobile.prototype.isCellColliding = function (direction, tile, entities) {
-    
+
     if (this.collideIndexes.indexOf(tile.index) > -1) {
 
 
@@ -274,7 +274,7 @@ BlueBall.Mobile.prototype.update = function () {
     if (this.isMoving === false) {
 
         this.nextAction();
-        
+
     } else if (this.wasPushed === false) {
 
         var slowdownTile = this.slowdownIndexes.indexOf(this.level.map.getTile(this.cellPosition.x >> 1, this.cellPosition.y >> 1, 'environment', true).index || 0) > -1,

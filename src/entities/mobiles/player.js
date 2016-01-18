@@ -51,7 +51,7 @@ BlueBall.Player.prototype.pushIndexes = [ 29, 100 ];
 
 BlueBall.Player.prototype.bridgeIndexes = [ 101, 118 ];
 
-BlueBall.Player.prototype.arrowIndexes = [ 24, 25, 26, 27 ];
+BlueBall.Player.prototype.arrowIndexes = [ 25, 26, 27, 28 ];
 
 BlueBall.Player.prototype.waterIndexes = [ 18, 19, 20, 21, 22 ];
 
@@ -158,6 +158,10 @@ BlueBall.Player.prototype.lookingAtTile = function() {
 BlueBall.Player.prototype.applyHammerPower = function(tile) {
 
     this.level.map.putTile(36, tile.x, tile.y);
+    this.powers.hammer--;
+    if (this.powers.hammer <= 0) {
+        this.level.gui.setPower('hammer', 'empty');
+    }
 
 }
 
@@ -173,10 +177,10 @@ BlueBall.Player.prototype.applyArrowPower = function(tile) {
 
         for (i = 0; i < this.arrowIndexes.length; i++) {
 
-            if (this.level.map.tilesets[0].tileProperties[this.arrowIndexes[i]].direction === direction) {
+            if (this.level.map.tilesets[0].tileProperties[this.arrowIndexes[i] - 1].direction === direction) {
 
                 this.level.map.putTile(null, tile.x, tile.y);
-                this.level.map.putTile(this.arrowIndexes[i] + 1, tile.x, tile.y);
+                this.level.map.putTile(this.arrowIndexes[i], tile.x, tile.y);
                 this.powers.arrow--;
                 if (this.powers.arrow <= 0) {
                     this.level.gui.setPower('arrow', 'empty');
@@ -202,6 +206,11 @@ BlueBall.Player.prototype.applyBridgePower = function(tile) {
 
         this.level.map.putTile(24, tile.x, tile.y);
 
+    }
+
+    this.powers.bridge--;
+    if (this.powers.bridge <= 0) {
+        this.level.gui.setPower('bridge', 'empty');
     }
 
 }
