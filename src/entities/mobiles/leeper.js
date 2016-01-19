@@ -3,7 +3,7 @@
 BlueBall.Leeper = function (game, x, y, key, frame) {
 
     BlueBall.Mobile.call(this, game, x, y, key, frame, {
-        gid: 69
+        gid: BlueBall.Global.Entities.Lepper
     });
 
     this.animations.add('Top', Phaser.Animation.generateFrameNames('leeperUp', 1, 2, '', 1), 5, true);

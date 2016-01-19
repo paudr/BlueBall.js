@@ -3,7 +3,7 @@
 BlueBall.Gol = function (game, x, y, key, frame) {
 
     BlueBall.Mobile.call(this, game, x, y, key, frame, {
-        gid: 81
+        gid: BlueBall.Global.Entities.Gol
     });
 
     this.isAwaken = false;

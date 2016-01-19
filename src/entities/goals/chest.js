@@ -3,7 +3,7 @@
 BlueBall.Chest = function (game, x, y, key, frame) {
 
     BlueBall.Goal.call(this, game, x, y, key, frame, {
-        gid: 117
+        gid: BlueBall.Global.Entities.Chest
     });
 
     this.status = BlueBall.Chest.CLOSED;

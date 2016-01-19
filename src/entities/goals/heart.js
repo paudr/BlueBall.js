@@ -3,7 +3,7 @@
 BlueBall.Heart = function (game, x, y, key, frame) {
 
     BlueBall.Goal.call(this, game, x, y, key, frame, {
-        gid: 30
+        gid: BlueBall.Global.Entities.Heart
     });
 
     this.eggs = 0; // Cantidad de disparos que obtiene Player por coger el Heart

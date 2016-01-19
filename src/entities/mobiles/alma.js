@@ -3,10 +3,8 @@
 BlueBall.Alma = function (game, x, y, key, frame) {
 
     BlueBall.Mobile.call(this, game, x, y, key, frame, {
-        gid: 77
+        gid: BlueBall.Global.Entities.Alma
     });
-
-    this.pushIndexes.push(99);
 
     this.animations.add('Walking', Phaser.Animation.generateFrameNames('alma', 1, 3, '', 1), 5, true);
     this.animations.add('Running', Phaser.Animation.generateFrameNames('almaRunning', 1, 2, '', 1), 5, true);
@@ -32,9 +30,9 @@ BlueBall.Alma = function (game, x, y, key, frame) {
 
 BlueBall.Alma.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Alma.prototype.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 29, 30, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 73, 77, 81, 85, 89, 93, 97, 98, 100, 117 ];
+BlueBall.Alma.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
 
-BlueBall.Alma.prototype.pushIndexes = [ 99 ];
+BlueBall.Alma.prototype.pushIndexes = BlueBall.Helper.getEntityIds('Player');
 
 Object.defineProperty(BlueBall.Alma.prototype, "lookingAt", {
 

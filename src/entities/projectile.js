@@ -17,9 +17,9 @@ BlueBall.Projectile = function (shooter, direction, key, frame) {
 
 BlueBall.Projectile.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Projectile.prototype.collideIndexes = [ 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 29, 30, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+BlueBall.Projectile.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Wall', 'Arrow').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
 
-BlueBall.Projectile.prototype.impactIndexes = [ 99 ];
+BlueBall.Projectile.prototype.impactIndexes = BlueBall.Helper.getEntityIds('Player');;
 
 BlueBall.Projectile.prototype.moveTo = function () {
 

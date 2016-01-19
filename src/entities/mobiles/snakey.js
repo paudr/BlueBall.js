@@ -3,7 +3,7 @@
 BlueBall.Snakey = function (game, x, y, key, frame) {
 
     BlueBall.Mobile.call(this, game, x, y, key, frame, {
-        gid: 97
+        gid: BlueBall.Global.Entities.Snakey
     });
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);

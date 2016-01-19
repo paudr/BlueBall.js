@@ -3,7 +3,7 @@
 BlueBall.Skull = function (game, x, y, key, frame) {
 
     BlueBall.Mobile.call(this, game, x, y, key, frame, {
-        gid: 93
+        gid: BlueBall.Global.Entities.Skull
     });
 
     this.animations.add('Top', Phaser.Animation.generateFrameNames('skullUp', 1, 2, '', 1), 5, true);

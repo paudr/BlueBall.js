@@ -3,7 +3,7 @@
 BlueBall.Egg = function (target) {
 
     BlueBall.Mobile.call(this, target.game, target.cellPosition.x, target.cellPosition.y, 'eggSprites', 2, {
-        gid: 100
+        gid: BlueBall.Global.Entities.Egg
     });
 
     this.scale.set(32 / 16);
@@ -22,11 +22,9 @@ BlueBall.Egg = function (target) {
 
 BlueBall.Egg.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Egg.prototype.collideIndexesWithOutWater = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 29, 30, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+BlueBall.Egg.prototype.collideIndexesWithOutWater = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Bridge', 'Arrow', 'LavaBridge', 'Grass').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
 
-BlueBall.Egg.prototype.indexesWater = [ 18, 19, 20, 21, 22 ];
-
-BlueBall.Egg.prototype.collideIndexesWithWater = BlueBall.Egg.prototype.collideIndexesWithOutWater.concat(BlueBall.Egg.prototype.indexesWater);
+BlueBall.Egg.prototype.collideIndexesWithWater = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
 
 Object.defineProperty(BlueBall.Egg.prototype, 'collideIndexes', {
     get: function() {
@@ -101,7 +99,7 @@ BlueBall.Egg.prototype.isInWater = function() {
 
         tileIndex = this.level.map.getTile(positions[i].x, positions[i].y, 'environment', true).index;
 
-        if (this.indexesWater.indexOf(tileIndex) === -1) {
+        if (BlueBall.Global.Tiles.Water.indexOf(tileIndex) === -1) {
 
             return false;
 

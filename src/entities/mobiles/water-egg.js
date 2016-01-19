@@ -3,7 +3,7 @@
 BlueBall.WaterEgg = function (target) {
 
     BlueBall.Mobile.call(this, target.game, target.cellPosition.x, target.cellPosition.y, 'eggSprites', 2, {
-        gid: 101
+        gid: BlueBall.Global.Entities.WaterEgg
     });
 
     this.speed.x /= 2;
@@ -22,7 +22,7 @@ BlueBall.WaterEgg = function (target) {
 
 BlueBall.WaterEgg.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.WaterEgg.prototype.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 29, 30, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+BlueBall.WaterEgg.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Bridge', 'Arrow', 'LavaBridge', 'Floor', 'Sand', 'Grass');
 
 BlueBall.WaterEgg.prototype.sinkEgg = function(level) {
 

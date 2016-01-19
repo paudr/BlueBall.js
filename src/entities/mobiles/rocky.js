@@ -3,10 +3,8 @@
 BlueBall.Rocky = function (game, x, y, key, frame) {
 
     BlueBall.Mobile.call(this, game, x, y, key, frame, {
-        gid: 73
+        gid: BlueBall.Global.Entities.Rocky
     });
-
-    this.pushIndexes.push(99);
 
     this.animations.add('Top', Phaser.Animation.generateFrameNames('rockyUp', 1, 5, '', 1), 5, true);
     this.animations.add('Right', Phaser.Animation.generateFrameNames('rockyRight', 1, 4, '', 1), 5, true);
@@ -32,9 +30,9 @@ BlueBall.Rocky = function (game, x, y, key, frame) {
 
 BlueBall.Rocky.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Rocky.prototype.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 29, 30, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 73, 77, 81, 85, 89, 93, 97, 98, 100, 117 ];
+BlueBall.Rocky.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
 
-BlueBall.Rocky.prototype.pushIndexes = [ 99 ];
+BlueBall.Rocky.prototype.pushIndexes = BlueBall.Helper.getEntityIds('Player');;
 
 Object.defineProperty(BlueBall.Rocky.prototype, "lookingAt", {
 

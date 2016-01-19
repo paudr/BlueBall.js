@@ -3,7 +3,7 @@
 BlueBall.Player = function (game, x, y, key, frame) {
 
     BlueBall.Mobile.call(this, game, x, y, key, frame, {
-        gid: 99
+        gid: BlueBall.Global.Entities.Player
     });
 
     this.animations.add('Top', Phaser.Animation.generateFrameNames('playerUp', 1, 6, '', 1), 10, true);
@@ -43,17 +43,11 @@ BlueBall.Player = function (game, x, y, key, frame) {
 
 BlueBall.Player.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Player.prototype.collideIndexes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 20, 21, 22, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99 ];
+BlueBall.Player.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water').concat(BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'DoorClosed'));
 
-BlueBall.Player.prototype.slowdownIndexes = [ 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52 ];
+BlueBall.Player.prototype.pushIndexes = BlueBall.Helper.getEntityIds('Block', 'Egg');
 
-BlueBall.Player.prototype.pushIndexes = [ 29, 100 ];
-
-BlueBall.Player.prototype.bridgeIndexes = [ 101, 118 ];
-
-BlueBall.Player.prototype.arrowIndexes = [ 25, 26, 27, 28 ];
-
-BlueBall.Player.prototype.waterIndexes = [ 18, 19, 20, 21, 22 ];
+BlueBall.Player.prototype.bridgeIndexes = BlueBall.Helper.getEntityIds('WaterEgg', 'DoorOpened');
 
 BlueBall.Player.prototype.moveTo = function (direction) {
 
@@ -157,13 +151,14 @@ BlueBall.Player.prototype.lookingAtTile = function() {
 
 BlueBall.Player.prototype.applyHammerPower = function(tile) {
 
-    this.level.map.putTile(36, tile.x, tile.y);
+    this.level.map.putTile(BlueBall.Global.Tiles.Floor[0], tile.x, tile.y);
     this.markPowerAsUsed('hammer');
 
 }
 
 BlueBall.Player.prototype.applyArrowPower = function(tile) {
 
+    var arrowIndexes = BlueBall.Global.Tiles.Arrow;
     var firstgid = this.level.map.tilesets[0].firstgid;
     var direction = tile.properties.direction;
     var notChanged = true;
@@ -173,11 +168,11 @@ BlueBall.Player.prototype.applyArrowPower = function(tile) {
 
         direction = (direction + 1) % 4;
 
-        for (i = 0; i < this.arrowIndexes.length; i++) {
+        for (i = 0; i < arrowIndexes.length; i++) {
 
-            if (this.level.map.tilesets[0].tileProperties[this.arrowIndexes[i] - firstgid].direction === direction) {
+            if (this.level.map.tilesets[0].tileProperties[arrowIndexes[i] - firstgid].direction === direction) {
 
-                tile = this.level.map.putTile(this.arrowIndexes[i], tile.x, tile.y);
+                tile = this.level.map.putTile(arrowIndexes[i], tile.x, tile.y);
                 tile.properties = Phaser.Utils.mixin(this.level.map.tilesets[0].tileProperties[tile.index - firstgid], tile.properties);
                 this.markPowerAsUsed('arrow');
                 notChanged = false;
@@ -195,11 +190,11 @@ BlueBall.Player.prototype.applyBridgePower = function(tile) {
 
     if (this.lookingAt === Phaser.Tilemap.NORTH || this.lookingAt === Phaser.Tilemap.SOUTH) {
 
-        this.level.map.putTile(23, tile.x, tile.y);
+        this.level.map.putTile(BlueBall.Global.Tiles.Bridge[0], tile.x, tile.y);
 
     } else {
 
-        this.level.map.putTile(24, tile.x, tile.y);
+        this.level.map.putTile(BlueBall.Global.Tiles.Bridge[1], tile.x, tile.y);
 
     }
 
@@ -243,15 +238,15 @@ BlueBall.Player.prototype.checkPower = function () {
 
     if(tile) {
 
-        if (tile.index === 1 && this.powers.hammer > 0) {
+        if (BlueBall.Global.Tiles.Rock.indexOf(tile.index) > -1 && this.powers.hammer > 0) {
 
             this.applyHammerPower(tile);
 
-        } else if (this.arrowIndexes.indexOf(tile.index) > -1 && this.powers.arrow > 0) {
+        } else if (BlueBall.Global.Tiles.Arrow.indexOf(tile.index) > -1 && this.powers.arrow > 0) {
 
             this.applyArrowPower(tile);
 
-        } else if (this.waterIndexes.indexOf(tile.index) > -1 && this.powers.bridge > 0) {
+        } else if (BlueBall.Global.Tiles.Water.indexOf(tile.index) > -1 && this.powers.bridge > 0) {
 
             this.applyBridgePower(tile);
         }

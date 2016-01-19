@@ -3,7 +3,7 @@
 BlueBall.DonMedusa = function (game, x, y, key, frame) {
 
     BlueBall.Mobile.call(this, game, x, y, key, frame, {
-        gid: 85
+        gid: BlueBall.Global.Entities.DonMedusa
     });
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);

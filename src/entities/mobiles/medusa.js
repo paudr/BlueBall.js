@@ -3,7 +3,7 @@
 BlueBall.Medusa = function (game, x, y, key, frame) {
 
     BlueBall.Mobile.call(this, game, x, y, key, frame, {
-        gid: 98
+        gid: BlueBall.Global.Entities.Medusa
     });
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);

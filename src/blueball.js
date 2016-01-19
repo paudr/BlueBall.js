@@ -119,6 +119,34 @@ var BlueBall = {
                 'secondary': secondDirection
             };
 
+        },
+
+        'getTileIds': function() {
+
+            var result = [];
+
+            for (var i = 0; i < arguments.length; i++) {
+
+                result = result.concat(BlueBall.Global.Tiles[arguments[i]]);
+
+            }
+
+            return result;
+
+        },
+
+        'getEntityIds': function() {
+
+            var result = [];
+
+            for (var i = 0; i < arguments.length; i++) {
+
+                result.push(BlueBall.Global.Entities[arguments[i]]);
+
+            }
+
+            return result;
+
         }
 
     }

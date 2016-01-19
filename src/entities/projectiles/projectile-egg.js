@@ -10,9 +10,9 @@ BlueBall.ProjectileEgg = function (shooter, direction) {
 
 BlueBall.ProjectileEgg.prototype = Object.create(BlueBall.Projectile.prototype);
 
-BlueBall.ProjectileEgg.prototype.collideIndexes = [ 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 29, 30, 69, 73, 77, 81, 85, 89, 93, 97, 98, 99, 100, 117 ];
+BlueBall.ProjectileEgg.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Wall', 'Arrow').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
 
-BlueBall.ProjectileEgg.prototype.impactIndexes = [ 69, 73, 77, 81, 85, 89, 93, 97, 98, 100 ];
+BlueBall.ProjectileEgg.prototype.impactIndexes = BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey');
 
 BlueBall.ProjectileEgg.prototype.canMoveTo = function (direction) {
 
@@ -50,15 +50,15 @@ BlueBall.ProjectileEgg.prototype.getImpacted = function () {
     if (entities1.length > 0) {
 
          entities2 = BlueBall.Entity.getEntitiesFromIndexArray(this.impactIndexes, this.level.getEntitesAt(positions[1].x, positions[1].y));
-     
+
          if (entities2.length > 0) {
-             
+
              return BlueBall.Helper.intersection(entities1, entities2);
 
          }
-        
+
     }
-    
+
     return [];
 
 };
