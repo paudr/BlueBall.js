@@ -1,7 +1,7 @@
 /*global Phaser, BlueBall */
 
 BlueBall.WaterEgg = function (target) {
-
+window.we = this;
     BlueBall.Mobile.call(this, target.game, target.cellPosition.x, target.cellPosition.y, 'eggSprites', 2, {
         gid: BlueBall.Global.Entities.WaterEgg
     });
@@ -98,20 +98,38 @@ BlueBall.WaterEgg.prototype.nextAction = function() {
     var canMove = false;
     var playerAbove = this.isPlayerAbove();
 
-    if (playerAbove !== 1) {
+    if (typeof tile.properties.direction === 'number') {
 
-        if (typeof tile.properties.direction === 'number' && playerAbove !== 1) {
+        if (playerAbove === 0) {
 
-            // TODO: Falta empujar a Player
             canMove = this.moveTo(tile.properties.direction);
 
+        } else if (playerAbove === 2 && !this.level.player.isMoving) {
+
+            this.level.player.nextAction();
+
+            if (!this.level.player.isMoving) {
+
+                canMove = this.moveTo(tile.properties.direction);
+
+                if (canMove) {
+
+                    this._pushing.push(this.level.player);
+                    this.level.player.isMoving = true;
+                    this.level.player.wasPushed = true;
+                    this.level.player.cellPosition.x = this.cellPosition.x;
+                    this.level.player.cellPosition.y = this.cellPosition.y;
+                }
+
+            }
+
         }
 
-        if (!canMove && !this.event && playerAbove !== 1) {
+    }
 
-            this.sinkEgg(3);
+    if (!canMove && !this.event && playerAbove !== 1) {
 
-        }
+        this.sinkEgg(3);
 
     }
 
@@ -130,6 +148,9 @@ BlueBall.WaterEgg.prototype.destroy = function () {
     this.level.onPhaseChanged.remove(this.phaseChanged, this);
     this.game.time.events.remove(this.event);
     this.event = null;
+    if (this.level.waterEgg === this) {
+        this.level.waterEgg = null;
+    }
 
     BlueBall.Mobile.prototype.destroy.apply(this, arguments);
 
