@@ -18,15 +18,21 @@ window.we = this;
 
     this.target = target.target;
 
+    this.swampLevel = 3;
+    this.swampTimer = this.game.time.create(false);
+    this.swampTimer.repeat(Phaser.Timer.SECOND * 1, this.swampLevel + 1, this.swampEgg, this);
+    this.swampTimer.start();
+    this.swampTimer.pause();
+
 };
 
 BlueBall.WaterEgg.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.WaterEgg.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Bridge', 'Arrow', 'LavaBridge', 'Floor', 'Sand', 'Grass');
 
-BlueBall.WaterEgg.prototype.sinkEgg = function(level) {
+BlueBall.WaterEgg.prototype.swampEgg = function() {
 
-    if (level === 0) {
+    if (this.swampLevel === 0) {
 
         if (this.isPlayerInWater()) {
 
@@ -43,9 +49,8 @@ BlueBall.WaterEgg.prototype.sinkEgg = function(level) {
 
     } else {
 
-        this.scale.set((32 / 16) / (4.1 - level));
-
-        this.event = this.game.time.events.add(Phaser.Timer.SECOND * 1, this.sinkEgg, this, level - 1);
+        this.scale.set((32 / 16) / (4.1 - this.swampLevel));
+        this.swampLevel--;
 
     }
 
@@ -127,9 +132,13 @@ BlueBall.WaterEgg.prototype.nextAction = function() {
 
     }
 
-    if (!canMove && !this.event && playerAbove !== 1) {
+    if (!canMove && !this.isMoving && playerAbove !== 1) {
 
-        this.sinkEgg(3);
+        this.swampTimer.resume();
+
+    } else {
+
+        this.swampTimer.pause();
 
     }
 
@@ -148,6 +157,7 @@ BlueBall.WaterEgg.prototype.destroy = function () {
     this.level.onPhaseChanged.remove(this.phaseChanged, this);
     this.game.time.events.remove(this.event);
     this.event = null;
+    this.swampTimer.destroy();
     if (this.level.waterEgg === this) {
         this.level.waterEgg = null;
     }
