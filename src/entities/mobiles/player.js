@@ -1,7 +1,7 @@
 /*global Phaser, BlueBall */
 
 BlueBall.Player = function (game, x, y, key, frame) {
-
+window.p = this;
     BlueBall.Mobile.call(this, game, x, y, key, frame, {
         gid: BlueBall.Global.Entities.Player
     });
@@ -57,7 +57,7 @@ BlueBall.Player.prototype.moveTo = function (direction) {
 
 };
 
-BlueBall.Player.prototype.nextAction = function (direction) {
+BlueBall.Player.prototype.nextAction = function () {
 
     if (this.lastCellPosition.x !== this.cellPosition.x || this.lastCellPosition.y !== this.cellPosition.y) {
         this.lastCellPosition.x = this.cellPosition.x;
