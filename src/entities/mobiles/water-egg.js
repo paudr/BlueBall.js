@@ -66,7 +66,7 @@ BlueBall.WaterEgg.prototype.isPlayerInWater = function() {
     ];
 
     for (var i = 0; i < positions.length; i++) {
-        if (this.level.map.getTile(positions[i].x, positions[i].y, 'environment', true).index === 22) {
+        if (BlueBall.Global.Tiles.Water.indexOf(this.level.map.getTile(positions[i].x, positions[i].y, 'environment', true).index) > -1) {
             return true;
         }
     }
