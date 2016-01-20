@@ -30,6 +30,19 @@ BlueBall.WaterEgg.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.WaterEgg.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Bridge', 'Arrow', 'LavaBridge', 'Floor', 'Sand', 'Grass');
 
+BlueBall.WaterEgg.prototype.die = function () {
+
+    if (this.event) {
+        this.game.time.events.remove(this.event);
+    }
+    this.swampTimer.stop();
+
+    this.event = this.game.time.events.add(Phaser.Timer.SECOND * 8, this.respawn, this);
+    this.level.waterEgg = null;
+    this.kill();
+
+};
+
 BlueBall.WaterEgg.prototype.swampEgg = function() {
 
     if (this.swampLevel === 0) {
@@ -40,9 +53,7 @@ BlueBall.WaterEgg.prototype.swampEgg = function() {
 
         } else {
 
-            this.event = this.game.time.events.add(Phaser.Timer.SECOND * 8, this.respawn, this);
-            this.level.waterEgg = null;
-            this.kill();
+            this.die();
 
         }
 

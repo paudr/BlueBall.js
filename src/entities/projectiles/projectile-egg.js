@@ -10,9 +10,9 @@ BlueBall.ProjectileEgg = function (shooter, direction) {
 
 BlueBall.ProjectileEgg.prototype = Object.create(BlueBall.Projectile.prototype);
 
-BlueBall.ProjectileEgg.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Wall', 'Arrow').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
+BlueBall.ProjectileEgg.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Wall', 'Arrow').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
 
-BlueBall.ProjectileEgg.prototype.impactIndexes = BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey');
+BlueBall.ProjectileEgg.prototype.impactIndexes = BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg');
 
 BlueBall.ProjectileEgg.prototype.canMoveTo = function (direction) {
 
@@ -65,7 +65,7 @@ BlueBall.ProjectileEgg.prototype.getImpacted = function () {
 
 BlueBall.ProjectileEgg.prototype.impact = function (target) {
 
-    if (target instanceof BlueBall.Egg) {
+    if (target instanceof BlueBall.Egg || target instanceof BlueBall.WaterEgg) {
 
         target.die();
 
