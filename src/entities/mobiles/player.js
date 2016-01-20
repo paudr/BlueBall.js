@@ -1,7 +1,7 @@
 /*global Phaser, BlueBall */
 
 BlueBall.Player = function (game, x, y, key, frame) {
-window.p = this;
+
     BlueBall.Mobile.call(this, game, x, y, key, frame, {
         gid: BlueBall.Global.Entities.Player
     });

@@ -1,7 +1,7 @@
 /*global Phaser, BlueBall */
 
 BlueBall.WaterEgg = function (target) {
-window.we = this;
+
     BlueBall.Mobile.call(this, target.game, target.cellPosition.x, target.cellPosition.y, 'eggSprites', 2, {
         gid: BlueBall.Global.Entities.WaterEgg
     });
