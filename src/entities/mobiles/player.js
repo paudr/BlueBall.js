@@ -49,6 +49,8 @@ BlueBall.Player.prototype.pushIndexes = BlueBall.Helper.getEntityIds('Block', 'E
 
 BlueBall.Player.prototype.bridgeIndexes = BlueBall.Helper.getEntityIds('WaterEgg', 'DoorOpened');
 
+BlueBall.Player.prototype.arrowIndexes = BlueBall.Helper.getTileIds('Arrow');
+
 BlueBall.Player.prototype.moveTo = function (direction) {
 
     this.lookingAt = direction;
