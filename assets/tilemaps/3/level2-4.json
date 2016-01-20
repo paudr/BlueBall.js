@@ -13,7 +13,11 @@
             "arrow": [ 2 ],
             "hammer": [ 3 ],
             "bridge": [ 4 ]
-        }
+        },
+        "spawns": [
+            { "x": 20, "y": 8 },
+            { "x": 4, "y": 8 }
+        ]
     },
     "tilesets": [
         {
@@ -169,22 +173,6 @@
                     "x": 22,
                     "y": 8,
                     "properties": {}
-                },
-                {
-                    "gid": 105,
-                    "x": 20,
-                    "y": 8,
-                    "properties": {
-                        "priority": 0
-                    }
-                },
-                {
-                    "gid": 105,
-                    "x": 4,
-                    "y": 8,
-                    "properties": {
-                        "priority": 1
-                    }
                 },
                 {
                     "gid": 117,

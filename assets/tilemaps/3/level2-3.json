@@ -8,7 +8,10 @@
     "properties": {
         "world": 2,
         "level": 3,
-        "next": "level2-4"
+        "next": "level2-4",
+        "spawns": [
+            { "x": 20, "y": 24 }
+        ]
     },
     "tilesets": [
         {
@@ -140,14 +143,6 @@
                     "x": 22,
                     "y": 24,
                     "properties": {}
-                },
-                {
-                    "gid": 105,
-                    "x": 20,
-                    "y": 24,
-                    "properties": {
-                        "priority": 0
-                    }
                 }
             ]
         }

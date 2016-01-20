@@ -24,6 +24,8 @@ BlueBall.Entity = function (game, x, y, key, frame, options) {
 
 BlueBall.Entity.prototype = Object.create(Phaser.Sprite.prototype);
 
+BlueBall.Entity.prototype.preventSpawn = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
+
 /**
  * Calcula la posicion (en pixels) de una celda del mapa (cada casilla esta formada por 2x2 celdas)
  * @method BlueBall.Entity#getCellPosition
@@ -145,10 +147,53 @@ BlueBall.Entity.prototype.setPosition = function (x, y) {
 
 };
 
+BlueBall.Entity.prototype.canRespawnAtPosition = function (position) {
+
+    var entities = [
+        this.level.getEntitesAt(position.x, position.y),
+        this.level.getEntitesAt(position.x, position.y + 1),
+        this.level.getEntitesAt(position.x + 1, position.y),
+        this.level.getEntitesAt(position.x + 1, position.y + 1)
+    ];
+
+    for (var i = 0; i < entities.length; i++) {
+        if (BlueBall.Entity.getEntitiesFromIndexArray(this.preventSpawn, entities[i]).length > 0) {
+            return false;
+        }
+    }
+
+    return true;
+
+}
+
 BlueBall.Entity.prototype.respawn = function () {
 
-    this.setPosition(this.spawnPosition.x, this.spawnPosition.y);
-    this.revive();
+    if (this.canRespawnAtPosition(this.spawnPosition)) {
+
+        this.setPosition(this.spawnPosition.x, this.spawnPosition.y);
+        this.revive();
+
+    } else if (this.level.map.properties.spawns) {
+
+        for (var i = 0; i < this.level.map.properties.spawns.length; i++) {
+
+            if (this.canRespawnAtPosition(this.level.map.properties.spawns[i])) {
+
+                this.setPosition(this.level.map.properties.spawns[i].x, this.level.map.properties.spawns[i].y);
+                this.revive();
+                break;
+
+            }
+
+        }
+
+    }
+
+    if (!this.alive) {
+console.log('dead');
+        // TODO: Indicar que la entity ha muerto
+
+    }
 
 };
 
