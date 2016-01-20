@@ -108,17 +108,37 @@ BlueBall.WaterEgg.prototype.isPlayerAbove = function() {
 
 };
 
+BlueBall.WaterEgg.prototype.getWaterDirection = function() {
+
+    var tiles = [
+        this.level.map.getTile((this.cellPosition.x) >> 1, (this.cellPosition.y) >> 1, 'environment', true),
+        this.level.map.getTile((this.cellPosition.x) >> 1, (this.cellPosition.y + 1) >> 1, 'environment', true),
+        this.level.map.getTile((this.cellPosition.x + 1) >> 1, (this.cellPosition.y) >> 1, 'environment', true),
+        this.level.map.getTile((this.cellPosition.x + 1) >> 1, (this.cellPosition.y + 1) >> 1, 'environment', true),
+    ];
+
+    for (var i = 0; i < tiles.length; i++) {
+        if (typeof tiles[i].properties.direction === 'number' && this.canMoveTo(tiles[i].properties.direction)) {
+            return tiles[i].properties.direction;
+        }
+    }
+
+    return null;
+
+}
+
 BlueBall.WaterEgg.prototype.nextAction = function() {
 
     var tile = this.level.map.getTile(this.cellPosition.x >> 1, this.cellPosition.y >> 1, 'environment', true);
     var canMove = false;
     var playerAbove = this.isPlayerAbove();
+    var waterDirection = this.getWaterDirection();
 
-    if (typeof tile.properties.direction === 'number') {
+    if (waterDirection !== null) {
 
         if (playerAbove === 0) {
 
-            canMove = this.moveTo(tile.properties.direction);
+            canMove = this.moveTo(waterDirection);
 
         } else if (playerAbove === 2 && !this.level.player.isMoving) {
 
@@ -126,7 +146,7 @@ BlueBall.WaterEgg.prototype.nextAction = function() {
 
             if (!this.level.player.isMoving) {
 
-                canMove = this.moveTo(tile.properties.direction);
+                canMove = this.moveTo(waterDirection);
 
                 if (canMove) {
 
