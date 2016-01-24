@@ -20,11 +20,13 @@ BlueBall.Level = function (name) {
 
 BlueBall.Level.prototype = Object.create(Phaser.State.prototype);
 
-BlueBall.Level.PHASE_INITIAL = 0;
-BlueBall.Level.PHASE_HEARTS = 1;
-BlueBall.Level.PHASE_PEARLS = 2;
-BlueBall.Level.PHASE_EXITS = 3;
-BlueBall.Level.PHASE_ENDED = 4;
+BlueBall.Level.PHASES = {
+    'INITIAL': 0,
+    'HEARTS': 1,
+    'PEARLS': 2,
+    'EXITS': 3,
+    'ENDED': 4
+};
 
 BlueBall.Level.prototype.preload = function () {
 
@@ -34,7 +36,7 @@ BlueBall.Level.prototype.preload = function () {
 
 BlueBall.Level.prototype.create = function () {
 
-    this.phase = BlueBall.Level.PHASE_INITIAL;
+    this.phase = BlueBall.Level.PHASES.INITIAL;
 
     this.onPlayerMoved = new Phaser.Signal();
     this.onPlayerDead = new Phaser.Signal();
@@ -94,29 +96,29 @@ BlueBall.Level.prototype.update = function () {
 
     switch (this.phase) {
 
-    case BlueBall.Level.PHASE_INITIAL:
+    case BlueBall.Level.PHASES.INITIAL:
         if (this.player.isMoving === true) {
 
-            this.phase = BlueBall.Level.PHASE_HEARTS;
+            this.phase = BlueBall.Level.PHASES.HEARTS;
             this.onPhaseChanged.dispatch(this);
 
         }
         break;
 
-    case BlueBall.Level.PHASE_HEARTS:
+    case BlueBall.Level.PHASES.HEARTS:
         if (this.countHearts() === 0) {
 
-            this.phase = BlueBall.Level.PHASE_PEARLS;
+            this.phase = BlueBall.Level.PHASES.PEARLS;
             this.openChests();
             this.onPhaseChanged.dispatch(this);
 
         }
         break;
 
-    case BlueBall.Level.PHASE_PEARLS:
+    case BlueBall.Level.PHASES.PEARLS:
         if (this.countPearls() === 0) {
 
-            this.phase = BlueBall.Level.PHASE_EXITS;
+            this.phase = BlueBall.Level.PHASES.EXITS;
             this.openExits();
             this.onPhaseChanged.dispatch(this);
 
@@ -252,7 +254,7 @@ BlueBall.Level.prototype.getEntitesAt = function (x, y) {
 
 BlueBall.Level.prototype.catchExit = function () {
 
-    this.phase = BlueBall.Level.PHASE_ENDED;
+    this.phase = BlueBall.Level.PHASES.ENDED;
     this.onPhaseChanged.dispatch(this);
 
     this.player.win();
@@ -267,7 +269,7 @@ BlueBall.Level.prototype.catchExit = function () {
 
 BlueBall.Level.prototype.playerDead = function () {
 
-    this.phase = BlueBall.Level.PHASE_ENDED;
+    this.phase = BlueBall.Level.PHASES.ENDED;
     this.onPhaseChanged.dispatch(this);
 
     this.game.time.events.add(Phaser.Timer.SECOND * 1, function() {

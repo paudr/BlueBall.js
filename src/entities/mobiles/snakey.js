@@ -70,8 +70,8 @@ BlueBall.Snakey.prototype.phaseChanged = function () {
 
     switch (this.level.phase) {
 
-    case BlueBall.Level.PHASE_EXITS:
-    case BlueBall.Level.PHASE_ENDED:
+    case BlueBall.Level.PHASES.EXITS:
+    case BlueBall.Level.PHASES.ENDED:
         this.toDestroy = true;
         break;
 
