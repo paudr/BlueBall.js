@@ -26,32 +26,6 @@ BlueBall.Entity.prototype = Object.create(Phaser.Sprite.prototype);
 
 BlueBall.Entity.prototype.preventSpawn = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 
-BlueBall.Entity.getEntitiesFromIndexArray = function (indexArray, entities) {
-
-    var selected = [],
-        i,
-        length;
-
-    if (indexArray.length > 0) {
-
-        length = entities.length;
-
-        for (i = 0; i < length; i++) {
-
-            if (indexArray.indexOf(entities[i].gid) > -1) {
-
-                selected.push(entities[i]);
-
-            }
-
-        }
-
-    }
-
-    return selected;
-
-};
-
 /**
  * Indica si la entity ocupa una posición en concreto
  * @method BlueBall.Entity#occupy
@@ -139,7 +113,7 @@ BlueBall.Entity.prototype.canRespawnAtPosition = function (position) {
     ];
 
     for (var i = 0; i < entities.length; i++) {
-        if (BlueBall.Entity.getEntitiesFromIndexArray(this.preventSpawn, entities[i]).length > 0) {
+        if (BlueBall.Helper.getEntitiesFromIndexArray(this.preventSpawn, entities[i]).length > 0) {
             return false;
         }
     }

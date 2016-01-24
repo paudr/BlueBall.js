@@ -27,13 +27,13 @@ BlueBall.ProjectileEgg.prototype.canMoveTo = function (direction) {
 
     if (!collide1) {
 
-        collide1 = BlueBall.Entity.getEntitiesFromIndexArray(this.collideIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y)).length > 0;
+        collide1 = BlueBall.Helper.getEntitiesFromIndexArray(this.collideIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y)).length > 0;
 
     }
 
     if (!collide2) {
 
-        collide2 = BlueBall.Entity.getEntitiesFromIndexArray(this.collideIndexes, this.level.getEntitesAt(positions[1].x, positions[1].y)).length > 0;
+        collide2 = BlueBall.Helper.getEntitiesFromIndexArray(this.collideIndexes, this.level.getEntitesAt(positions[1].x, positions[1].y)).length > 0;
 
     }
 
@@ -44,12 +44,12 @@ BlueBall.ProjectileEgg.prototype.canMoveTo = function (direction) {
 BlueBall.ProjectileEgg.prototype.getImpacted = function () {
 
     var positions = this.cellsAt(this.shootDirection),
-        entities1 = BlueBall.Entity.getEntitiesFromIndexArray(this.impactIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y)),
+        entities1 = BlueBall.Helper.getEntitiesFromIndexArray(this.impactIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y)),
         entities2;
 
     if (entities1.length > 0) {
 
-         entities2 = BlueBall.Entity.getEntitiesFromIndexArray(this.impactIndexes, this.level.getEntitesAt(positions[1].x, positions[1].y));
+         entities2 = BlueBall.Helper.getEntitiesFromIndexArray(this.impactIndexes, this.level.getEntitesAt(positions[1].x, positions[1].y));
 
          if (entities2.length > 0) {
 

@@ -55,7 +55,7 @@ BlueBall.Mobile.prototype.isCellColliding = function (direction, tile, entities)
     if (this.collideIndexes.indexOf(tile.index) > -1) {
 
 
-        entities = BlueBall.Entity.getEntitiesFromIndexArray(this.bridgeIndexes, entities);
+        entities = BlueBall.Helper.getEntitiesFromIndexArray(this.bridgeIndexes, entities);
 
         if (entities.length === 0) {
 
@@ -91,7 +91,7 @@ BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entit
 
 BlueBall.Mobile.prototype.isEntitiesColliding = function (entities1, entities2) {
 
-    entities1 = BlueBall.Entity.getEntitiesFromIndexArray(this.collideIndexes, entities1);
+    entities1 = BlueBall.Helper.getEntitiesFromIndexArray(this.collideIndexes, entities1);
 
     if (entities1.length > 0) {
 
@@ -99,7 +99,7 @@ BlueBall.Mobile.prototype.isEntitiesColliding = function (entities1, entities2) 
 
     }
 
-    entities2 = BlueBall.Entity.getEntitiesFromIndexArray(this.collideIndexes, entities2);
+    entities2 = BlueBall.Helper.getEntitiesFromIndexArray(this.collideIndexes, entities2);
 
     if (entities2.length > 0) {
 
@@ -123,8 +123,8 @@ BlueBall.Mobile.prototype.canMoveTo = function (direction) {
 
             if (!this.isEntitiesColliding(entities1, entities2)) {
 
-                var pushing1 = BlueBall.Entity.getEntitiesFromIndexArray(this.pushIndexes, entities1),
-                    pushing2 = BlueBall.Entity.getEntitiesFromIndexArray(this.pushIndexes, entities2),
+                var pushing1 = BlueBall.Helper.getEntitiesFromIndexArray(this.pushIndexes, entities1),
+                    pushing2 = BlueBall.Helper.getEntitiesFromIndexArray(this.pushIndexes, entities2),
                     i,
                     length;
 
@@ -184,7 +184,7 @@ BlueBall.Mobile.prototype.moveTo = function (direction) {
 
         if (this.pushIndexes.length > 0) {
 
-            this._pushing = BlueBall.Entity.getEntitiesFromIndexArray(this.pushIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y));
+            this._pushing = BlueBall.Helper.getEntitiesFromIndexArray(this.pushIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y));
 
         }
 

@@ -72,6 +72,32 @@ var BlueBall = {
 
         },
 
+        'getEntitiesFromIndexArray': function (indexArray, entities) {
+
+            var selected = [],
+                i,
+                length;
+
+            if (indexArray.length > 0) {
+
+                length = entities.length;
+
+                for (i = 0; i < length; i++) {
+
+                    if (indexArray.indexOf(entities[i].gid) > -1) {
+
+                        selected.push(entities[i]);
+
+                    }
+
+                }
+
+            }
+
+            return selected;
+
+        },
+
         'getCellPosition': function (x, y) {
 
             return {
