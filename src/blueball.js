@@ -162,6 +162,12 @@ var BlueBall = {
 
             entity.destroy(true);
 
+        },
+
+        'openChest': function (chest) {
+
+            chest.open();
+
         }
 
     }

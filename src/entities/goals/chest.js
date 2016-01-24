@@ -6,6 +6,8 @@ BlueBall.Chest = function (game, x, y, key, frame) {
         gid: BlueBall.Global.Entities.Chest
     });
 
+    this.isChest = true;
+
     this.status = BlueBall.Chest.CLOSED;
 
     this.anchor.set(0.5, 0.33);

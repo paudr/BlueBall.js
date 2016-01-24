@@ -147,20 +147,7 @@ BlueBall.Level.prototype.hasHeartsRemaining = function () {
 
 BlueBall.Level.prototype.openChests = function () {
 
-    var i,
-        current;
-
-    for (i = 0; i < this.entities.length; i++) {
-
-        current = this.entities.getAt(i);
-
-        if (current instanceof BlueBall.Chest && current.status === BlueBall.Chest.CLOSED) {
-
-            current.open();
-
-        }
-
-    }
+    this.entities.iterate('isChest', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openChest);
 
 };
 
