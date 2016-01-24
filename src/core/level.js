@@ -132,20 +132,9 @@ BlueBall.Level.prototype.update = function () {
 
 BlueBall.Level.prototype.checkEntitiesToDestroy = function () {
 
-    var i,
-        current;
-
-    for (i = 0; i < this.entities.length; i++) {
-
-        current = this.entities.getAt(i);
-
-        if (current.toDestroy === true) {
-
-            current.destroy(true);
-
-        }
-
-    }
+    this.entities
+        .filter(BlueBall.Entity.isMarkedToDestroy)
+        .callAll('destroy', true);
 
 };
 

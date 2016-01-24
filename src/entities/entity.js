@@ -52,6 +52,12 @@ BlueBall.Entity.getEntitiesFromIndexArray = function (indexArray, entities) {
 
 };
 
+BlueBall.Entity.isMarkedToDestroy = function (entity) {
+
+    return entity.toDestroy === true;
+
+};
+
 /**
  * Indica si la entity ocupa una posición en concreto
  * @method BlueBall.Entity#occupy
