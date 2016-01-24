@@ -130,26 +130,9 @@ BlueBall.Level.prototype.setCurrentPhase = function (phase) {
 
 BlueBall.Level.prototype.getEntitesAt = function (x, y) {
 
-    var entities = [],
-        i,
-        length,
-        current;
-
-    length = this.entities.length;
-
-    for (i = 0; i < length; i++) {
-
-        current = this.entities.getAt(i);
-
-        if (current.exists && current.occupy(x, y)) {
-
-            entities.push(current);
-
-        }
-
-    }
-
-    return entities;
+    return this.entities.filter(function(entity) {
+        return entity.occupy(x, y);
+    }, true).list;
 
 };
 
