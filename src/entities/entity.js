@@ -24,7 +24,8 @@ BlueBall.Entity = function (game, x, y, key, frame, options) {
 
 BlueBall.Entity.prototype = Object.create(Phaser.Sprite.prototype);
 
-BlueBall.Entity.prototype.preventSpawn = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
+BlueBall.Entity.prototype.tilesThatPreventSpawn = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass');
+BlueBall.Entity.prototype.entitiesThatPreventSpawn = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 
 /**
  * Indica si la entity ocupa una posición en concreto
@@ -105,6 +106,16 @@ BlueBall.Entity.prototype.setCellPosition = function (x, y) {
 
 BlueBall.Entity.prototype.canRespawnAtPosition = function (position) {
 
+    var posx = position.x >> 1;
+    var posy = position.y >> 1;
+
+    var entities = [
+        this.level.map.getTile(posx, posy, 'environment', true),
+        this.level.map.getTile(posx, posy + 1, 'environment', true),
+        this.level.map.getTile(posx + 1, posy, 'environment', true),
+        this.level.map.getTile(posx + 1, posy + 1, 'environment', true)
+    ];
+
     var entities = [
         this.level.getEntitesAt(position.x, position.y),
         this.level.getEntitesAt(position.x, position.y + 1),
@@ -112,8 +123,11 @@ BlueBall.Entity.prototype.canRespawnAtPosition = function (position) {
         this.level.getEntitesAt(position.x + 1, position.y + 1)
     ];
 
-    for (var i = 0; i < entities.length; i++) {
-        if (BlueBall.Helper.getEntitiesFromIndexArray(this.preventSpawn, entities[i]).length > 0) {
+    for (var i = 0; i < 4; i++) {
+        if (
+            BlueBall.Helper.getTilesFromIndexArray(this.tilesThatPreventSpawn, entities[i]).length > 0 ||
+            BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatPreventSpawn, entities[i]).length > 0
+        ) {
             return false;
         }
     }

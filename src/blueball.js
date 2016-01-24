@@ -98,6 +98,32 @@ var BlueBall = {
 
         },
 
+        'getTilesFromIndexArray': function (indexArray, tiles) {
+
+            var selected = [],
+                i,
+                length;
+
+            if (indexArray.length > 0) {
+
+                length = tiles.length;
+
+                for (i = 0; i < length; i++) {
+
+                    if (indexArray.indexOf(tiles[i].index) > -1) {
+
+                        selected.push(tiles[i]);
+
+                    }
+
+                }
+
+            }
+
+            return selected;
+
+        },
+
         'getCellPosition': function (x, y) {
 
             return {
