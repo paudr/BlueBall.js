@@ -118,7 +118,7 @@ BlueBall.Entity.prototype.cellsAt = function (direction) {
 
 };
 
-BlueBall.Entity.prototype.setPosition = function (x, y) {
+BlueBall.Entity.prototype.setCellPosition = function (x, y) {
 
     var pos = BlueBall.Helper.getCellPosition(x, y);
 
@@ -152,7 +152,7 @@ BlueBall.Entity.prototype.respawn = function () {
 
     if (this.canRespawnAtPosition(this.spawnPosition)) {
 
-        this.setPosition(this.spawnPosition.x, this.spawnPosition.y);
+        this.setCellPosition(this.spawnPosition.x, this.spawnPosition.y);
         this.revive();
 
     } else if (this.level.map.properties.spawns) {
@@ -161,7 +161,7 @@ BlueBall.Entity.prototype.respawn = function () {
 
             if (this.canRespawnAtPosition(this.level.map.properties.spawns[i])) {
 
-                this.setPosition(this.level.map.properties.spawns[i].x, this.level.map.properties.spawns[i].y);
+                this.setCellPosition(this.level.map.properties.spawns[i].x, this.level.map.properties.spawns[i].y);
                 this.revive();
                 break;
 

@@ -54,7 +54,7 @@ BlueBall.Egg.prototype.open = function () {
 
     this.event = null;
 
-    this.target.setPosition(this.cellPosition.x, this.cellPosition.y);
+    this.target.setCellPosition(this.cellPosition.x, this.cellPosition.y);
 
     this.target.revive();
 
