@@ -30,7 +30,7 @@ BlueBall.Rocky = function (game, x, y, key, frame) {
 
 BlueBall.Rocky.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Rocky.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
+BlueBall.Rocky.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 
 BlueBall.Rocky.prototype.pushIndexes = BlueBall.Helper.getEntityIds('Player');;
 

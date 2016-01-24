@@ -17,7 +17,7 @@ BlueBall.Projectile = function (shooter, direction, key, frame) {
 
 BlueBall.Projectile.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Projectile.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Wall', 'Arrow').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
+BlueBall.Projectile.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Wall', 'Arrow');
 
 BlueBall.Projectile.prototype.impactIndexes = BlueBall.Helper.getEntityIds('Player');;
 

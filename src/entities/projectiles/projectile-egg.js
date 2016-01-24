@@ -10,7 +10,8 @@ BlueBall.ProjectileEgg = function (shooter, direction) {
 
 BlueBall.ProjectileEgg.prototype = Object.create(BlueBall.Projectile.prototype);
 
-BlueBall.ProjectileEgg.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Wall', 'Arrow').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
+BlueBall.ProjectileEgg.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Wall', 'Arrow');
+BlueBall.ProjectileEgg.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 
 BlueBall.ProjectileEgg.prototype.impactIndexes = BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg');
 
@@ -22,18 +23,18 @@ BlueBall.ProjectileEgg.prototype.canMoveTo = function (direction) {
         collide1 = false,
         collide2 = false;
 
-    collide1 = this.collideIndexes.indexOf(tile1.index) > -1;
-    collide2 = this.collideIndexes.indexOf(tile2.index) > -1;
+    collide1 = this.tilesThatCollide.indexOf(tile1.index) > -1;
+    collide2 = this.tilesThatCollide.indexOf(tile2.index) > -1;
 
     if (!collide1) {
 
-        collide1 = BlueBall.Helper.getEntitiesFromIndexArray(this.collideIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y)).length > 0;
+        collide1 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCollide, this.level.getEntitesAt(positions[0].x, positions[0].y)).length > 0;
 
     }
 
     if (!collide2) {
 
-        collide2 = BlueBall.Helper.getEntitiesFromIndexArray(this.collideIndexes, this.level.getEntitesAt(positions[1].x, positions[1].y)).length > 0;
+        collide2 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCollide, this.level.getEntitesAt(positions[1].x, positions[1].y)).length > 0;
 
     }
 

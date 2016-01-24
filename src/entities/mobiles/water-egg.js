@@ -28,7 +28,8 @@ BlueBall.WaterEgg = function (target) {
 
 BlueBall.WaterEgg.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.WaterEgg.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Bridge', 'Arrow', 'LavaBridge', 'Floor', 'Sand', 'Grass');
+BlueBall.WaterEgg.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Bridge', 'Arrow', 'LavaBridge', 'Floor', 'Sand', 'Grass');
+BlueBall.WaterEgg.prototype.entitiesThatCollide = [];
 
 BlueBall.WaterEgg.prototype.die = function () {
 

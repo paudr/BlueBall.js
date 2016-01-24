@@ -22,20 +22,20 @@ BlueBall.Egg = function (target) {
 
 BlueBall.Egg.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Egg.prototype.collideIndexesWithOutWater = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Bridge', 'Arrow', 'LavaBridge', 'Grass').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
+BlueBall.Egg.prototype.tilesThatCollideWithOutWater = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Bridge', 'Arrow', 'LavaBridge', 'Grass');
 
-BlueBall.Egg.prototype.collideIndexesWithWater = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
+BlueBall.Egg.prototype.tilesThatCollideWithWater = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass');
 
-Object.defineProperty(BlueBall.Egg.prototype, 'collideIndexes', {
+Object.defineProperty(BlueBall.Egg.prototype, 'tilesThatCollide', {
     get: function() {
 
         if (this.level.waterEgg instanceof BlueBall.WaterEgg) {
 
-            return BlueBall.Egg.prototype.collideIndexesWithWater;
+            return BlueBall.Egg.prototype.tilesThatCollideWithWater;
 
         } else {
 
-            return BlueBall.Egg.prototype.collideIndexesWithOutWater;
+            return BlueBall.Egg.prototype.tilesThatCollideWithOutWater;
 
         }
 

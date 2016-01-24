@@ -84,8 +84,8 @@ BlueBall.ProjectileMedusa.canTarget = function (shooter, target) {
 
     for (i = 0; i < cellsToCheck.length; i++) {
 
-        if (BlueBall.ProjectileMedusa.prototype.collideIndexes.indexOf(shooter.level.map.getTile(cellsToCheck[i].x >> 1, cellsToCheck[i].y >> 1, 'environment', true).index) >= 0 ||
-           BlueBall.Helper.getEntitiesFromIndexArray(BlueBall.ProjectileMedusa.prototype.collideIndexes, shooter.level.getEntitesAt(cellsToCheck[i].x, cellsToCheck[i].y)).length > 0) {
+        if (BlueBall.ProjectileMedusa.prototype.tilesThatCollide.indexOf(shooter.level.map.getTile(cellsToCheck[i].x >> 1, cellsToCheck[i].y >> 1, 'environment', true).index) >= 0 ||
+           BlueBall.Helper.getEntitiesFromIndexArray(BlueBall.ProjectileMedusa.prototype.entitiesThatCollide, shooter.level.getEntitesAt(cellsToCheck[i].x, cellsToCheck[i].y)).length > 0) {
 
             return -1;
 

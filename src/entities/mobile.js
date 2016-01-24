@@ -25,10 +25,8 @@ BlueBall.Mobile = function (game, x, y, key, frame, options) {
 
 BlueBall.Mobile.prototype = Object.create(BlueBall.Entity.prototype);
 
-/**
- * @property {array} collideIndexes - Lista de indices de tipos de tiles con los que colisiona Mob
- */
-BlueBall.Mobile.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass').concat(BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart'));
+BlueBall.Mobile.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass');
+BlueBall.Mobile.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 
 /**
  * @property {array} slowdownIndexes - Lista de indices de tipos de tiles que relentizan a Mob
@@ -52,7 +50,7 @@ BlueBall.Mobile.prototype.arrowIndexes = [];
 
 BlueBall.Mobile.prototype.isCellColliding = function (direction, tile, entities) {
 
-    if (this.collideIndexes.indexOf(tile.index) > -1) {
+    if (this.tilesThatCollide.indexOf(tile.index) > -1) {
 
 
         entities = BlueBall.Helper.getEntitiesFromIndexArray(this.bridgeIndexes, entities);
@@ -91,7 +89,7 @@ BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entit
 
 BlueBall.Mobile.prototype.isEntitiesColliding = function (entities1, entities2) {
 
-    entities1 = BlueBall.Helper.getEntitiesFromIndexArray(this.collideIndexes, entities1);
+    entities1 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCollide, entities1);
 
     if (entities1.length > 0) {
 
@@ -99,7 +97,7 @@ BlueBall.Mobile.prototype.isEntitiesColliding = function (entities1, entities2) 
 
     }
 
-    entities2 = BlueBall.Helper.getEntitiesFromIndexArray(this.collideIndexes, entities2);
+    entities2 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCollide, entities2);
 
     if (entities2.length > 0) {
 

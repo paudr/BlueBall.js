@@ -43,7 +43,8 @@ BlueBall.Player = function (game, x, y, key, frame) {
 
 BlueBall.Player.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Player.prototype.collideIndexes = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water').concat(BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'DoorClosed'));
+BlueBall.Player.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water');
+BlueBall.Player.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'DoorClosed');
 
 BlueBall.Player.prototype.pushIndexes = BlueBall.Helper.getEntityIds('Block', 'Egg');
 
