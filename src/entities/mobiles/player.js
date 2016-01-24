@@ -46,11 +46,11 @@ BlueBall.Player.prototype = Object.create(BlueBall.Mobile.prototype);
 BlueBall.Player.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water');
 BlueBall.Player.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'DoorClosed');
 
-BlueBall.Player.prototype.pushIndexes = BlueBall.Helper.getEntityIds('Block', 'Egg');
+BlueBall.Player.prototype.entitiesThatCanPush = BlueBall.Helper.getEntityIds('Block', 'Egg');
 
-BlueBall.Player.prototype.bridgeIndexes = BlueBall.Helper.getEntityIds('WaterEgg', 'DoorOpened');
+BlueBall.Player.prototype.entitiesThatBridge = BlueBall.Helper.getEntityIds('WaterEgg', 'DoorOpened');
 
-BlueBall.Player.prototype.arrowIndexes = BlueBall.Helper.getTileIds('Arrow');
+BlueBall.Player.prototype.tilesThatArrow = BlueBall.Helper.getTileIds('Arrow');
 
 BlueBall.Player.prototype.moveTo = function (direction) {
 
@@ -161,7 +161,7 @@ BlueBall.Player.prototype.applyHammerPower = function(tile) {
 
 BlueBall.Player.prototype.applyArrowPower = function(tile) {
 
-    var arrowIndexes = BlueBall.Global.Tiles.Arrow;
+    var tilesThatArrow = BlueBall.Global.Tiles.Arrow;
     var firstgid = this.level.map.tilesets[0].firstgid;
     var direction = tile.properties.direction;
     var notChanged = true;
@@ -171,11 +171,11 @@ BlueBall.Player.prototype.applyArrowPower = function(tile) {
 
         direction = (direction + 1) % 4;
 
-        for (i = 0; i < arrowIndexes.length; i++) {
+        for (i = 0; i < tilesThatArrow.length; i++) {
 
-            if (this.level.map.tilesets[0].tileProperties[arrowIndexes[i] - firstgid].direction === direction) {
+            if (this.level.map.tilesets[0].tileProperties[tilesThatArrow[i] - firstgid].direction === direction) {
 
-                tile = this.level.map.putTile(arrowIndexes[i], tile.x, tile.y);
+                tile = this.level.map.putTile(tilesThatArrow[i], tile.x, tile.y);
                 tile.properties = Phaser.Utils.mixin(this.level.map.tilesets[0].tileProperties[tile.index - firstgid], tile.properties);
                 this.markPowerAsUsed('arrow');
                 notChanged = false;

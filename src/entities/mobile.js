@@ -27,33 +27,17 @@ BlueBall.Mobile.prototype = Object.create(BlueBall.Entity.prototype);
 
 BlueBall.Mobile.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass');
 BlueBall.Mobile.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
-
-/**
- * @property {array} slowdownIndexes - Lista de indices de tipos de tiles que relentizan a Mob
- */
- BlueBall.Mobile.prototype.slowdownIndexes = BlueBall.Helper.getTileIds('Sand');
-
-/**
- * @property {array} pushIndexes - Lista de indices de tipos de entities a las que puede empujar Mob
- */
-BlueBall.Mobile.prototype.pushIndexes = [];
-
-/**
- * @property {array} bridgeIndexes - Lista de indices de tipos de entities a las que puede hacer de puente a Mob
- */
-BlueBall.Mobile.prototype.bridgeIndexes = [];
-
-/**
- * @property {array} arrowIndexes - Lista de indices de tipos de tiles del tipo arrow
- */
-BlueBall.Mobile.prototype.arrowIndexes = [];
+BlueBall.Mobile.prototype.tilesThatSlowdown = BlueBall.Helper.getTileIds('Sand');
+BlueBall.Mobile.prototype.entitiesThatCanPush = [];
+BlueBall.Mobile.prototype.entitiesThatBridge = [];
+BlueBall.Mobile.prototype.tilesThatArrow = [];
 
 BlueBall.Mobile.prototype.isCellColliding = function (direction, tile, entities) {
 
     if (this.tilesThatCollide.indexOf(tile.index) > -1) {
 
 
-        entities = BlueBall.Helper.getEntitiesFromIndexArray(this.bridgeIndexes, entities);
+        entities = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatBridge, entities);
 
         if (entities.length === 0) {
 
@@ -63,7 +47,7 @@ BlueBall.Mobile.prototype.isCellColliding = function (direction, tile, entities)
 
     }
 
-    if (this.arrowIndexes.indexOf(tile.index) > -1) {
+    if (this.tilesThatArrow.indexOf(tile.index) > -1) {
 
         if (direction === tile.properties.direction) {
 
@@ -121,8 +105,8 @@ BlueBall.Mobile.prototype.canMoveTo = function (direction) {
 
             if (!this.isEntitiesColliding(entities1, entities2)) {
 
-                var pushing1 = BlueBall.Helper.getEntitiesFromIndexArray(this.pushIndexes, entities1),
-                    pushing2 = BlueBall.Helper.getEntitiesFromIndexArray(this.pushIndexes, entities2),
+                var pushing1 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCanPush, entities1),
+                    pushing2 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCanPush, entities2),
                     i,
                     length;
 
@@ -180,9 +164,9 @@ BlueBall.Mobile.prototype.moveTo = function (direction) {
             i,
             length;
 
-        if (this.pushIndexes.length > 0) {
+        if (this.entitiesThatCanPush.length > 0) {
 
-            this._pushing = BlueBall.Helper.getEntitiesFromIndexArray(this.pushIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y));
+            this._pushing = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCanPush, this.level.getEntitesAt(positions[0].x, positions[0].y));
 
         }
 
@@ -275,7 +259,7 @@ BlueBall.Mobile.prototype.update = function () {
 
     } else if (this.wasPushed === false) {
 
-        var slowdownTile = this.slowdownIndexes.indexOf(this.level.map.getTile(this.cellPosition.x >> 1, this.cellPosition.y >> 1, 'environment', true).index || 0) > -1,
+        var slowdownTile = this.tilesThatSlowdown.indexOf(this.level.map.getTile(this.cellPosition.x >> 1, this.cellPosition.y >> 1, 'environment', true).index || 0) > -1,
             incX = this.game.time.elapsed * (slowdownTile ? this.speed.x * 0.5 : this.speed.x),
             incY = this.game.time.elapsed * (slowdownTile ? this.speed.y * 0.5 : this.speed.y),
             direction = this._movingTo,

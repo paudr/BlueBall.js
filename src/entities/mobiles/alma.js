@@ -32,7 +32,7 @@ BlueBall.Alma.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.Alma.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 
-BlueBall.Alma.prototype.pushIndexes = BlueBall.Helper.getEntityIds('Player');
+BlueBall.Alma.prototype.entitiesThatCanPush = BlueBall.Helper.getEntityIds('Player');
 
 Object.defineProperty(BlueBall.Alma.prototype, "lookingAt", {
 
