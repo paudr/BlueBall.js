@@ -100,9 +100,7 @@ BlueBall.Level.prototype.update = function () {
 
 BlueBall.Level.prototype.checkEntitiesToDestroy = function () {
 
-    this.entities
-        .filter(BlueBall.Entity.isMarkedToDestroy)
-        .callAll('destroy', true);
+    this.entities.iterate('toDestroy', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.destroyEntity);
 
 };
 

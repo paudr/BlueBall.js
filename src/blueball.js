@@ -156,6 +156,12 @@ var BlueBall = {
 
             return result;
 
+        },
+
+        'destroyEntity': function (entity) {
+
+            entity.destroy(true);
+
         }
 
     }
