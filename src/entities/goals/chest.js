@@ -27,6 +27,16 @@ BlueBall.Chest.EMPTY = 'empty';
 
 BlueBall.Chest.prototype.status = null;
 
+Object.defineProperty(BlueBall.Chest.prototype, 'isEmtpyChest', {
+
+    get: function () {
+
+        return this.status === BlueBall.Chest.EMPTY;
+
+    }
+
+});
+
 BlueBall.Chest.prototype.open = function () {
 
     this.frameName = BlueBall.Chest.OPENED;

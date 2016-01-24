@@ -129,7 +129,7 @@ BlueBall.Level.prototype.checkCurrentPhase = function () {
             break;
 
         case BlueBall.Level.PHASES.PEARLS:
-            if (this.countPearls() === 0) {
+            if (!this.hasPearlsRemaining()) {
                 this.openExits();
                 this.setCurrentPhase(BlueBall.Level.PHASES.EXITS);
             }
@@ -141,7 +141,7 @@ BlueBall.Level.prototype.checkCurrentPhase = function () {
 
 BlueBall.Level.prototype.hasHeartsRemaining = function () {
 
-    return this.entities.iterate('isHeart', true, Phaser.Group.RETURN_CHILD) !== null
+    return this.entities.iterate('isHeart', true, Phaser.Group.RETURN_CHILD) !== null;
 
 };
 
@@ -151,25 +151,9 @@ BlueBall.Level.prototype.openChests = function () {
 
 };
 
-BlueBall.Level.prototype.countPearls = function () {
+BlueBall.Level.prototype.hasPearlsRemaining = function () {
 
-    var quantity = 0,
-        i,
-        current;
-
-    for (i = 0; i < this.entities.length; i++) {
-
-        current = this.entities.getAt(i);
-
-        if (current instanceof BlueBall.Chest && current.status !== BlueBall.Chest.EMPTY) {
-
-            quantity++;
-
-        }
-
-    }
-
-    return quantity;
+    return this.entities.iterate('isEmtpyChest', false, Phaser.Group.RETURN_CHILD) !== null;
 
 };
 
