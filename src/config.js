@@ -14,7 +14,7 @@ BlueBall.Config = {
     'gameSpeed': 3.0,
 
     /* Level prefix for select level set */
-    'levelPrefix': '1/',
+    'levelPrefix': '3/',
 
     /* Name of the first level */
     'firstLevel': 'level1-1'
