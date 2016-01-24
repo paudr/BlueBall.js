@@ -6,6 +6,8 @@ BlueBall.Exit = function (game, x, y, key, frame) {
         gid: BlueBall.Global.Entities.DoorClosed
     });
 
+    this.isExit = true;
+
 };
 
 BlueBall.Exit.prototype = Object.create(BlueBall.Goal.prototype);

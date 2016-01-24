@@ -147,7 +147,7 @@ BlueBall.Level.prototype.hasHeartsRemaining = function () {
 
 BlueBall.Level.prototype.openChests = function () {
 
-    this.entities.iterate('isChest', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openChest);
+    this.entities.iterate('isChest', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openEntity);
 
 };
 
@@ -159,20 +159,7 @@ BlueBall.Level.prototype.hasPearlsRemaining = function () {
 
 BlueBall.Level.prototype.openExits = function () {
 
-    var i,
-        current;
-
-    for (i = 0; i < this.entities.length; i++) {
-
-        current = this.entities.getAt(i);
-
-        if (current instanceof BlueBall.Exit) {
-
-            current.open();
-
-        }
-
-    }
+    this.entities.iterate('isExit', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openEntity);
 
 };
 

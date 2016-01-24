@@ -164,9 +164,9 @@ var BlueBall = {
 
         },
 
-        'openChest': function (chest) {
+        'openEntity': function (entity) {
 
-            chest.open();
+            entity.open();
 
         }
 
