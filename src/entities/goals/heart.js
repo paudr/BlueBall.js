@@ -6,6 +6,8 @@ BlueBall.Heart = function (game, x, y, key, frame) {
         gid: BlueBall.Global.Entities.Heart
     });
 
+    this.isHeart = true;
+
     this.eggs = 0; // Cantidad de disparos que obtiene Player por coger el Heart
 
     this.blinkTimer = null; // Timer para la animacion de parpadeo

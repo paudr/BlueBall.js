@@ -122,7 +122,7 @@ BlueBall.Level.prototype.checkCurrentPhase = function () {
             break;
 
         case BlueBall.Level.PHASES.HEARTS:
-            if (this.countHearts() === 0) {
+            if (!this.hasHeartsRemaining()) {
                 this.openChests();
                 this.setCurrentPhase(BlueBall.Level.PHASES.PEARLS);
             }
@@ -139,22 +139,9 @@ BlueBall.Level.prototype.checkCurrentPhase = function () {
 
 };
 
-BlueBall.Level.prototype.countHearts = function () {
+BlueBall.Level.prototype.hasHeartsRemaining = function () {
 
-    var quantity = 0,
-        i;
-
-    for (i = 0; i < this.entities.length; i++) {
-
-        if (this.entities.getAt(i) instanceof BlueBall.Heart) {
-
-            quantity++;
-
-        }
-
-    }
-
-    return quantity;
+    return this.entities.iterate('isHeart', true, Phaser.Group.RETURN_CHILD) !== null
 
 };
 
