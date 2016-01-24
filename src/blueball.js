@@ -188,7 +188,7 @@ var BlueBall = {
 
             for (var i = 0; i < arguments.length; i++) {
 
-                result = result.concat(BlueBall.Global.Tiles[arguments[i]]);
+                Array.prototype.push.apply(result, BlueBall.Global.Tiles[arguments[i]]);
 
             }
 
