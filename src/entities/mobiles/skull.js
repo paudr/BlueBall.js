@@ -119,9 +119,9 @@ BlueBall.Skull.prototype.respawn = function () {
 
 };
 
-BlueBall.Skull.prototype.phaseChanged = function () {
+BlueBall.Skull.prototype.phaseChanged = function (currentPhase) {
 
-    switch (this.level.phase) {
+    switch (currentPhase) {
 
     case BlueBall.Level.PHASES.PEARLS:
         this.isAwaken = true;

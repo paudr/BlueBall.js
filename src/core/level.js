@@ -36,7 +36,7 @@ BlueBall.Level.prototype.preload = function () {
 
 BlueBall.Level.prototype.create = function () {
 
-    this.phase = BlueBall.Level.PHASES.INITIAL;
+    this.currentPhase = BlueBall.Level.PHASES.INITIAL;
 
     this.onPlayerMoved = new Phaser.Signal();
     this.onPlayerDead = new Phaser.Signal();
@@ -94,39 +94,7 @@ BlueBall.Level.prototype.shutdown = function () {
 BlueBall.Level.prototype.update = function () {
 
     this.checkEntitiesToDestroy();
-
-    switch (this.phase) {
-
-    case BlueBall.Level.PHASES.INITIAL:
-        if (this.player.isMoving === true) {
-
-            this.phase = BlueBall.Level.PHASES.HEARTS;
-            this.onPhaseChanged.dispatch(this);
-
-        }
-        break;
-
-    case BlueBall.Level.PHASES.HEARTS:
-        if (this.countHearts() === 0) {
-
-            this.phase = BlueBall.Level.PHASES.PEARLS;
-            this.openChests();
-            this.onPhaseChanged.dispatch(this);
-
-        }
-        break;
-
-    case BlueBall.Level.PHASES.PEARLS:
-        if (this.countPearls() === 0) {
-
-            this.phase = BlueBall.Level.PHASES.EXITS;
-            this.openExits();
-            this.onPhaseChanged.dispatch(this);
-
-        }
-        break;
-
-    }
+    this.checkCurrentPhase();
 
 };
 
@@ -135,6 +103,41 @@ BlueBall.Level.prototype.checkEntitiesToDestroy = function () {
     this.entities
         .filter(BlueBall.Entity.isMarkedToDestroy)
         .callAll('destroy', true);
+
+};
+
+BlueBall.Level.prototype.setCurrentPhase = function (phase) {
+
+    this.currentPhase = phase;
+    this.onPhaseChanged.dispatch(phase);
+
+}
+
+BlueBall.Level.prototype.checkCurrentPhase = function () {
+
+    switch (this.currentPhase) {
+
+        case BlueBall.Level.PHASES.INITIAL:
+            if (this.player.isMoving === true) {
+                this.setCurrentPhase(BlueBall.Level.PHASES.HEARTS);
+            }
+            break;
+
+        case BlueBall.Level.PHASES.HEARTS:
+            if (this.countHearts() === 0) {
+                this.openChests();
+                this.setCurrentPhase(BlueBall.Level.PHASES.PEARLS);
+            }
+            break;
+
+        case BlueBall.Level.PHASES.PEARLS:
+            if (this.countPearls() === 0) {
+                this.openExits();
+                this.setCurrentPhase(BlueBall.Level.PHASES.EXITS);
+            }
+            break;
+
+    }
 
 };
 
@@ -244,8 +247,7 @@ BlueBall.Level.prototype.getEntitesAt = function (x, y) {
 
 BlueBall.Level.prototype.catchExit = function () {
 
-    this.phase = BlueBall.Level.PHASES.ENDED;
-    this.onPhaseChanged.dispatch(this);
+    this.setCurrentPhase(BlueBall.Level.PHASES.ENDED);
 
     this.player.win();
 
@@ -259,8 +261,7 @@ BlueBall.Level.prototype.catchExit = function () {
 
 BlueBall.Level.prototype.playerDead = function () {
 
-    this.phase = BlueBall.Level.PHASES.ENDED;
-    this.onPhaseChanged.dispatch(this);
+    this.setCurrentPhase(BlueBall.Level.PHASES.ENDED);
 
     this.game.time.events.add(Phaser.Timer.SECOND * 1, function() {
 
@@ -282,4 +283,4 @@ BlueBall.Level.prototype.blinkHearts = function(start) {
 
     }
 
-}
+};

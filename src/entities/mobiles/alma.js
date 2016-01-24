@@ -246,9 +246,9 @@ BlueBall.Alma.prototype.respawn = function () {
 
 };
 
-BlueBall.Alma.prototype.phaseChanged = function () {
+BlueBall.Alma.prototype.phaseChanged = function (currentPhase) {
 
-    switch (this.level.phase) {
+    switch (currentPhase) {
 
     case BlueBall.Level.PHASES.HEARTS:
         this.isAwaken = true;

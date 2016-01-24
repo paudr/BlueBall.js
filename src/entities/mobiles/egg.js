@@ -131,9 +131,9 @@ BlueBall.Egg.prototype.destroy = function () {
 
 };
 
-BlueBall.Egg.prototype.phaseChanged = function () {
+BlueBall.Egg.prototype.phaseChanged = function (currentPhase) {
 
-    switch (this.level.phase) {
+    switch (currentPhase) {
 
     case BlueBall.Level.PHASES.EXITS:
     case BlueBall.Level.PHASES.ENDED:

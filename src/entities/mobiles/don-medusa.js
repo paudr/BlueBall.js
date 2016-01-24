@@ -84,9 +84,9 @@ BlueBall.DonMedusa.prototype.destroy = function () {
 
 };
 
-BlueBall.DonMedusa.prototype.phaseChanged = function () {
+BlueBall.DonMedusa.prototype.phaseChanged = function (currentPhase) {
 
-    switch (this.level.phase) {
+    switch (currentPhase) {
 
     case BlueBall.Level.PHASES.HEARTS:
         this.isAwaken = true;

@@ -66,9 +66,9 @@ BlueBall.Snakey.prototype.destroy = function () {
 
 };
 
-BlueBall.Snakey.prototype.phaseChanged = function () {
+BlueBall.Snakey.prototype.phaseChanged = function (currentPhase) {
 
-    switch (this.level.phase) {
+    switch (currentPhase) {
 
     case BlueBall.Level.PHASES.EXITS:
     case BlueBall.Level.PHASES.ENDED:

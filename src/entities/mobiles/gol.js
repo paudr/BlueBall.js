@@ -102,9 +102,9 @@ BlueBall.Gol.prototype.checkShoot = function (player) {
 
 };
 
-BlueBall.Gol.prototype.phaseChanged = function () {
+BlueBall.Gol.prototype.phaseChanged = function (currentPhase) {
 
-    switch (this.level.phase) {
+    switch (currentPhase) {
 
     case BlueBall.Level.PHASES.PEARLS:
         this.frameName = 'gol2';

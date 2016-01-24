@@ -219,9 +219,9 @@ BlueBall.Rocky.prototype.respawn = function () {
 
 };
 
-BlueBall.Rocky.prototype.phaseChanged = function () {
+BlueBall.Rocky.prototype.phaseChanged = function (currentPhase) {
 
-    switch (this.level.phase) {
+    switch (currentPhase) {
 
     case BlueBall.Level.PHASES.HEARTS:
         this.isAwaken = true;

@@ -43,9 +43,9 @@ BlueBall.Medusa.prototype.destroy = function () {
 
 };
 
-BlueBall.Medusa.prototype.phaseChanged = function () {
+BlueBall.Medusa.prototype.phaseChanged = function (currentPhase) {
 
-    switch (this.level.phase) {
+    switch (currentPhase) {
 
     case BlueBall.Level.PHASES.EXITS:
     case BlueBall.Level.PHASES.ENDED:
