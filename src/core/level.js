@@ -86,6 +86,7 @@ BlueBall.Level.prototype.shutdown = function () {
     this.onPlayerDead.remove(this.playerDead, this);
 
     this.onPlayerMoved.dispose();
+    this.onPlayerDead.dispose();
     this.onPhaseChanged.dispose();
 
 };
