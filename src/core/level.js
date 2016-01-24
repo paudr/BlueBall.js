@@ -93,25 +93,7 @@ BlueBall.Level.prototype.shutdown = function () {
 
 BlueBall.Level.prototype.update = function () {
 
-    this.checkEntitiesToDestroy();
-    this.checkCurrentPhase();
-
-};
-
-BlueBall.Level.prototype.checkEntitiesToDestroy = function () {
-
     this.entities.iterate('toDestroy', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.destroyEntity);
-
-};
-
-BlueBall.Level.prototype.setCurrentPhase = function (phase) {
-
-    this.currentPhase = phase;
-    this.onPhaseChanged.dispatch(phase);
-
-}
-
-BlueBall.Level.prototype.checkCurrentPhase = function () {
 
     switch (this.currentPhase) {
 
@@ -122,15 +104,15 @@ BlueBall.Level.prototype.checkCurrentPhase = function () {
             break;
 
         case BlueBall.Level.PHASES.HEARTS:
-            if (!this.hasHeartsRemaining()) {
-                this.openChests();
+            if (this.entities.iterate('isHeart', true, Phaser.Group.RETURN_CHILD) === null) {
+                this.entities.iterate('isChest', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openEntity);
                 this.setCurrentPhase(BlueBall.Level.PHASES.PEARLS);
             }
             break;
 
         case BlueBall.Level.PHASES.PEARLS:
-            if (!this.hasPearlsRemaining()) {
-                this.openExits();
+            if (this.entities.iterate('isEmtpyChest', false, Phaser.Group.RETURN_CHILD) === null) {
+                this.entities.iterate('isExit', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openEntity);
                 this.setCurrentPhase(BlueBall.Level.PHASES.EXITS);
             }
             break;
@@ -139,29 +121,12 @@ BlueBall.Level.prototype.checkCurrentPhase = function () {
 
 };
 
-BlueBall.Level.prototype.hasHeartsRemaining = function () {
+BlueBall.Level.prototype.setCurrentPhase = function (phase) {
 
-    return this.entities.iterate('isHeart', true, Phaser.Group.RETURN_CHILD) !== null;
+    this.currentPhase = phase;
+    this.onPhaseChanged.dispatch(phase);
 
-};
-
-BlueBall.Level.prototype.openChests = function () {
-
-    this.entities.iterate('isChest', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openEntity);
-
-};
-
-BlueBall.Level.prototype.hasPearlsRemaining = function () {
-
-    return this.entities.iterate('isEmtpyChest', false, Phaser.Group.RETURN_CHILD) !== null;
-
-};
-
-BlueBall.Level.prototype.openExits = function () {
-
-    this.entities.iterate('isExit', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openEntity);
-
-};
+}
 
 BlueBall.Level.prototype.getEntitesAt = function (x, y) {
 
