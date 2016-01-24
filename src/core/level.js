@@ -164,14 +164,10 @@ BlueBall.Level.prototype.playerDead = function () {
 
 BlueBall.Level.prototype.blinkHearts = function(start) {
 
-    for (var i = 0; i < this.entities.length; i++) {
+    this.entities.iterate('isHeart', true, Phaser.Group.RETURN_NONE, function(entity) {
 
-        if (this.entities.getAt(i) instanceof BlueBall.Heart) {
+        entity.blink(start);
 
-            this.entities.getAt(i).blink(start);
-
-        }
-
-    }
+    });
 
 };
