@@ -4,7 +4,7 @@ BlueBall.Entity = function (game, x, y, key, frame, options) {
 
     options = options || {};
 
-    var pos = BlueBall.Entity.getCellPosition(x, y);
+    var pos = BlueBall.Helper.getCellPosition(x, y);
 
     Phaser.Sprite.call(this, game, pos.x, pos.y, key, frame);
 
@@ -25,24 +25,6 @@ BlueBall.Entity = function (game, x, y, key, frame, options) {
 BlueBall.Entity.prototype = Object.create(Phaser.Sprite.prototype);
 
 BlueBall.Entity.prototype.preventSpawn = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
-
-/**
- * Calcula la posicion (en pixels) de una celda del mapa (cada casilla esta formada por 2x2 celdas)
- * @method BlueBall.Entity#getCellPosition
- * @memberof BlueBall.Entity
- * @param {number} x - Numero de columna de la celda
- * @param {number} y - Numero de fila de la celda
- * @return {Object} - Posicion (en pixels) del extremo superior izquierdo de la celda
- * @static
- */
-BlueBall.Entity.getCellPosition = function (x, y) {
-
-    return {
-        "x": (x + 1) * BlueBall.Config.cellSize.width,
-        "y": (y + 1) * BlueBall.Config.cellSize.height
-    };
-
-};
 
 BlueBall.Entity.getEntitiesFromIndexArray = function (indexArray, entities) {
 
@@ -138,7 +120,7 @@ BlueBall.Entity.prototype.cellsAt = function (direction) {
 
 BlueBall.Entity.prototype.setPosition = function (x, y) {
 
-    var pos = BlueBall.Entity.getCellPosition(x, y);
+    var pos = BlueBall.Helper.getCellPosition(x, y);
 
     this.cellPosition.x = x;
     this.cellPosition.y = y;

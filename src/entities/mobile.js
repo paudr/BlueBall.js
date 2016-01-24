@@ -205,7 +205,7 @@ BlueBall.Mobile.prototype.moveTo = function (direction) {
 
         this.isMoving = true;
         this._movingTo = direction;
-        this._destPosition = BlueBall.Entity.getCellPosition(this.cellPosition.x, this.cellPosition.y);
+        this._destPosition = BlueBall.Helper.getCellPosition(this.cellPosition.x, this.cellPosition.y);
 
         for (i = 0, length = this._pushing.length; i < length; i++) {
 
