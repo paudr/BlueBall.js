@@ -190,7 +190,7 @@ BlueBall.Entity.prototype.respawn = function () {
     }
 
     if (!this.alive) {
-console.log('dead');
+
         // TODO: Indicar que la entity ha muerto
 
     }
