@@ -58,22 +58,22 @@ BlueBall.Level.prototype.create = function () {
 
     this.map.createLayer('environment', undefined, undefined, this.layers);
 
-    this.map.createFromObjects('entities', 117, 'chestSprites', 0, true, false, this.entities, BlueBall.Chest, false);
-    this.map.createFromObjects('entities', 30, 'tileSprites', 1, true, false, this.entities, BlueBall.Heart, false);
-    this.map.createFromObjects('entities', 15, 'tileSprites', 2, true, false, this.entities, BlueBall.Exit, false);
-    this.map.createFromObjects('entities', 29, 'tileSprites', 0, true, false, this.entities, BlueBall.Block, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Chest, 'chestSprites', 0, true, false, this.entities, BlueBall.Chest, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Heart, 'tileSprites', 1, true, false, this.entities, BlueBall.Heart, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.DoorClosed, 'tileSprites', 2, true, false, this.entities, BlueBall.Exit, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Block, 'tileSprites', 0, true, false, this.entities, BlueBall.Block, false);
 
-    this.map.createFromObjects('entities', 99, 'playerSprites', 10, true, false, this.entities, BlueBall.Player, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Player, 'playerSprites', 10, true, false, this.entities, BlueBall.Player, false);
     this.player = this.entities.filter(function (entity) { return entity instanceof BlueBall.Player; }).first;
 
-    this.map.createFromObjects('entities', 97, 'mobSprites', 3, true, false, this.entities, BlueBall.Snakey, false);
-    this.map.createFromObjects('entities', 81, 'mobSprites', 6, true, false, this.entities, BlueBall.Gol, false);
-    this.map.createFromObjects('entities', 69, 'mobSprites', 14, true, false, this.entities, BlueBall.Leeper, false);
-    this.map.createFromObjects('entities', 93, 'mobSprites', 24, true, false, this.entities, BlueBall.Skull, false);
-    this.map.createFromObjects('entities', 73, 'mobSprites', 38, true, false, this.entities, BlueBall.Rocky, false);
-    this.map.createFromObjects('entities', 77, 'mobSprites', 46, true, false, this.entities, BlueBall.Alma, false);
-    this.map.createFromObjects('entities', 98, 'mobSprites', 51, true, false, this.entities, BlueBall.Medusa, false);
-    this.map.createFromObjects('entities', 85, 'mobSprites', 55, true, false, this.entities, BlueBall.DonMedusa, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Snakey, 'mobSprites', 3, true, false, this.entities, BlueBall.Snakey, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Gol, 'mobSprites', 6, true, false, this.entities, BlueBall.Gol, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Leeper, 'mobSprites', 14, true, false, this.entities, BlueBall.Leeper, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Skull, 'mobSprites', 24, true, false, this.entities, BlueBall.Skull, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Rocky, 'mobSprites', 38, true, false, this.entities, BlueBall.Rocky, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Alma, 'mobSprites', 46, true, false, this.entities, BlueBall.Alma, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Medusa, 'mobSprites', 51, true, false, this.entities, BlueBall.Medusa, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.DonMedusa, 'mobSprites', 55, true, false, this.entities, BlueBall.DonMedusa, false);
 
     this.layers.bringToTop(this.entities);
 
