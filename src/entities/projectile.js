@@ -7,7 +7,7 @@ BlueBall.Projectile = function (shooter, direction, key, frame) {
 
     shooter.level.layers.add(this);
 
-    this.velocity *= 2;
+    this.movementDuration /= 2;
 
     this.shooter = shooter;
 
