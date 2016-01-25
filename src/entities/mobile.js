@@ -114,6 +114,10 @@ BlueBall.Mobile.prototype.moveTo = function (direction, wasPushed, movementDurat
         this.isMoving = true;
         this.wasPushed = wasPushed === true;
 
+        for (var i = 0; i < pushedEntities.length; i++) {
+            pushedEntities[i].moveTo(direction, true, duration);
+        }
+
         var tween = this.game.add.tween(this);
         tween.onComplete.add(function () {
             tween.game.tweens.remove(tween);
@@ -124,10 +128,6 @@ BlueBall.Mobile.prototype.moveTo = function (direction, wasPushed, movementDurat
             }
         }, this);
         tween.to(destPosition, duration, Phaser.Easing.Linear.None, true);
-
-        for (var i = 0; i < pushedEntities.length; i++) {
-            pushedEntities[i].moveTo(direction, true, duration);
-        }
 
         return true;
     }
