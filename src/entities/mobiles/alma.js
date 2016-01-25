@@ -7,7 +7,6 @@ BlueBall.Alma = function (game, x, y, key, frame) {
     this.animations.add('Running', Phaser.Animation.generateFrameNames('almaRunning', 1, 2, '', 1), 5, true);
 
     this._isRunning = false;
-    this._isWaiting = false;
 
     this.lastDirection = null;
     this.level.onPhaseChanged.add(this.phaseChanged, this);
@@ -49,20 +48,6 @@ Object.defineProperty(BlueBall.Alma.prototype, "isRunning", {
     }
 });
 
-Object.defineProperty(BlueBall.Alma.prototype, "isWaiting", {
-    get: function () {
-        return this._isWaiting;
-    },
-    set: function (value) {
-        if (this._isWaiting !== value) {
-            if (!value) {
-                this.animations.stop();
-            }
-            this._isWaiting = value;
-        }
-    }
-});
-
 BlueBall.Alma.prototype.setAnimationNames = function (isRunning) {
     if (isRunning) {
         this.animationNames[Phaser.Tilemap.NORTH] = 'Running';
@@ -78,7 +63,7 @@ BlueBall.Alma.prototype.setAnimationNames = function (isRunning) {
 };
 
 BlueBall.Alma.prototype.checkIfCanRunToPlayer = function () {
-    if (!this.isRunning && !this.isWaiting) {
+    if (!this.isRunning) {
         if (!this.canTouch(this.level.player) && this.cellPosition.y === this.level.player.cellPosition.y) {
             var direction = this.cellPosition.x > this.level.player.cellPosition.x ? Phaser.Tilemap.WEST : Phaser.Tilemap.EAST;
             if (this.canMoveTo(direction)) {
@@ -94,7 +79,7 @@ BlueBall.Alma.prototype.performMovement = function (playerPosition) {
         if (!this.moveTo(this.lastDirection)) {
             this.isRunning = false;
         }
-    } else if (!this.isWaiting) {
+    } else {
         var turnback = (this.lastDirection + 2) % 4;
 
         if (this.canMoveTo(playerPosition.principal) && playerPosition.principal !== turnback) {
