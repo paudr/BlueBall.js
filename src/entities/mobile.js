@@ -32,117 +32,64 @@ BlueBall.Mobile.prototype.entitiesThatCanPush = [];
 BlueBall.Mobile.prototype.entitiesThatBridge = [];
 BlueBall.Mobile.prototype.tilesThatArrow = [];
 
-BlueBall.Mobile.prototype.isCellColliding = function (direction, tile, entities) {
-
-    if (this.tilesThatCollide.indexOf(tile.index) > -1) {
-
-
-        entities = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatBridge, entities);
-
-        if (entities.length === 0) {
-
-            return true;
-
-        }
-
-    }
-
-    if (this.tilesThatArrow.indexOf(tile.index) > -1) {
-
-        if (direction === tile.properties.direction) {
-
-            return true;
-
-        }
-
-    }
-
-    return false;
-
-};
-
-BlueBall.Mobile.prototype.isMapColliding = function (direction, entities1, entities2) {
-
-    var positions = this.cellsAt(direction),
-        tile1 = this.level.map.getTile(positions[0].x >> 1, positions[0].y >> 1, 'environment', true),
-        tile2 = this.level.map.getTile(positions[1].x >> 1, positions[1].y >> 1, 'environment', true);
-
-    return this.isCellColliding(direction, tile1, entities1) || this.isCellColliding(direction, tile2, entities2);
-
-};
-
-BlueBall.Mobile.prototype.isEntitiesColliding = function (entities1, entities2) {
-
-    entities1 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCollide, entities1);
-
-    if (entities1.length > 0) {
-
-        return true;
-
-    }
-
-    entities2 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCollide, entities2);
-
-    if (entities2.length > 0) {
-
-        return true;
-
-    }
-
-    return false;
-
-};
-
 BlueBall.Mobile.prototype.canMoveTo = function (direction) {
 
     if (!this.isMoving) {
 
-        var positions = this.cellsAt(direction),
-            entities1 = this.level.getEntitesAt(positions[0].x, positions[0].y),
-            entities2 = this.level.getEntitesAt(positions[1].x, positions[1].y);
+        var positions = this.cellsAt(direction);
+        var entities1 = this.level.getEntitesAt(positions[0].x, positions[0].y);
+        var entities2 = this.level.getEntitesAt(positions[1].x, positions[1].y);
+        var tile1 = this.level.map.getTile(positions[0].x >> 1, positions[0].y >> 1, 'environment', true);
+        var tile2 = this.level.map.getTile(positions[1].x >> 1, positions[1].y >> 1, 'environment', true);
 
-        if (!this.isMapColliding(direction, entities1, entities2)) {
+        if ((
+                this.tilesThatCollide.indexOf(tile1.index) === -1 || BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatBridge, entities1).length > 0
+            ) && (
+                this.tilesThatCollide.indexOf(tile2.index) === -1 || BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatBridge, entities2).length > 0
+            ) && (
+                this.tilesThatArrow.indexOf(tile1.index) === -1 || tile1.properties.direction !== direction
+            ) && (
+                this.tilesThatArrow.indexOf(tile2.index) === -1 || tile2.properties.direction !== direction
+            ) && (
+                BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCollide, entities1).length === 0
+            ) && (
+                BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCollide, entities2).length === 0
+        )) {
 
-            if (!this.isEntitiesColliding(entities1, entities2)) {
+            var pushing1 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCanPush, entities1);
+            var pushing2 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCanPush, entities2);
 
-                var pushing1 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCanPush, entities1),
-                    pushing2 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCanPush, entities2),
-                    i,
-                    length;
+            if (pushing1.length === pushing2.length) {
 
-                if (pushing1.length === pushing2.length) {
+                if (pushing1.length === 0) {
 
-                    if (pushing1.length === 0) {
+                    return true;
 
-                        return true;
+                }
 
-                    }
+                pushing1 = BlueBall.Helper.intersection(pushing1, pushing2);
 
-                    pushing1 = BlueBall.Helper.intersection(pushing1, pushing2);
+                if (pushing1.length !== pushing2.length) {
 
-                    if (pushing1.length !== pushing2.length) {
+                    return false;
 
-                        return false;
+                }
 
-                    }
+                if (pushing1.length > 0) {
 
-                    if (pushing1.length > 0) {
+                    for (var i = 0; i < pushing1.length; i++) {
 
-                        for (i = 0, length = pushing1.length; i < length; i++) {
+                        if (!pushing1[i].canBePushed || !pushing1[i].canMoveTo(direction)) {
 
-                            if (!pushing1[i].canBePushed || !pushing1[i].canMoveTo(direction)) {
-
-                                return false;
-
-                            }
+                            return false;
 
                         }
 
                     }
 
-                    return true;
-
                 }
+
+                return true;
 
             }
 
