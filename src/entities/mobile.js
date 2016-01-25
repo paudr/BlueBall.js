@@ -4,16 +4,10 @@ BlueBall.Mobile = function (game, x, y, key, frame, options) {
 
     BlueBall.Entity.call(this, game, x, y, key, frame, options);
 
-    this.speed = { // Velocidad a la que se mueve Mobile por el mapa (en pixels por milisegundo)
-        'x': BlueBall.Config.gameSpeed * BlueBall.Config.cellSize.width * 2 / Phaser.Timer.SECOND,
-        'y': BlueBall.Config.gameSpeed * BlueBall.Config.cellSize.height * 2 / Phaser.Timer.SECOND
-    };
+    this.movementDuration = Phaser.Timer.SECOND / BlueBall.Config.gameSpeed;
 
     this.isMoving = false; // True si Mobile se esta moviendo, false en caso contrario
     this.wasPushed = false; // True si Mobile esta siendo empujado, false en caso contrario
-    this._pushing = []; // Entities que se estan empujando
-    this._movingTo = null; // Direccion en la que se esta moviendo la Mobile
-    this._destPosition = null; // Coordenadas de la posición (en pixels) a la que se dirige Mobile
 
     this.animationNames = {};
     this.animationNames[Phaser.Tilemap.NORTH] = 'Top';
@@ -101,59 +95,61 @@ BlueBall.Mobile.prototype.canMoveTo = function (direction) {
 
 };
 
-BlueBall.Mobile.prototype.moveTo = function (direction) {
+BlueBall.Mobile.prototype.moveTo = function (direction, wasPushed, movementDuration) {
 
-    this.animations.play(this.animationNames[direction]);
+    if (!wasPushed) {
+        this.animations.play(this.animationNames[direction]);
+    }
 
-    if (this.canMoveTo(direction)) {
+    if (wasPushed === true || this.canMoveTo(direction)) {
 
-        var positions = this.cellsAt(direction),
-            i,
-            length;
-
-        if (this.entitiesThatCanPush.length > 0) {
-
-            this._pushing = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCanPush, this.level.getEntitesAt(positions[0].x, positions[0].y));
-
-        }
+        var positions = this.cellsAt(direction);
 
         switch (direction) {
-        case Phaser.Tilemap.NORTH:
-            this.cellPosition.y--;
-            break;
-        case Phaser.Tilemap.EAST:
-            this.cellPosition.x++;
-            break;
-        case Phaser.Tilemap.SOUTH:
-            this.cellPosition.y++;
-            break;
-        case Phaser.Tilemap.WEST:
-            this.cellPosition.x--;
-            break;
+            case Phaser.Tilemap.NORTH:
+                this.cellPosition.y--;
+                break;
+            case Phaser.Tilemap.EAST:
+                this.cellPosition.x++;
+                break;
+            case Phaser.Tilemap.SOUTH:
+                this.cellPosition.y++;
+                break;
+            case Phaser.Tilemap.WEST:
+                this.cellPosition.x--;
+                break;
+        }
+
+        var destPosition = BlueBall.Helper.getCellPosition(this.cellPosition.x, this.cellPosition.y);
+        var pushedEntities = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCanPush, this.level.getEntitesAt(positions[0].x, positions[0].y));
+        var slowdown =
+            (this.tilesThatSlowdown.indexOf(this.level.map.getTile(positions[0].x >> 1, positions[0].y >> 1, 'environment', true).index || 0) > -1) ||
+            (this.tilesThatSlowdown.indexOf(this.level.map.getTile(positions[1].x >> 1, positions[1].y >> 1, 'environment', true).index || 0) > -1);
+
+        var duration = this.movementDuration;
+        if (wasPushed === true) {
+            duration = movementDuration;
+        } else if (slowdown === true) {
+            duration *= 2;
         }
 
         this.isMoving = true;
-        this._movingTo = direction;
-        this._destPosition = BlueBall.Helper.getCellPosition(this.cellPosition.x, this.cellPosition.y);
+        this.wasPushed = wasPushed === true;
 
-        for (i = 0, length = this._pushing.length; i < length; i++) {
-
-            this._pushing[i].isMoving = true;
-            this._pushing[i].wasPushed = true;
-            switch (direction) {
-            case Phaser.Tilemap.NORTH:
-                this._pushing[i].cellPosition.y--;
-                break;
-            case Phaser.Tilemap.EAST:
-                this._pushing[i].cellPosition.x++;
-                break;
-            case Phaser.Tilemap.SOUTH:
-                this._pushing[i].cellPosition.y++;
-                break;
-            case Phaser.Tilemap.WEST:
-                this._pushing[i].cellPosition.x--;
-                break;
+        var tween = this.game.add.tween(this);
+        tween.onComplete.add(function() {
+            tween.game.tweens.remove(tween);
+            this.isMoving = false;
+            this.wasPushed = false;
+            if (this.exists) {
+                this.nextAction();
             }
+        }, this);
+        tween.to(destPosition, duration, Phaser.Easing.Linear.None, true);
+
+        for (var i = 0; i < pushedEntities.length; i++) {
+
+            pushedEntities[i].moveTo(direction, true, duration);
 
         }
 
@@ -203,87 +199,6 @@ BlueBall.Mobile.prototype.update = function () {
     if (this.isMoving === false) {
 
         this.nextAction();
-
-    } else if (this.wasPushed === false) {
-
-        var slowdownTile = this.tilesThatSlowdown.indexOf(this.level.map.getTile(this.cellPosition.x >> 1, this.cellPosition.y >> 1, 'environment', true).index || 0) > -1,
-            incX = this.game.time.elapsed * (slowdownTile ? this.speed.x * 0.5 : this.speed.x),
-            incY = this.game.time.elapsed * (slowdownTile ? this.speed.y * 0.5 : this.speed.y),
-            direction = this._movingTo,
-            x = 0,
-            y = 0,
-            lastMovement = false,
-            i,
-            length,
-            item;
-
-        switch (direction) {
-        case Phaser.Tilemap.NORTH:
-            y -= incY;
-            if (this.y + y <= this._destPosition.y) {
-                y = this._destPosition.y - this.y;
-                lastMovement = true;
-            }
-            break;
-        case Phaser.Tilemap.EAST:
-            x += incX;
-            if (this.x + x >= this._destPosition.x) {
-                x = this._destPosition.x - this.x;
-                lastMovement = true;
-            }
-            break;
-        case Phaser.Tilemap.SOUTH:
-            y += incY;
-            if (this.y + y >= this._destPosition.y) {
-                y = this._destPosition.y - this.y;
-                lastMovement = true;
-            }
-            break;
-        case Phaser.Tilemap.WEST:
-            x -= incX;
-            if (this.x + x <= this._destPosition.x) {
-                x = this._destPosition.x - this.x;
-                lastMovement = true;
-            }
-            break;
-        default:
-            return;
-        }
-
-        for (i = 0, length = this._pushing.length; i < length; i++) {
-
-            item = this._pushing[i];
-            item.x += x;
-            item.y += y;
-
-            if (lastMovement) {
-
-                item.isMoving = false;
-                item.wasPushed = false;
-
-            }
-
-        }
-
-        this.x += x;
-        this.y += y;
-
-        if (lastMovement) {
-
-            this.isMoving = false;
-            this._movingTo = null;
-
-            for (i = 0, length = this._pushing.length; i < length; i++) {
-
-                this._pushing[i].nextAction();
-
-            }
-
-            this._pushing = [];
-
-            this.nextAction();
-
-        }
 
     }
 

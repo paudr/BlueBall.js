@@ -6,8 +6,7 @@ BlueBall.WaterEgg = function (target) {
         gid: BlueBall.Global.Entities.WaterEgg
     });
 
-    this.speed.x /= 2;
-    this.speed.y /= 2;
+    this.movementDuration = this.movementDuration * 1.25;
 
     this.scale.set(32 / 16);
 
@@ -151,7 +150,7 @@ BlueBall.WaterEgg.prototype.nextAction = function() {
 
                 if (canMove) {
 
-                    this._pushing.push(this.level.player);
+                    this.level.player.moveTo(waterDirection, true, this.movementDuration);
                     this.level.player.isMoving = true;
                     this.level.player.wasPushed = true;
                     this.level.player.cellPosition.x = this.cellPosition.x;

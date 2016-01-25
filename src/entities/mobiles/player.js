@@ -52,11 +52,13 @@ BlueBall.Player.prototype.entitiesThatBridge = BlueBall.Helper.getEntityIds('Wat
 
 BlueBall.Player.prototype.tilesThatArrow = BlueBall.Helper.getTileIds('Arrow');
 
-BlueBall.Player.prototype.moveTo = function (direction) {
+BlueBall.Player.prototype.moveTo = function (direction, wasPushed, movementDuration) {
 
-    this.lookingAt = direction;
+    if (!wasPushed) {
+        this.lookingAt = direction;
+    }
 
-    BlueBall.Mobile.prototype.moveTo.call(this, direction);
+    BlueBall.Mobile.prototype.moveTo.call(this, direction, wasPushed, movementDuration);
 
 };
 
