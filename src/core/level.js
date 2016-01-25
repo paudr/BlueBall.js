@@ -1,7 +1,4 @@
-/*global Phaser, BlueBall */
-
 BlueBall.Level = function (name) {
-
     this.levelName = name;
     this.map = null;
     this.layers = null;
@@ -15,7 +12,6 @@ BlueBall.Level = function (name) {
     this.onPhaseChanged = null;
 
     this.gui = null;
-
 };
 
 BlueBall.Level.prototype = Object.create(Phaser.State.prototype);
@@ -29,13 +25,10 @@ BlueBall.Level.PHASES = {
 };
 
 BlueBall.Level.prototype.preload = function () {
-
     this.game.load.tilemap(this.levelName, 'assets/tilemaps/' + BlueBall.Config.levelPrefix + this.levelName + '.json', null, Phaser.Tilemap.TILED_JSON);
-
 };
 
 BlueBall.Level.prototype.create = function () {
-
     this.currentPhase = BlueBall.Level.PHASES.INITIAL;
 
     this.onPlayerMoved = new Phaser.Signal();
@@ -64,7 +57,7 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Block, 'tileSprites', 0, true, false, this.entities, BlueBall.Block, false);
 
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Player, 'playerSprites', 10, true, false, this.entities, BlueBall.Player, false);
-    this.player = this.entities.filter(function (entity) { return entity instanceof BlueBall.Player; }).first;
+    this.player = this.entities.iterate('isPlayer', true, Phaser.Group.RETURN_CHILD);
     this.playerInput = new BlueBall.Keyboard(this.game);
     this.player.assignInput(this.playerInput);
 
@@ -78,11 +71,9 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', BlueBall.Global.Entities.DonMedusa, 'mobSprites', 55, true, false, this.entities, BlueBall.DonMedusa, false);
 
     this.layers.bringToTop(this.entities);
-
 };
 
 BlueBall.Level.prototype.shutdown = function () {
-
     this.entities.destroy(true);
     this.playerInput.destroy();
 
@@ -91,88 +82,66 @@ BlueBall.Level.prototype.shutdown = function () {
     this.onPlayerMoved.dispose();
     this.onPlayerDead.dispose();
     this.onPhaseChanged.dispose();
-
 };
 
 BlueBall.Level.prototype.update = function () {
-
     this.entities.iterate('toDestroy', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.destroyEntity);
 
     this.playerInput.update();
 
     switch (this.currentPhase) {
 
-        case BlueBall.Level.PHASES.INITIAL:
-            if (this.player.isMoving === true) {
-                this.setCurrentPhase(BlueBall.Level.PHASES.HEARTS);
-            }
-            break;
+    case BlueBall.Level.PHASES.INITIAL:
+        if (this.player.isMoving === true) {
+            this.setCurrentPhase(BlueBall.Level.PHASES.HEARTS);
+        }
+        break;
 
-        case BlueBall.Level.PHASES.HEARTS:
-            if (this.entities.iterate('isHeart', true, Phaser.Group.RETURN_CHILD) === null) {
-                this.entities.iterate('isChest', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openEntity);
-                this.setCurrentPhase(BlueBall.Level.PHASES.PEARLS);
-            }
-            break;
+    case BlueBall.Level.PHASES.HEARTS:
+        if (this.entities.iterate('isHeart', true, Phaser.Group.RETURN_CHILD) === null) {
+            this.entities.iterate('isChest', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openEntity);
+            this.setCurrentPhase(BlueBall.Level.PHASES.PEARLS);
+        }
+        break;
 
-        case BlueBall.Level.PHASES.PEARLS:
-            if (this.entities.iterate('isEmtpyChest', false, Phaser.Group.RETURN_CHILD) === null) {
-                this.entities.iterate('isExit', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openEntity);
-                this.setCurrentPhase(BlueBall.Level.PHASES.EXITS);
-            }
-            break;
+    case BlueBall.Level.PHASES.PEARLS:
+        if (this.entities.iterate('isEmtpyChest', false, Phaser.Group.RETURN_CHILD) === null) {
+            this.entities.iterate('isExit', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.openEntity);
+            this.setCurrentPhase(BlueBall.Level.PHASES.EXITS);
+        }
+        break;
 
     }
-
 };
 
 BlueBall.Level.prototype.setCurrentPhase = function (phase) {
-
     this.currentPhase = phase;
     this.onPhaseChanged.dispatch(phase);
-
 }
 
 BlueBall.Level.prototype.getEntitesAt = function (x, y) {
-
-    return this.entities.filter(function(entity) {
+    return this.entities.filter(function (entity) {
         return entity.occupy(x, y);
     }, true).list;
-
 };
 
 BlueBall.Level.prototype.catchExit = function () {
-
     this.setCurrentPhase(BlueBall.Level.PHASES.ENDED);
-
     this.player.win();
-
-    this.game.time.events.add(Phaser.Timer.HALF, function() {
-
+    this.game.time.events.add(Phaser.Timer.HALF, function () {
         this.game.state.start(this.map.properties.next);
-
     }, this);
-
 };
 
 BlueBall.Level.prototype.playerDead = function () {
-
     this.setCurrentPhase(BlueBall.Level.PHASES.ENDED);
-
-    this.game.time.events.add(Phaser.Timer.SECOND * 1, function() {
-
+    this.game.time.events.add(Phaser.Timer.SECOND * 1, function () {
         this.game.state.start(this.levelName, true, false);
-
     }, this);
-
 };
 
-BlueBall.Level.prototype.blinkHearts = function(start) {
-
-    this.entities.iterate('isHeart', true, Phaser.Group.RETURN_NONE, function(entity) {
-
+BlueBall.Level.prototype.blinkHearts = function (start) {
+    this.entities.iterate('isHeart', true, Phaser.Group.RETURN_NONE, function (entity) {
         entity.blink(start);
-
     });
-
 };

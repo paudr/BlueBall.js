@@ -1,7 +1,4 @@
-/*global Phaser, BlueBall */
-
-BlueBall.Gui = function(level) {
-
+BlueBall.Gui = function (level) {
     this.game = level.game;
     this.level = level;
 
@@ -32,75 +29,63 @@ BlueBall.Gui = function(level) {
     this.powerHammerEmptyImage.visible = false;
 
     this.showAvailablePowers();
-
 };
 
 BlueBall.Gui.prototype = Object.create(null);
 
-BlueBall.Gui.prototype.setEggCount = function(count) {
-
+BlueBall.Gui.prototype.setEggCount = function (count) {
     this.eggCounterText.text = count.toString();
-
 };
 
-BlueBall.Gui.prototype.setPower = function(power, status) {
-
+BlueBall.Gui.prototype.setPower = function (power, status) {
     var sprite;
     var empty;
 
     switch (power) {
-        case 'arrow':
-            sprite = this.powerArrowImage;
-            empty = this.powerArrowEmptyImage;
-            break;
-        case 'bridge':
-            sprite = this.powerBridgeImage;
-            empty = this.powerBridgeEmptyImage;
-            break;
-        case 'hammer':
-            sprite = this.powerHammerImage;
-            empty = this.powerHammerEmptyImage;
-            break;
+    case 'arrow':
+        sprite = this.powerArrowImage;
+        empty = this.powerArrowEmptyImage;
+        break;
+    case 'bridge':
+        sprite = this.powerBridgeImage;
+        empty = this.powerBridgeEmptyImage;
+        break;
+    case 'hammer':
+        sprite = this.powerHammerImage;
+        empty = this.powerHammerEmptyImage;
+        break;
     }
 
     switch (status) {
-        case 'available':
-            sprite.visible = true;
-            sprite.alpha = 1;
-            empty.visible = false;
-            break;
-        case 'unavailable':
-            sprite.visible = true;
-            sprite.alpha = 0.5;
-            empty.visible = false;
-            break;
-        case 'empty':
-            sprite.visible = false;
-            empty.visible = true;
-            break;
-        case 'hidden':
-            sprite.visible = false;
-            empty.visible = false;
-            break;
+    case 'available':
+        sprite.visible = true;
+        sprite.alpha = 1;
+        empty.visible = false;
+        break;
+    case 'unavailable':
+        sprite.visible = true;
+        sprite.alpha = 0.5;
+        empty.visible = false;
+        break;
+    case 'empty':
+        sprite.visible = false;
+        empty.visible = true;
+        break;
+    case 'hidden':
+        sprite.visible = false;
+        empty.visible = false;
+        break;
     }
 };
 
 BlueBall.Gui.prototype.showAvailablePowers = function () {
-
     if (this.level.map.properties.powers) {
-
         var powers = Object.keys(this.level.map.properties.powers);
 
         for (var i = 0; i < powers.length; i++) {
-
             if (this.level.map.properties.powers[powers[i]] && this.level.map.properties.powers[powers[i]].length > 0) {
-
                 this.setPower(powers[i], 'unavailable');
-
             }
-
         }
-
     }
-
 };

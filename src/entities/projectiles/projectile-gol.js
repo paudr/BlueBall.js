@@ -1,7 +1,4 @@
-/*global Phaser, BlueBall */
-
 BlueBall.ProjectileGol = function (shooter, direction) {
-
     BlueBall.Projectile.call(this, shooter, direction, 'mobSprites', 8);
 
     this.animations.add('anim', Phaser.Animation.generateFrameNames('projectileGol', 0, 1, '', 1), 10, true);
@@ -22,17 +19,12 @@ BlueBall.ProjectileGol = function (shooter, direction) {
     }
 
     this.animations.play('anim');
-
 };
 
 BlueBall.ProjectileGol.prototype = Object.create(BlueBall.Projectile.prototype);
 
 BlueBall.ProjectileGol.prototype.impact = function (target) {
-
     if (target instanceof BlueBall.Player) {
-
         target.die();
-
     }
-
 };

@@ -1,5 +1,3 @@
-/*global BlueBall */
-
 BlueBall.Config = {
 
     /* Size of a game cell. A game square is composed by 2x2 cells */
@@ -18,4 +16,5 @@ BlueBall.Config = {
 
     /* Name of the first level */
     'firstLevel': 'level1-1'
+
 };
