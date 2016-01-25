@@ -23,7 +23,7 @@ BlueBall.Global = {
         'DonMedusa': 85,
         'Egg': 100,
         'Gol': 81,
-        'Leper': 69,
+        'Leeper': 69,
         'Medusa': 98,
         'Player': 99,
         'Rocky': 73,

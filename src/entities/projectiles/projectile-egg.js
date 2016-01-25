@@ -6,9 +6,9 @@ BlueBall.ProjectileEgg = function (shooter, direction) {
 BlueBall.ProjectileEgg.prototype = Object.create(BlueBall.Projectile.prototype);
 
 BlueBall.ProjectileEgg.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Wall', 'Arrow');
-BlueBall.ProjectileEgg.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
+BlueBall.ProjectileEgg.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leeper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 
-BlueBall.ProjectileEgg.prototype.entitiesThatImpact = BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg');
+BlueBall.ProjectileEgg.prototype.entitiesThatImpact = BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Egg', 'Gol', 'Leeper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg');
 
 BlueBall.ProjectileEgg.prototype.canMoveTo = function (direction) {
     var positions = this.cellsAt(direction);

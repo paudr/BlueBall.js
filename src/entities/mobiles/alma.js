@@ -22,7 +22,7 @@ BlueBall.Alma = function (game, x, y, key, frame) {
 
 BlueBall.Alma.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Alma.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
+BlueBall.Alma.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leeper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 
 BlueBall.Alma.prototype.entitiesThatCanPush = BlueBall.Helper.getEntityIds('Player');
 
