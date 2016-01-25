@@ -19,7 +19,7 @@ BlueBall.Projectile.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.Projectile.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Wall', 'Arrow');
 
-BlueBall.Projectile.prototype.impactIndexes = BlueBall.Helper.getEntityIds('Player');;
+BlueBall.Projectile.prototype.entitiesThatImpact = BlueBall.Helper.getEntityIds('Player');;
 
 BlueBall.Projectile.prototype.moveTo = function () {
 
@@ -52,8 +52,8 @@ BlueBall.Projectile.prototype.nextAction = function () {
 BlueBall.Projectile.prototype.getImpacted = function () {
 
     var positions = this.cellsAt(this.shootDirection),
-        entities1 = BlueBall.Helper.getEntitiesFromIndexArray(this.impactIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y)),
-        entities2 = BlueBall.Helper.getEntitiesFromIndexArray(this.impactIndexes, this.level.getEntitesAt(positions[1].x, positions[1].y));
+        entities1 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatImpact, this.level.getEntitesAt(positions[0].x, positions[0].y)),
+        entities2 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatImpact, this.level.getEntitesAt(positions[1].x, positions[1].y));
 
      return BlueBall.Helper.union(entities1, entities2);
 

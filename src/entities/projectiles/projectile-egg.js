@@ -13,7 +13,7 @@ BlueBall.ProjectileEgg.prototype = Object.create(BlueBall.Projectile.prototype);
 BlueBall.ProjectileEgg.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Wall', 'Arrow');
 BlueBall.ProjectileEgg.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 
-BlueBall.ProjectileEgg.prototype.impactIndexes = BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg');
+BlueBall.ProjectileEgg.prototype.entitiesThatImpact = BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Egg', 'Gol', 'Leper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'WaterEgg');
 
 BlueBall.ProjectileEgg.prototype.canMoveTo = function (direction) {
 
@@ -45,12 +45,12 @@ BlueBall.ProjectileEgg.prototype.canMoveTo = function (direction) {
 BlueBall.ProjectileEgg.prototype.getImpacted = function () {
 
     var positions = this.cellsAt(this.shootDirection),
-        entities1 = BlueBall.Helper.getEntitiesFromIndexArray(this.impactIndexes, this.level.getEntitesAt(positions[0].x, positions[0].y)),
+        entities1 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatImpact, this.level.getEntitesAt(positions[0].x, positions[0].y)),
         entities2;
 
     if (entities1.length > 0) {
 
-         entities2 = BlueBall.Helper.getEntitiesFromIndexArray(this.impactIndexes, this.level.getEntitesAt(positions[1].x, positions[1].y));
+         entities2 = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatImpact, this.level.getEntitesAt(positions[1].x, positions[1].y));
 
          if (entities2.length > 0) {
 
