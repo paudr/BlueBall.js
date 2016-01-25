@@ -65,6 +65,8 @@ BlueBall.Level.prototype.create = function () {
 
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Player, 'playerSprites', 10, true, false, this.entities, BlueBall.Player, false);
     this.player = this.entities.filter(function (entity) { return entity instanceof BlueBall.Player; }).first;
+    this.playerInput = new BlueBall.Keyboard(this.game);
+    this.player.assignInput(this.playerInput);
 
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Snakey, 'mobSprites', 3, true, false, this.entities, BlueBall.Snakey, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Gol, 'mobSprites', 6, true, false, this.entities, BlueBall.Gol, false);
@@ -82,6 +84,7 @@ BlueBall.Level.prototype.create = function () {
 BlueBall.Level.prototype.shutdown = function () {
 
     this.entities.destroy(true);
+    this.playerInput.destroy();
 
     this.onPlayerDead.remove(this.playerDead, this);
 
@@ -94,6 +97,8 @@ BlueBall.Level.prototype.shutdown = function () {
 BlueBall.Level.prototype.update = function () {
 
     this.entities.iterate('toDestroy', true, Phaser.Group.RETURN_NONE, BlueBall.Helper.destroyEntity);
+
+    this.playerInput.update();
 
     switch (this.currentPhase) {
 

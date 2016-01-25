@@ -15,15 +15,7 @@ BlueBall.Player = function (game, x, y, key, frame) {
 
     this.scale.set(32 / 17);
 
-    this.cursors = game.input.keyboard.createCursorKeys();
-    this.keyShoot = game.input.keyboard.addKey(Phaser.Keyboard.Z);
-    this.keyShoot.onDown.add(this.checkShoot, this);
-
-    this.keyPower = game.input.keyboard.addKey(Phaser.Keyboard.X);
-    this.keyPower.onDown.add(this.checkPower, this);
-
-    this.restartKey = game.input.keyboard.addKey(Phaser.Keyboard.R);
-    this.restartKeyPressed = null;
+    this.input = null;
 
     this.eggs = 0;
     this.hearts = 0;
@@ -52,6 +44,28 @@ BlueBall.Player.prototype.entitiesThatBridge = BlueBall.Helper.getEntityIds('Wat
 
 BlueBall.Player.prototype.tilesThatArrow = BlueBall.Helper.getTileIds('Arrow');
 
+BlueBall.Player.prototype.assignInput = function (input) {
+
+    this.unassignInput();
+    this.input = input;
+    this.input.onShoot.add(this.checkShoot, this);
+    this.input.onPower.add(this.checkPower, this);
+    this.input.onRestart.add(this.die, this);
+
+};
+
+BlueBall.Player.prototype.unassignInput = function () {
+
+    if (this.input) {
+        this.input.onShoot.remove(this.checkShoot, this);
+        this.input.onPower.remove(this.checkPower, this);
+        this.input.onRestart.remove(this.die, this);
+    }
+
+    this.input = null;
+
+};
+
 BlueBall.Player.prototype.moveTo = function (direction, wasPushed, movementDuration) {
 
     if (!wasPushed) {
@@ -72,21 +86,14 @@ BlueBall.Player.prototype.nextAction = function () {
 
     if (this.alive) {
 
-        if (this.cursors.up.isDown) {
+        var direction = null;
+        if (this.input !== null) {
+            direction = this.input.getDirection();
+        }
 
-            this.moveTo(Phaser.Tilemap.NORTH);
+        if (direction !== null) {
 
-        } else if (this.cursors.right.isDown) {
-
-            this.moveTo(Phaser.Tilemap.EAST);
-
-        } else if (this.cursors.down.isDown) {
-
-            this.moveTo(Phaser.Tilemap.SOUTH);
-
-        } else if (this.cursors.left.isDown) {
-
-            this.moveTo(Phaser.Tilemap.WEST);
+            this.moveTo(direction);
 
         } else {
 
@@ -315,41 +322,9 @@ Object.defineProperty(BlueBall.Mobile.prototype, "eggs", {
 
 });
 
-BlueBall.Player.prototype.update = function () {
-
-    if (this.restartKey.isDown) {
-
-        if (this.restartKeyPressed === null) {
-
-            this.restartKeyPressed = this.game.time.time;
-
-        }
-
-    }
-    else {
-
-        if (this.restartKeyPressed !== null) {
-
-            this.restartKeyPressed = null;
-
-        }
-
-    }
-
-    if(this.restartKeyPressed !== null && this.game.time.elapsedSecondsSince(this.restartKeyPressed) >= 3) {
-
-        this.die();
-
-    }
-
-    BlueBall.Mobile.prototype.update.call(this);
-
-};
-
 BlueBall.Player.prototype.destroy = function () {
 
-    this.keyShoot.onDown.remove(this.checkShoot, this);
-    this.keyPower.onDown.remove(this.checkPower, this);
+    this.unassignInput();
     BlueBall.Mobile.prototype.destroy.apply(this, arguments);
 
 };
