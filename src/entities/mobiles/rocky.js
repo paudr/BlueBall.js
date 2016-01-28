@@ -64,7 +64,7 @@ Object.defineProperty(BlueBall.Rocky.prototype, "isWaiting", {
 
 BlueBall.Rocky.prototype.checkIfCanRunToPlayer = function () {
     if (!this.isRunning && !this.isWaiting) {
-        if (!this.canTouch(this.level.player) && this.cellPosition.x === this.level.player.cellPosition.x) {
+        if (this.canTouch(this.level.player) === 0 && this.cellPosition.x === this.level.player.cellPosition.x) {
             this.lastDirection = this.cellPosition.y > this.level.player.cellPosition.y ? Phaser.Tilemap.NORTH : Phaser.Tilemap.SOUTH;
             this.isRunning = true;
         }
