@@ -42,8 +42,12 @@ BlueBall.Level.prototype.create = function () {
     this.layers = this.game.add.group();
     this.entities = this.game.add.group(this.layers);
 
-    this.layers.x = 50;
-    this.layers.y = 50;
+    if (this.game.device.android) {
+        this.resize(this.game.width, this.game.height);
+    } else {
+        this.layers.x = 50;
+        this.layers.y = 50;
+    }
 
     this.gui = new BlueBall.Gui(this);
 
@@ -112,6 +116,17 @@ BlueBall.Level.prototype.update = function () {
         break;
 
     }
+};
+
+BlueBall.Level.prototype.resize = function (width, height) {
+    var gameBaseWidth = 50 + 416 + 50;
+    var gameBaseHeight = 50 + 448 + 50;
+    var ratio = this.scale.isLandscape ? height/gameBaseHeight : width/gameBaseWidth;
+
+    this.layers.scale.x = ratio;
+    this.layers.scale.y = ratio;
+    this.layers.x = (width - (gameBaseWidth * ratio)) / 2;
+    this.layers.y = (height - (gameBaseHeight * ratio)) / 2;
 };
 
 BlueBall.Level.prototype.setCurrentPhase = function (phase) {

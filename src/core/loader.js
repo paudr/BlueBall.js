@@ -22,6 +22,8 @@ BlueBall.Loader.prototype.create = function () {
 
         resizeCanvas.apply(this);
         window.addEventListener('resize', resizeCanvas.bind(this));
+    } else if (this.game.device.android) {
+        this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
     }
 
     this.game.state.start(BlueBall.Config.firstLevel);
