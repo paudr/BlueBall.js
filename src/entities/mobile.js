@@ -25,6 +25,10 @@ BlueBall.Mobile.prototype.tilesThatArrow = [];
 BlueBall.Mobile.prototype.canMoveTo = function (direction) {
     if (!this.isMoving) {
         var positions = this.cellsAt(direction);
+        if (positions.length === 0) {
+            return false;
+        }
+
         var entities1 = this.level.getEntitesAt(positions[0].x, positions[0].y);
         var entities2 = this.level.getEntitesAt(positions[1].x, positions[1].y);
         var tile1 = this.level.map.getTile(positions[0].x >> 1, positions[0].y >> 1, 'environment', true);
