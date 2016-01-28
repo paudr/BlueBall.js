@@ -17,9 +17,9 @@ BlueBall.Egg = function (target) {
 
 BlueBall.Egg.prototype = Object.create(BlueBall.Mobile.prototype);
 
-BlueBall.Egg.prototype.tilesThatCollideWithOutWater = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Bridge', 'Arrow', 'LavaBridge', 'Grass');
+BlueBall.Egg.prototype.tilesThatCollideWithOutWater = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Bridge', 'Arrow', 'LavaBridge');
 
-BlueBall.Egg.prototype.tilesThatCollideWithWater = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass');
+BlueBall.Egg.prototype.tilesThatCollideWithWater = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge');
 
 Object.defineProperty(BlueBall.Egg.prototype, 'tilesThatCollide', {
     get: function () {
