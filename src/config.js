@@ -9,7 +9,7 @@ BlueBall.Config = {
     },
 
     /* Base speed for game entities */
-    'gameSpeed': 5.0,
+    'gameSpeed': 8.0,
 
     /* Level prefix for select level set */
     'levelPrefix': '3/',
