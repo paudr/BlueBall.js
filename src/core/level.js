@@ -42,9 +42,11 @@ BlueBall.Level.prototype.create = function () {
     this.layers = this.game.add.group();
     this.entities = this.game.add.group(this.layers);
 
-    if (this.game.device.android) {
+    if (this.game.device.android || this.game.device.iPhone) {
+        this.playerInput = new BlueBall.VirtualJoystick(this.game);
         this.resize(this.game.width, this.game.height);
     } else {
+        this.playerInput = new BlueBall.Keyboard(this.game);
         this.layers.x = 50;
         this.layers.y = 50;
     }
@@ -62,7 +64,6 @@ BlueBall.Level.prototype.create = function () {
 
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Player, 'playerSprites', 10, true, false, this.entities, BlueBall.Player, false);
     this.player = this.entities.iterate('isPlayer', true, Phaser.Group.RETURN_CHILD);
-    this.playerInput = new BlueBall.Keyboard(this.game);
     this.player.assignInput(this.playerInput);
 
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Snakey, 'mobSprites', 3, true, false, this.entities, BlueBall.Snakey, false);
@@ -119,14 +120,20 @@ BlueBall.Level.prototype.update = function () {
 };
 
 BlueBall.Level.prototype.resize = function (width, height) {
-    var gameBaseWidth = 50 + 416 + 50;
-    var gameBaseHeight = 50 + 448 + 50;
-    var ratio = this.scale.isLandscape ? height/gameBaseHeight : width/gameBaseWidth;
+    var gameBaseWidth = 416;
+    var gameBaseHeight = 448;
+    var widthWithBorders = 50 + gameBaseWidth + 50;
+    var heightWithBorders = 10 + gameBaseHeight + 10;
+    var ratio = this.scale.isLandscape ? height / heightWithBorders : width / widthWithBorders;
 
     this.layers.scale.x = ratio;
     this.layers.scale.y = ratio;
     this.layers.x = (width - (gameBaseWidth * ratio)) / 2;
     this.layers.y = (height - (gameBaseHeight * ratio)) / 2;
+
+    if (this.playerInput && this.playerInput.resize) {
+        this.playerInput.resize(width, height);
+    }
 };
 
 BlueBall.Level.prototype.setCurrentPhase = function (phase) {

@@ -3,6 +3,12 @@ BlueBall.Loader = function () {};
 BlueBall.Loader.prototype = Object.create(Phaser.State.prototype);
 
 BlueBall.Loader.prototype.preload = function () {
+    if (this.game.device.android || this.game.device.iPhone) {
+        this.game.load.script('joystick', 'libs/phaser-virtual-joystick.js');
+        this.game.load.script('joystick-input', 'src/core/virtual-joystick.js');
+        this.load.atlas('dpad', 'assets/skins/dpad.png', 'assets/skins/dpad.json');
+    }
+
     this.game.load.image('AdventuresOfLolo3', 'assets/tilemaps/AdventuresOfLolo3.png');
     this.game.load.atlas('playerSprites', 'assets/sprites/playerSprites.png', 'assets/sprites/playerSprites.json');
     this.game.load.atlas('tileSprites', 'assets/tilemaps/AdventuresOfLolo3.png', 'assets/sprites/tileSprites.json');
@@ -22,7 +28,7 @@ BlueBall.Loader.prototype.create = function () {
 
         resizeCanvas.apply(this);
         window.addEventListener('resize', resizeCanvas.bind(this));
-    } else if (this.game.device.android) {
+    } else if (this.game.device.android || this.game.device.iPhone) {
         this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
     }
 
