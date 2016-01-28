@@ -23,8 +23,6 @@ BlueBall.Alma.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.Alma.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leeper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 
-BlueBall.Alma.prototype.entitiesThatCanPush = BlueBall.Helper.getEntityIds('Player');
-
 Object.defineProperty(BlueBall.Alma.prototype, "lookingAt", {
     get: function () {
         return this._lookingAt;
@@ -64,7 +62,7 @@ BlueBall.Alma.prototype.setAnimationNames = function (isRunning) {
 
 BlueBall.Alma.prototype.checkIfCanRunToPlayer = function () {
     if (!this.isRunning) {
-        if (!this.canTouch(this.level.player) && this.cellPosition.y === this.level.player.cellPosition.y) {
+        if (this.cellPosition.y === this.level.player.cellPosition.y) {
             var direction = this.cellPosition.x > this.level.player.cellPosition.x ? Phaser.Tilemap.WEST : Phaser.Tilemap.EAST;
             if (this.canMoveTo(direction)) {
                 this.lastDirection = direction;
@@ -114,7 +112,9 @@ BlueBall.Alma.prototype.performMovement = function (playerPosition) {
 
 BlueBall.Alma.prototype.nextAction = function () {
     if (this.isAwaken === true && this.alive) {
-        if (this.canTouch(this.level.player) > 0) {
+        var playerPosition = BlueBall.Helper.getDirectionTo(this, this.level.player);
+
+        if (this.canTouch(this.level.player) > 0 && this.canMoveTo(playerPosition.principal)) {
             this.level.player.die();
         } else {
             if (this.lastDirection === null) {
@@ -122,8 +122,6 @@ BlueBall.Alma.prototype.nextAction = function () {
             }
 
             this.checkIfCanRunToPlayer();
-
-            var playerPosition = BlueBall.Helper.getDirectionTo(this, this.level.player);
 
             if (this.lastDirection === null) {
                 this.lastDirection = playerPosition.principal;
