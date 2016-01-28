@@ -3,6 +3,10 @@ BlueBall.Loader = function () {};
 BlueBall.Loader.prototype = Object.create(Phaser.State.prototype);
 
 BlueBall.Loader.prototype.preload = function () {
+    var loadingBar = this.add.sprite(160,240,"loading");
+    loadingBar.anchor.setTo(0.5,0.5);
+    this.load.setPreloadSprite(loadingBar);
+
     if (this.game.device.android || this.game.device.iPhone) {
         this.game.load.script('joystick', 'libs/phaser-virtual-joystick.js');
         this.game.load.script('joystick-input', 'src/core/virtual-joystick.js');
@@ -18,19 +22,5 @@ BlueBall.Loader.prototype.preload = function () {
 };
 
 BlueBall.Loader.prototype.create = function () {
-    if (this.game.device.desktop) {
-        var resizeCanvas = function () {
-            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.scale.setMinMax(129, 137, 1032, 1096);
-            this.scale.pageAlignHorizontally = true;
-            this.scale.pageAlignVertically = true;
-        };
-
-        resizeCanvas.apply(this);
-        window.addEventListener('resize', resizeCanvas.bind(this));
-    } else if (this.game.device.android || this.game.device.iPhone) {
-        this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-    }
-
     this.game.state.start(BlueBall.Config.firstLevel);
 };
