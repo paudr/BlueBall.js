@@ -3,7 +3,7 @@ BlueBall.WaterEgg = function (target) {
         gid: BlueBall.Global.Entities.WaterEgg
     });
 
-    this.movementDuration = this.movementDuration * 1.25;
+    this.movementDuration = this.movementDuration * 2;
 
     this.scale.set(32 / 16);
 
