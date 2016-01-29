@@ -29,6 +29,8 @@ BlueBall.Level.prototype.preload = function () {
 };
 
 BlueBall.Level.prototype.create = function () {
+    BlueBall.Save.saveData('currentLevel', this.levelName);
+
     this.currentPhase = BlueBall.Level.PHASES.INITIAL;
 
     this.onPlayerMoved = new Phaser.Signal();

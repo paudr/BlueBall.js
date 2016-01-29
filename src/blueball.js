@@ -5,6 +5,7 @@ var BlueBall = {
 
         game.state.add('boot', new BlueBall.Boot());
         game.state.add('loader', new BlueBall.Loader());
+        game.state.add('menu', new BlueBall.Menu());
         game.state.add('level1-1', new BlueBall.Level('level1-1'));
         game.state.add('level1-2', new BlueBall.Level('level1-2'));
         game.state.add('level1-3', new BlueBall.Level('level1-3'));
