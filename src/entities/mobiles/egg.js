@@ -46,7 +46,7 @@ BlueBall.Egg.prototype.open = function () {
 BlueBall.Egg.prototype.die = function () {
     this.game.time.events.remove(this.event);
 
-    this.event = this.game.time.events.add(Phaser.Timer.SECOND * 8, this.respawn, this);
+    this.event = this.game.time.events.add(Phaser.Timer.SECOND * 10, this.respawn, this);
     this.kill();
 };
 
