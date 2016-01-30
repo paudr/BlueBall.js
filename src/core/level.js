@@ -1,5 +1,6 @@
-BlueBall.Level = function (name) {
-    this.levelName = name;
+BlueBall.Level = function (level) {
+    this.levelName = level.name;
+    this.levelPath = level.path;
     this.map = null;
     this.layers = null;
     this.entities = null;
@@ -25,7 +26,7 @@ BlueBall.Level.PHASES = {
 };
 
 BlueBall.Level.prototype.preload = function () {
-    this.game.load.tilemap(this.levelName, 'assets/tilemaps/' + BlueBall.Config.levelPrefix + this.levelName + '.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.tilemap(this.levelName, 'assets/tilemaps/' + this.levelPath, null, Phaser.Tilemap.TILED_JSON);
 };
 
 BlueBall.Level.prototype.create = function () {

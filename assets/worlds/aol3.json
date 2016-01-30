@@ -1,0 +1,35 @@
+{
+    "name": "Adventures of Lolo 3",
+    "firstLevel": "level1-1",
+    "levels": [{
+        "name": "level1-1",
+        "path": "3/level1-1.json"
+    }, {
+        "name": "level1-2",
+        "path": "3/level1-2.json"
+    }, {
+        "name": "level1-3",
+        "path": "3/level1-3.json"
+    }, {
+        "name": "level1-4",
+        "path": "3/level1-4.json"
+    }, {
+        "name": "level1-5",
+        "path": "3/level1-5.json"
+    }, {
+        "name": "level2-1",
+        "path": "3/level2-1.json"
+    }, {
+        "name": "level2-2",
+        "path": "3/level2-2.json"
+    }, {
+        "name": "level2-3",
+        "path": "3/level2-3.json"
+    }, {
+        "name": "level2-4",
+        "path": "3/level2-4.json"
+    }, {
+        "name": "level2-5",
+        "path": "3/level2-5.json"
+    }]
+}

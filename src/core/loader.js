@@ -13,6 +13,8 @@ BlueBall.Loader.prototype.preload = function () {
         this.load.atlas('dpad', 'assets/skins/dpad.png', 'assets/skins/dpad.json');
     }
 
+    this.game.load.json('world', 'assets/worlds/' + BlueBall.Config.world);
+
     this.game.load.image('menu_title', 'assets/sprites/menu_title.png');
     this.game.load.image('menu_start', 'assets/sprites/menu_start.png');
     this.game.load.image('menu_continue', 'assets/sprites/menu_continue.png');
@@ -27,5 +29,10 @@ BlueBall.Loader.prototype.preload = function () {
 };
 
 BlueBall.Loader.prototype.create = function () {
+    BlueBall.Config.world = this.game.cache.getJSON('world');
+    BlueBall.Config.world.levels.forEach(function(level) {
+        this.add(level.name, new BlueBall.Level(level));
+    }.bind(this.game.state));
+
     this.game.state.start('menu');
 };

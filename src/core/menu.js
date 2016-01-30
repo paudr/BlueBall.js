@@ -68,7 +68,7 @@ BlueBall.Menu.prototype.resize = function (width, height) {
 };
 
 BlueBall.Menu.prototype.callStart = function() {
-    this.game.state.start(BlueBall.Config.firstLevel);
+    this.game.state.start(BlueBall.Config.world.firstLevel);
 }
 
 BlueBall.Menu.prototype.callContinue = function() {
