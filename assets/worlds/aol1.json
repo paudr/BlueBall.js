@@ -88,5 +88,8 @@
     }, {
         "name": "level6-4",
         "path": "1/level6-4.json"
+    }, {
+        "name": "level6-5",
+        "path": "1/level6-5.json"
     }]
 }

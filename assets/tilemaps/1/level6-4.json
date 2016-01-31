@@ -8,7 +8,7 @@
     "properties": {
         "world": 6,
         "level": 4,
-        "next": "menu",
+        "next": "level6-5",
         "powers": {
             "bridge": [ 3 ]
         }

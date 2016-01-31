@@ -21,6 +21,7 @@ BlueBall.Loader.prototype.preload = function () {
     this.game.load.image('menu_erease', 'assets/sprites/menu_erease.png');
 
     this.game.load.image('AdventuresOfLolo3', 'assets/tilemaps/AdventuresOfLolo3.png');
+    this.game.load.image('stairs', 'assets/sprites/stairs.png');
     this.game.load.atlas('playerSprites', 'assets/sprites/playerSprites.png', 'assets/sprites/playerSprites.json');
     this.game.load.atlas('tileSprites', 'assets/tilemaps/AdventuresOfLolo3.png', 'assets/sprites/tileSprites.json');
     this.game.load.atlas('chestSprites', 'assets/sprites/chestSprites.png', 'assets/sprites/chestSprites.json');

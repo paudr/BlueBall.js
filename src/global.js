@@ -34,6 +34,7 @@ BlueBall.Global = {
         'Chest': 117,
         'DoorClosed': 15,
         'DoorOpened': 118,
+        'Stairs': 119,
         'Heart': 30
 
     }

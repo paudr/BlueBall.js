@@ -63,6 +63,7 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Chest, 'chestSprites', 0, true, false, this.entities, BlueBall.Chest, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Heart, 'tileSprites', 1, true, false, this.entities, BlueBall.Heart, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.DoorClosed, 'tileSprites', 2, true, false, this.entities, BlueBall.Door, false);
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Stairs, 'stairs', null, true, false, this.entities, BlueBall.Stairs, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Block, 'tileSprites', 0, true, false, this.entities, BlueBall.Block, false);
 
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Player, 'playerSprites', 10, true, false, this.entities, BlueBall.Player, false);
