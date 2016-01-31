@@ -18,6 +18,8 @@ BlueBall.Leeper = function (game, x, y, key, frame) {
 
 BlueBall.Leeper.prototype = Object.create(BlueBall.Mobile.prototype);
 
+BlueBall.Leeper.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leeper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
+
 Object.defineProperty(BlueBall.Leeper.prototype, "lookingAt", {
     get: function () {
         return this._lookingAt;
@@ -62,13 +64,13 @@ BlueBall.Leeper.prototype.performMovement = function (playerPosition) {
 
 BlueBall.Leeper.prototype.nextAction = function () {
     if (this.isAwaken === true && !this.isSleeping) {
-        if (this.canTouch(this.level.player) > 0) {
+        var directionToPlayer = BlueBall.Helper.getDirectionTo(this, this.level.player);
+
+        if (this.canTouch(this.level.player) > 0 && this.canMoveTo(directionToPlayer.principal)) {
             this.isSleeping = true;
             this.canBeCaptured = false;
             this.animations.play('Sleep');
         } else {
-            var directionToPlayer = BlueBall.Helper.getDirectionTo(this, this.level.player);
-
             if (this.lastDirection === null) {
                 this.lastDirection = directionToPlayer.principal;
             }
