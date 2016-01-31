@@ -7,4 +7,3 @@ BlueBall.Block = function (game, x, y, key, frame) {
 BlueBall.Block.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.Block.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water');
-BlueBall.Block.prototype.tilesThatArrow = BlueBall.Helper.getTileIds('Arrow');
