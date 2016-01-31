@@ -12,6 +12,8 @@ BlueBall.Projectile.prototype = Object.create(BlueBall.Mobile.prototype);
 
 BlueBall.Projectile.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Wall', 'Arrow');
 
+BlueBall.Projectile.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leeper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'DoorClosed', 'DoorOpened', 'Heart');
+
 BlueBall.Projectile.prototype.entitiesThatImpact = BlueBall.Helper.getEntityIds('Player');
 
 BlueBall.Projectile.prototype.moveTo = function () {
