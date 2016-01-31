@@ -1,4 +1,4 @@
-BlueBall.Exit = function (game, x, y, key, frame) {
+BlueBall.Door = function (game, x, y, key, frame) {
     BlueBall.Goal.call(this, game, x, y, key, frame, {
         gid: BlueBall.Global.Entities.DoorClosed
     });
@@ -6,14 +6,14 @@ BlueBall.Exit = function (game, x, y, key, frame) {
     this.isExit = true;
 };
 
-BlueBall.Exit.prototype = Object.create(BlueBall.Goal.prototype);
+BlueBall.Door.prototype = Object.create(BlueBall.Goal.prototype);
 
-BlueBall.Exit.prototype.open = function () {
+BlueBall.Door.prototype.open = function () {
     this.frameName = 'doorOpened';
     this.gid = BlueBall.Global.Entities.DoorOpened;
 };
 
-BlueBall.Exit.prototype.onPlayerEnter = function () {
+BlueBall.Door.prototype.onPlayerEnter = function () {
     if (this.gid === BlueBall.Global.Entities.DoorOpened) {
         this.level.catchExit();
     }
