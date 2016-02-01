@@ -3,7 +3,7 @@ BlueBall.WaterEgg = function (target) {
         gid: BlueBall.Global.Entities.WaterEgg
     });
 
-    this.movementDuration = this.movementDuration * 2;
+    this.movementDuration = this.movementDuration * 4;
 
     this.scale.set(32 / 16);
 
@@ -94,20 +94,32 @@ BlueBall.WaterEgg.prototype.isPlayerAbove = function () {
 };
 
 BlueBall.WaterEgg.prototype.getWaterDirection = function () {
-    var tiles = [
-        this.level.map.getTile((this.cellPosition.x) >> 1, (this.cellPosition.y) >> 1, 'environment', true),
-        this.level.map.getTile((this.cellPosition.x) >> 1, (this.cellPosition.y + 1) >> 1, 'environment', true),
-        this.level.map.getTile((this.cellPosition.x + 1) >> 1, (this.cellPosition.y) >> 1, 'environment', true),
-        this.level.map.getTile((this.cellPosition.x + 1) >> 1, (this.cellPosition.y + 1) >> 1, 'environment', true)
-    ];
-
-    for (var i = 0; i < tiles.length; i++) {
-        if (typeof tiles[i].properties.direction === 'number' && this.canMoveTo(tiles[i].properties.direction)) {
-            return tiles[i].properties.direction;
+        var directions = [
+        this.level.map.getTile((this.cellPosition.x) >> 1, (this.cellPosition.y) >> 1, 'environment', true).properties.direction,
+        this.level.map.getTile((this.cellPosition.x) >> 1, (this.cellPosition.y + 1) >> 1, 'environment', true).properties.direction,
+        this.level.map.getTile((this.cellPosition.x + 1) >> 1, (this.cellPosition.y) >> 1, 'environment', true).properties.direction,
+        this.level.map.getTile((this.cellPosition.x + 1) >> 1, (this.cellPosition.y + 1) >> 1, 'environment', true).properties.direction
+    ].reduce((function(a, c) {
+        if (typeof c === 'number' && a.indexOf(c) === -1 && this.canMoveTo(c)) {
+            a.push(c);
         }
+        return a;
+    }).bind(this), []);
+
+    if (directions.length === 1) {
+        return directions[0];
     }
 
-    return null;
+    var exactTile = directions.filter((function(d) {
+        var pos = this.cellsAt(d)[0];
+        return pos.x % 2 === 0 && pos.y % 2 === 0;
+    }).bind(this));
+
+    if (exactTile.length === 1) {
+        return exactTile[0];
+    }
+
+    return directions[0];
 }
 
 BlueBall.WaterEgg.prototype.nextAction = function () {
