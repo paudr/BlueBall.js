@@ -91,5 +91,20 @@
     }, {
         "name": "level6-5",
         "path": "1/level6-5.json"
+    }, {
+        "name": "level7-1",
+        "path": "1/level7-1.json"
+    }, {
+        "name": "level7-2",
+        "path": "1/level7-2.json"
+    }, {
+        "name": "level7-3",
+        "path": "1/level7-3.json"
+    }, {
+        "name": "level7-4",
+        "path": "1/level7-4.json"
+    }, {
+        "name": "level7-5",
+        "path": "1/level7-5.json"
     }]
 }
