@@ -16,6 +16,8 @@ BlueBall.Skull = function (game, x, y, key, frame) {
 
 BlueBall.Skull.prototype = Object.create(BlueBall.Mobile.prototype);
 
+BlueBall.Skull.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leeper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
+
 Object.defineProperty(BlueBall.Skull.prototype, "lookingAt", {
     get: function () {
         return this._lookingAt;
@@ -60,11 +62,10 @@ BlueBall.Skull.prototype.performMovement = function (playerPosition) {
 
 BlueBall.Skull.prototype.nextAction = function () {
     if (this.isAwaken && this.alive) {
-        if (this.canTouch(this.level.player) > 0) {
+        var directionToPlayer = BlueBall.Helper.getDirectionTo(this, this.level.player);
+        if (this.canTouch(this.level.player) > 0 && this.canMoveTo(directionToPlayer.principal)) {
             this.level.player.die();
         } else {
-            var directionToPlayer = BlueBall.Helper.getDirectionTo(this, this.level.player);
-
             if (this.lastDirection === null) {
                 this.lastDirection = directionToPlayer.principal;
             }
