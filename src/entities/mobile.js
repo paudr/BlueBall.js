@@ -15,7 +15,7 @@ BlueBall.Mobile = function (game, x, y, key, frame, options) {
 
 BlueBall.Mobile.prototype = Object.create(BlueBall.Entity.prototype);
 
-BlueBall.Mobile.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Arrow', 'Grass');
+BlueBall.Mobile.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Grass');
 BlueBall.Mobile.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leeper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 BlueBall.Mobile.prototype.tilesThatSlowdown = BlueBall.Helper.getTileIds('Sand');
 BlueBall.Mobile.prototype.entitiesThatCanPush = [];
