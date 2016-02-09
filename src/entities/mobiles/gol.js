@@ -13,6 +13,7 @@ BlueBall.Gol = function (game, x, y, key, frame) {
 };
 
 BlueBall.Gol.prototype = Object.create(BlueBall.Mobile.prototype);
+BlueBall.Gol.prototype.constructor = BlueBall.Gol;
 
 Object.defineProperty(BlueBall.Gol.prototype, "lookingAt", {
     get: function () {

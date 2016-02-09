@@ -1,6 +1,7 @@
 BlueBall.Boot = function () {};
 
 BlueBall.Boot.prototype = Object.create(Phaser.State.prototype);
+BlueBall.Boot.prototype.constructor = BlueBall.Boot;
 
 BlueBall.Boot.prototype.init = function () {
     if (this.game.device.desktop) {

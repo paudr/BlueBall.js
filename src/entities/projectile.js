@@ -9,6 +9,7 @@ BlueBall.Projectile = function (shooter, direction, key, frame) {
 };
 
 BlueBall.Projectile.prototype = Object.create(BlueBall.Mobile.prototype);
+BlueBall.Projectile.prototype.constructor = BlueBall.Projectile;
 
 BlueBall.Projectile.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Wall', 'Arrow');
 

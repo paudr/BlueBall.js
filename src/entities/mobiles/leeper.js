@@ -17,6 +17,7 @@ BlueBall.Leeper = function (game, x, y, key, frame) {
 };
 
 BlueBall.Leeper.prototype = Object.create(BlueBall.Mobile.prototype);
+BlueBall.Leeper.prototype.constructor = BlueBall.Leeper;
 
 BlueBall.Leeper.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leeper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 

@@ -4,6 +4,7 @@ BlueBall.Goal = function (game, x, y, key, frame, options) {
 };
 
 BlueBall.Goal.prototype = Object.create(BlueBall.Entity.prototype);
+BlueBall.Goal.prototype.constructor = BlueBall.Goal;
 
 BlueBall.Goal.prototype.checkPlayerPosition = function (player) {
     if (this.cellPosition.x === player.cellPosition.x && this.cellPosition.y === player.cellPosition.y) {

@@ -16,6 +16,7 @@ BlueBall.Keyboard = function (game) {
 }
 
 BlueBall.Keyboard.prototype = Object.create(null);
+BlueBall.Keyboard.prototype.constructor = BlueBall.Keyboard;
 
 BlueBall.Keyboard.prototype.getDirection = function () {
     var direction = null;

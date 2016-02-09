@@ -7,6 +7,7 @@ BlueBall.Door = function (game, x, y, key, frame) {
 };
 
 BlueBall.Door.prototype = Object.create(BlueBall.Goal.prototype);
+BlueBall.Door.prototype.constructor = BlueBall.Door;
 
 BlueBall.Door.prototype.open = function () {
     this.frameName = 'doorOpened';

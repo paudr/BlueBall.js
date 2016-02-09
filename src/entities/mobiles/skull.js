@@ -15,6 +15,7 @@ BlueBall.Skull = function (game, x, y, key, frame) {
 };
 
 BlueBall.Skull.prototype = Object.create(BlueBall.Mobile.prototype);
+BlueBall.Skull.prototype.constructor = BlueBall.Skull;
 
 BlueBall.Skull.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leeper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');
 

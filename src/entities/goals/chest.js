@@ -16,6 +16,7 @@ BlueBall.Chest = function (game, x, y, key, frame) {
 };
 
 BlueBall.Chest.prototype = Object.create(BlueBall.Goal.prototype);
+BlueBall.Chest.prototype.constructor = BlueBall.Chest;
 
 BlueBall.Chest.CLOSED = 'closed';
 BlueBall.Chest.OPENED = 'opened';

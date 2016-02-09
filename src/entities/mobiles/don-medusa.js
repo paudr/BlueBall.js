@@ -14,6 +14,7 @@ BlueBall.DonMedusa = function (game, x, y, key, frame) {
 };
 
 BlueBall.DonMedusa.prototype = Object.create(BlueBall.Mobile.prototype);
+BlueBall.DonMedusa.prototype.constructor = BlueBall.DonMedusa;
 
 Object.defineProperty(BlueBall.DonMedusa.prototype, "lookingAt", {
     get: function () {

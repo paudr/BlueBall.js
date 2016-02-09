@@ -29,6 +29,7 @@ BlueBall.VirtualJoystick = function (game) {
 }
 
 BlueBall.VirtualJoystick.prototype = Object.create(null);
+BlueBall.VirtualJoystick.prototype.constructor = BlueBall.VirtualJoystick;
 
 BlueBall.VirtualJoystick.prototype.getDirection = function () {
     if (this.stick.isDown) {

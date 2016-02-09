@@ -8,6 +8,7 @@ BlueBall.Stairs = function (game, x, y, key, frame) {
 };
 
 BlueBall.Stairs.prototype = Object.create(BlueBall.Goal.prototype);
+BlueBall.Stairs.prototype.constructor = BlueBall.Stairs;
 
 Object.defineProperty(BlueBall.Stairs.prototype, 'visible', {
     get: function () {

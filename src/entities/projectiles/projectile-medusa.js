@@ -25,6 +25,7 @@ BlueBall.ProjectileMedusa = function (shooter, direction) {
 };
 
 BlueBall.ProjectileMedusa.prototype = Object.create(BlueBall.Projectile.prototype);
+BlueBall.ProjectileMedusa.prototype.constructor = BlueBall.ProjectileMedusa;
 
 BlueBall.ProjectileMedusa.canTarget = function (shooter, target) {
     var cellsToCheck = [];

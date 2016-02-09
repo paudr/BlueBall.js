@@ -16,6 +16,7 @@ BlueBall.Egg = function (target) {
 };
 
 BlueBall.Egg.prototype = Object.create(BlueBall.Mobile.prototype);
+BlueBall.Egg.prototype.constructor = BlueBall.Egg;
 
 BlueBall.Egg.prototype.tilesThatCollideWithOutWater = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Arrow');
 

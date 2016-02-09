@@ -32,6 +32,7 @@ BlueBall.Gui = function (level) {
 };
 
 BlueBall.Gui.prototype = Object.create(null);
+BlueBall.Gui.prototype.constructor = BlueBall.Gui;
 
 BlueBall.Gui.prototype.setEggCount = function (count) {
     this.eggCounterText.text = count.toString();

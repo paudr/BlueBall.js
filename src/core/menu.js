@@ -2,6 +2,7 @@ BlueBall.Menu = function () {
 };
 
 BlueBall.Menu.prototype = Object.create(Phaser.State.prototype);
+BlueBall.Menu.prototype.constructor = BlueBall.Menu;
 
 BlueBall.Menu.prototype.preload = function () {
 };

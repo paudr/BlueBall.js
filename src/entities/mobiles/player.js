@@ -30,6 +30,7 @@ BlueBall.Player = function (game, x, y, key, frame) {
 };
 
 BlueBall.Player.prototype = Object.create(BlueBall.Mobile.prototype);
+BlueBall.Player.prototype.constructor = BlueBall.Player;
 
 BlueBall.Player.prototype.tilesThatCollide = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water');
 BlueBall.Player.prototype.entitiesThatCollide = BlueBall.Helper.getEntityIds('Alma', 'DonMedusa', 'Gol', 'Leeper', 'Medusa', 'Player', 'Rocky', 'Skull', 'Snakey', 'DoorClosed');

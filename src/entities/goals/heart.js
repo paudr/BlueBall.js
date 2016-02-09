@@ -9,6 +9,7 @@ BlueBall.Heart = function (game, x, y, key, frame) {
 };
 
 BlueBall.Heart.prototype = Object.create(BlueBall.Goal.prototype);
+BlueBall.Heart.prototype.constructor = BlueBall.Heart;
 
 BlueBall.Heart.prototype.onPlayerEnter = function (player) {
     player.incHearts();

@@ -25,6 +25,7 @@ BlueBall.Entity = function (game, x, y, key, frame, options) {
 };
 
 BlueBall.Entity.prototype = Object.create(Phaser.Sprite.prototype);
+BlueBall.Entity.prototype.constructor = BlueBall.Entity;
 
 BlueBall.Entity.prototype.tilesThatPreventSpawn = BlueBall.Helper.getTileIds('Rock', 'Bush', 'Lava', 'Wall', 'Water', 'Bridge', 'Arrow', 'LavaBridge', 'Grass');
 BlueBall.Entity.prototype.entitiesThatPreventSpawn = BlueBall.Helper.getEntityIds('Alma', 'Block', 'DonMedusa', 'Egg', 'Gol', 'Leeper', 'Medusa', 'Rocky', 'Skull', 'Snakey', 'Chest', 'DoorClosed', 'DoorOpened', 'Heart');

@@ -12,6 +12,7 @@ BlueBall.Medusa = function (game, x, y, key, frame) {
 };
 
 BlueBall.Medusa.prototype = Object.create(BlueBall.Mobile.prototype);
+BlueBall.Medusa.prototype.constructor = BlueBall.Medusa;
 
 BlueBall.Medusa.prototype.playerMoved = function (player) {
     var diffX = this.cellPosition.x - player.cellPosition.x;

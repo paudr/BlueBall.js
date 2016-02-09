@@ -1,6 +1,7 @@
 BlueBall.Loader = function () {};
 
 BlueBall.Loader.prototype = Object.create(Phaser.State.prototype);
+BlueBall.Loader.prototype.constructor = BlueBall.Loader;
 
 BlueBall.Loader.prototype.preload = function () {
     var loadingBar = this.add.sprite(160, 240, 'loading');
