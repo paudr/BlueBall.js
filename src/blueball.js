@@ -68,13 +68,6 @@ var BlueBall = {
             return selected;
         },
 
-        'getCellPosition': function (x, y) {
-            return {
-                "x": (x + 1) * BlueBall.Config.cellSize.width,
-                "y": (y + 1) * BlueBall.Config.cellSize.height
-            };
-        },
-
         'getDirectionTo': function (source, target) {
             var distanceX = target.cellPosition.x - source.cellPosition.x;
             var distanceY = target.cellPosition.y - source.cellPosition.y;

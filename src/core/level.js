@@ -43,6 +43,16 @@ BlueBall.Level.prototype.create = function () {
 
     this.map = this.game.add.tilemap(this.levelName);
 
+    this.tileSize = {
+        width: this.map.tilesets[0].tileWidth,
+        height: this.map.tilesets[0].tileHeight
+    };
+
+    this.cellSize = {
+        width: this.tileSize.width / 2,
+        height: this.tileSize.height / 2
+    };
+
     this.layers = this.game.add.group();
     this.entities = this.game.add.group(this.layers);
 
@@ -171,4 +181,11 @@ BlueBall.Level.prototype.blinkHearts = function (start) {
     this.entities.iterate('isHeart', true, Phaser.Group.RETURN_NONE, function (entity) {
         entity.blink(start);
     });
+};
+
+BlueBall.Level.prototype.getCellPosition = function (x, y) {
+    return {
+        "x": (x + 1) * this.cellSize.width,
+        "y": (y + 1) * this.cellSize.height
+    };
 };

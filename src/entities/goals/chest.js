@@ -9,10 +9,9 @@ BlueBall.Chest = function (game, x, y, key, frame) {
 
     this.anchor.set(0.5, 0.33);
 
-    this.scale.x = (2 * BlueBall.Config.cellSize.width) / 44;
-    this.scale.y = (3 * BlueBall.Config.cellSize.height) / 48;
+    this.height = this.level.tileSize.height + this.level.cellSize.height;
 
-    this.y -= BlueBall.Config.cellSize.height;
+    this.y -= this.level.cellSize.height;
 };
 
 BlueBall.Chest.prototype = Object.create(BlueBall.Goal.prototype);

@@ -1,13 +1,17 @@
 BlueBall.Entity = function (game, x, y, key, frame, options) {
     options = options || {};
 
-    var pos = BlueBall.Helper.getCellPosition(x, y);
+    var level = game.state.getCurrentState();
+    var pos = level.getCellPosition(x, y);
 
     Phaser.Sprite.call(this, game, pos.x, pos.y, key, frame);
 
     this.anchor.set(0.5, 0.5);
 
-    this.level = this.game.state.getCurrentState();
+    this.width = level.tileSize.width;
+    this.height = level.tileSize.height;
+
+    this.level = level;
     this.spawnPosition = {
         'x': x,
         'y': y
@@ -75,7 +79,7 @@ BlueBall.Entity.prototype.cellsAt = function (direction) {
 };
 
 BlueBall.Entity.prototype.setCellPosition = function (x, y) {
-    var pos = BlueBall.Helper.getCellPosition(x, y);
+    var pos = this.level.getCellPosition(x, y);
 
     this.cellPosition.x = x;
     this.cellPosition.y = y;

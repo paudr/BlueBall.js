@@ -103,7 +103,7 @@ BlueBall.Mobile.prototype.moveTo = function (direction, wasPushed, movementDurat
             break;
         }
 
-        var destPosition = BlueBall.Helper.getCellPosition(this.cellPosition.x, this.cellPosition.y);
+        var destPosition = this.level.getCellPosition(this.cellPosition.x, this.cellPosition.y);
         var pushedEntities = BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatCanPush, this.level.getEntitesAt(positions[0].x, positions[0].y));
 
         var slowdown = (this.tilesThatSlowdown.indexOf(this.level.map.getTile(positions[0].x >> 1, positions[0].y >> 1, 'environment', true).index || 0) > -1) ||

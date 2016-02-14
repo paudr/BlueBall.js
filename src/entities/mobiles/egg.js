@@ -3,8 +3,6 @@ BlueBall.Egg = function (target) {
         gid: BlueBall.Global.Entities.Egg
     });
 
-    this.scale.set(32 / 16);
-
     this.level.onPhaseChanged.add(this.phaseChanged, this);
 
     this.level.entities.addAt(this, 0);

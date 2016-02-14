@@ -12,7 +12,6 @@ BlueBall.Player = function (game, x, y, key, frame) {
     this.animations.add('Win', Phaser.Animation.generateFrameNames('playerWin', 1, 2, '', 1), 10, true);
     this.animations.add('Die', Phaser.Animation.generateFrameNames('playerDie', 1, 4, '', 1), 10, true);
 
-    this.scale.set(32 / 17);
     this.input = null;
     this.eggs = 0;
     this.hearts = 0;

@@ -5,8 +5,6 @@ BlueBall.WaterEgg = function (target) {
 
     this.movementDuration = this.movementDuration * 4;
 
-    this.scale.set(32 / 16);
-
     this.level.onPhaseChanged.add(this.phaseChanged, this);
 
     this.level.entities.addAt(this, 0);
@@ -45,7 +43,8 @@ BlueBall.WaterEgg.prototype.swampEgg = function () {
             this.die();
         }
     } else {
-        this.scale.set((32 / 16) / (4.1 - this.swampLevel));
+        this.width = this.level.tileSize.width / (4.1 - this.swampLevel);
+        this.height = this.level.tileSize.height / (4.1 - this.swampLevel);
         this.swampLevel--;
     }
 };
