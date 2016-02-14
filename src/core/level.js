@@ -66,18 +66,13 @@ BlueBall.Level.prototype.create = function () {
 
     this.map.addTilesetImage('AdventuresOfLolo3', 'AdventuresOfLolo3');
 
-    this.map.createLayer('environment', undefined, undefined, this.layers);
+    this.environment = this.map.createLayer('environment', undefined, undefined, this.layers);
 
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Chest, 'chestSprites', 0, true, false, this.entities, BlueBall.Chest, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Heart, 'tileSprites', 1, true, false, this.entities, BlueBall.Heart, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.DoorClosed, 'tileSprites', 2, true, false, this.entities, BlueBall.Door, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Stairs, 'stairs', null, true, false, this.entities, BlueBall.Stairs, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Block, 'tileSprites', 0, true, false, this.entities, BlueBall.Block, false);
-
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Player, 'playerSprites', 10, true, false, this.entities, BlueBall.Player, false);
-    this.player = this.entities.iterate('isPlayer', true, Phaser.Group.RETURN_CHILD);
-    this.player.assignInput(this.playerInput);
-
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Snakey, 'mobSprites', 3, true, false, this.entities, BlueBall.Snakey, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Gol, 'mobSprites', 6, true, false, this.entities, BlueBall.Gol, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Leeper, 'mobSprites', 14, true, false, this.entities, BlueBall.Leeper, false);
@@ -86,6 +81,11 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Alma, 'mobSprites', 46, true, false, this.entities, BlueBall.Alma, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Medusa, 'mobSprites', 51, true, false, this.entities, BlueBall.Medusa, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.DonMedusa, 'mobSprites', 55, true, false, this.entities, BlueBall.DonMedusa, false);
+
+    this.map.createFromObjects('entities', BlueBall.Global.Entities.Player, 'playerSprites', 10, true, false, this.entities, BlueBall.Player, false);
+    this.player = this.entities.iterate('isPlayer', true, Phaser.Group.RETURN_CHILD);
+    this.player.assignInput(this.playerInput);
+    this.game.camera.follow(this.player);
 
     this.layers.bringToTop(this.entities);
 
@@ -134,14 +134,15 @@ BlueBall.Level.prototype.update = function () {
 };
 
 BlueBall.Level.prototype.resize = function (width, height) {
-    var widthWithBorders = 50 + this.map.widthInPixels + 50;
-    var heightWithBorders = 10 + this.map.heightInPixels + 10;
-    var ratio = this.scale.isLandscape ? height / heightWithBorders : width / widthWithBorders;
+    this.layers.x = Math.max(0, width - this.map.widthInPixels) / 2;
+    this.layers.y = Math.max(0, height - this.map.heightInPixels) / 2;
+    this.environment.resize(width, height);
 
-    this.layers.scale.x = ratio;
-    this.layers.scale.y = ratio;
-    this.layers.x = (width - (this.map.widthInPixels * ratio)) / 2;
-    this.layers.y = (height - (this.map.heightInPixels * ratio)) / 2;
+    var offsetX = width >= this.map.widthInPixels ? 0 : 50;
+    var offsetY = height >= this.map.heightInPixels ? 0 : 50;
+
+    this.world.setBounds(-offsetX, -offsetY, this.map.widthInPixels + (offsetX * 2), this.map.heightInPixels + (offsetY * 2));
+
 
     if (this.playerInput && this.playerInput.resize) {
         this.playerInput.resize(width, height);
