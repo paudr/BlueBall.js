@@ -14,10 +14,20 @@ BlueBall.Boot.prototype.init = function () {
 
         resizeCanvas.apply(this);
         window.addEventListener('resize', resizeCanvas.bind(this));
-    } else if (this.game.device.android || this.game.device.iPhone) {
+    } else {
         this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+        this.scale.onSizeChange.add(function() {
+            if (this.scale.isPortrait) {
+                document.getElementById('orientation').style.display = 'block';
+                if (this.game.state.current === 'boot' || this.game.state.current === 'loader') {
+                    this.scale.game.paused = true;
+                }
+            } else {
+                this.scale.game.paused = false;
+                document.getElementById('orientation').style.display = 'none';
+            }
+        }, this);
     }
-
 }
 
 BlueBall.Boot.prototype.preload = function () {
