@@ -6,29 +6,6 @@ var BlueBall = {
         game.state.add('boot', new BlueBall.Boot());
         game.state.add('loader', new BlueBall.Loader());
         game.state.add('menu', new BlueBall.Menu());
-        game.state.add('level1-1', new BlueBall.Level('level1-1'));
-        game.state.add('level1-2', new BlueBall.Level('level1-2'));
-        game.state.add('level1-3', new BlueBall.Level('level1-3'));
-        game.state.add('level1-4', new BlueBall.Level('level1-4'));
-        game.state.add('level1-5', new BlueBall.Level('level1-5'));
-
-        game.state.add('level2-1', new BlueBall.Level('level2-1'));
-        game.state.add('level2-2', new BlueBall.Level('level2-2'));
-        game.state.add('level2-3', new BlueBall.Level('level2-3'));
-        game.state.add('level2-4', new BlueBall.Level('level2-4'));
-        game.state.add('level2-5', new BlueBall.Level('level2-5'));
-
-        game.state.add('level3-1', new BlueBall.Level('level3-1'));
-        game.state.add('level3-2', new BlueBall.Level('level3-2'));
-        game.state.add('level3-3', new BlueBall.Level('level3-3'));
-        game.state.add('level3-4', new BlueBall.Level('level3-4'));
-        game.state.add('level3-5', new BlueBall.Level('level3-5'));
-
-        game.state.add('level4-1', new BlueBall.Level('level4-1'));
-        game.state.add('level4-2', new BlueBall.Level('level4-2'));
-        game.state.add('level4-3', new BlueBall.Level('level4-3'));
-        game.state.add('level4-4', new BlueBall.Level('level4-4'));
-        game.state.add('level4-5', new BlueBall.Level('level4-5'));
 
         game.state.start('boot');
     },
