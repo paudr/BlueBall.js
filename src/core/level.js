@@ -58,11 +58,8 @@ BlueBall.Level.prototype.create = function () {
 
     if (this.game.device.android || this.game.device.iPhone) {
         this.playerInput = new BlueBall.VirtualJoystick(this.game);
-        this.resize(this.game.width, this.game.height);
     } else {
         this.playerInput = new BlueBall.Keyboard(this.game);
-        this.layers.x = 50;
-        this.layers.y = 50;
     }
 
     this.gui = new BlueBall.Gui(this);
@@ -91,6 +88,8 @@ BlueBall.Level.prototype.create = function () {
     this.map.createFromObjects('entities', BlueBall.Global.Entities.DonMedusa, 'mobSprites', 55, true, false, this.entities, BlueBall.DonMedusa, false);
 
     this.layers.bringToTop(this.entities);
+
+    this.resize(this.game.width, this.game.height);
 };
 
 BlueBall.Level.prototype.shutdown = function () {
@@ -135,16 +134,14 @@ BlueBall.Level.prototype.update = function () {
 };
 
 BlueBall.Level.prototype.resize = function (width, height) {
-    var gameBaseWidth = 416;
-    var gameBaseHeight = 448;
-    var widthWithBorders = 50 + gameBaseWidth + 50;
-    var heightWithBorders = 10 + gameBaseHeight + 10;
+    var widthWithBorders = 50 + this.map.widthInPixels + 50;
+    var heightWithBorders = 10 + this.map.heightInPixels + 10;
     var ratio = this.scale.isLandscape ? height / heightWithBorders : width / widthWithBorders;
 
     this.layers.scale.x = ratio;
     this.layers.scale.y = ratio;
-    this.layers.x = (width - (gameBaseWidth * ratio)) / 2;
-    this.layers.y = (height - (gameBaseHeight * ratio)) / 2;
+    this.layers.x = (width - (this.map.widthInPixels * ratio)) / 2;
+    this.layers.y = (height - (this.map.heightInPixels * ratio)) / 2;
 
     if (this.playerInput && this.playerInput.resize) {
         this.playerInput.resize(width, height);
