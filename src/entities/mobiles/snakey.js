@@ -5,8 +5,6 @@ BlueBall.Snakey = function (game, x, y, key, frame) {
 
     this.level.onPhaseChanged.add(this.phaseChanged, this);
     this.level.onPlayerMoved.add(this.lookAt, this);
-
-    this.lookAt(this.level.player);
 };
 
 BlueBall.Snakey.prototype = Object.create(BlueBall.Mobile.prototype);
