@@ -56,10 +56,10 @@ BlueBall.Level.prototype.create = function () {
     this.layers = this.game.add.group();
     this.entities = this.game.add.group(this.layers);
 
-    if (this.game.device.android || this.game.device.iPhone) {
-        this.playerInput = new BlueBall.VirtualJoystick(this.game);
-    } else {
+    if (this.game.device.desktop) {
         this.playerInput = new BlueBall.Keyboard(this.game);
+    } else {
+        this.playerInput = new BlueBall.VirtualJoystick(this.game);
     }
 
     this.gui = new BlueBall.Gui(this);
@@ -143,10 +143,7 @@ BlueBall.Level.prototype.resize = function (width, height) {
 
     this.world.setBounds(-offsetX, -offsetY, this.map.widthInPixels + (offsetX * 2), this.map.heightInPixels + (offsetY * 2));
 
-
-    if (this.playerInput && this.playerInput.resize) {
-        this.playerInput.resize(width, height);
-    }
+    this.playerInput.resize(width, height);
 };
 
 BlueBall.Level.prototype.setCurrentPhase = function (phase) {

@@ -1,13 +1,7 @@
 BlueBall.VirtualJoystick = function (game) {
-    this.game = game;
+    BlueBall.Input.call(this, game);
 
     this.pad = this.game.plugins.add(Phaser.VirtualJoystick);
-    this.onShoot = new Phaser.Signal();
-    this.onPower = new Phaser.Signal();
-    this.onRestart = new Phaser.Signal();
-
-    this.pad = this.game.plugins.add(Phaser.VirtualJoystick);
-
     this.stick = this.pad.addDPad(0, 0, 200, 'dpad');
 
     this.shootButton = this.pad.addButton(0, 0, 'dpad', 'button1-up', 'button1-down');
@@ -18,17 +12,16 @@ BlueBall.VirtualJoystick = function (game) {
     this.powerButton.onDown.add(this.onPower.dispatch, this.onPower);
     this.powerButton.addKey(Phaser.Keyboard.X);
 
-
     this.restartButton = this.pad.addButton(0, 0, 'dpad', 'button3-up', 'button3-down');
-    this.restartButton.posX = 15;
-    this.restartButton.posY = 15;
+    this.restartButton.posX = 40;
+    this.restartButton.posY = 40;
     this.restartButton.scale = 0.5;
 
     this.restartSended = false;
     this.restartPressTime = Phaser.Timer.SECOND * 3;
 }
 
-BlueBall.VirtualJoystick.prototype = Object.create(null);
+BlueBall.VirtualJoystick.prototype = Object.create(BlueBall.Input.prototype);
 BlueBall.VirtualJoystick.prototype.constructor = BlueBall.VirtualJoystick;
 
 BlueBall.VirtualJoystick.prototype.getDirection = function () {
@@ -56,15 +49,6 @@ BlueBall.VirtualJoystick.prototype.update = function () {
     } else {
         this.restartSended = false;
     }
-}
-
-BlueBall.VirtualJoystick.prototype.destroy = function () {
-    this.game = null;
-    this.cursors = null;
-
-    this.onShoot.dispose();
-    this.onPower.dispose();
-    this.onRestart.dispose();
 }
 
 BlueBall.VirtualJoystick.prototype.resize = function (width, height) {

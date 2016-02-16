@@ -8,11 +8,9 @@ BlueBall.Loader.prototype.preload = function () {
     loadingBar.anchor.setTo(0.5, 0.5);
     this.load.setPreloadSprite(loadingBar);
 
-    if (this.game.device.android || this.game.device.iPhone) {
-        this.game.load.script('joystick', 'libs/phaser-virtual-joystick.js');
-        this.game.load.script('joystick-input', 'src/core/virtual-joystick.js');
-        this.load.atlas('dpad', 'assets/skins/dpad.png', 'assets/skins/dpad.json');
-    }
+    this.game.load.script('joystick', 'libs/phaser-virtual-joystick.js');
+    this.game.load.script('joystick-input', 'src/core/virtual-joystick.js');
+    this.load.atlas('dpad', 'assets/skins/dpad.png', 'assets/skins/dpad.json');
 
     this.game.load.json('world', 'assets/worlds/' + BlueBall.Config.world);
 

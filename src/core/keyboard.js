@@ -1,9 +1,5 @@
 BlueBall.Keyboard = function (game) {
-    this.game = game;
-
-    this.onShoot = new Phaser.Signal();
-    this.onPower = new Phaser.Signal();
-    this.onRestart = new Phaser.Signal();
+    BlueBall.Input.call(this, game);
 
     this.cursors = game.input.keyboard.createCursorKeys();
 
@@ -15,7 +11,7 @@ BlueBall.Keyboard = function (game) {
     this.restartPressTime = Phaser.Timer.SECOND * 3;
 }
 
-BlueBall.Keyboard.prototype = Object.create(null);
+BlueBall.Keyboard.prototype = Object.create(BlueBall.Input.prototype);
 BlueBall.Keyboard.prototype.constructor = BlueBall.Keyboard;
 
 BlueBall.Keyboard.prototype.getDirection = function () {
@@ -54,13 +50,4 @@ BlueBall.Keyboard.prototype.update = function () {
     } else {
         this.restartSended = false;
     }
-}
-
-BlueBall.Keyboard.prototype.destroy = function () {
-    this.game = null;
-    this.cursors = null;
-
-    this.onShoot.dispose();
-    this.onPower.dispose();
-    this.onRestart.dispose();
 }
