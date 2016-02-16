@@ -19,13 +19,9 @@ BlueBall.Projectile.prototype.entitiesThatImpact = BlueBall.Helper.getEntityIds(
 
 BlueBall.Projectile.prototype.moveTo = function () {
     if (!BlueBall.Mobile.prototype.moveTo.call(this, this.shootDirection)) {
-        var impacted = this.getImpacted();
         this.shooter.projectile = null;
         this.destroy(true);
-
-        for (var i = 0; i < impacted.length; i++) {
-            this.impact(impacted[i]);
-        }
+        this.getImpacted().forEach(this.impact.bind(this));
     }
 };
 

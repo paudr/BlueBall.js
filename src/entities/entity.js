@@ -88,16 +88,16 @@ BlueBall.Entity.prototype.setCellPosition = function (x, y) {
 };
 
 BlueBall.Entity.prototype.canRespawnAtPosition = function (position) {
-    var posx = position.x >> 1;
-    var posy = position.y >> 1;
-    var incx = position.x % 2;
-    var incy = position.x % 2;
+    var posx1 = position.x >> 1;
+    var posy1 = position.y >> 1;
+    var posx2 = (position.x + 1) >> 1;
+    var posy2 = (position.y + 1) >> 1;
 
     var tiles = [
-        this.level.map.getTile(posx, posy, 'environment', true),
-        this.level.map.getTile(posx, posy + incy, 'environment', true),
-        this.level.map.getTile(posx + incx, posy, 'environment', true),
-        this.level.map.getTile(posx + incx, posy + incy, 'environment', true)
+        this.level.map.getTile(posx1, posy1, 'environment', true),
+        this.level.map.getTile(posx1, posy2, 'environment', true),
+        this.level.map.getTile(posx2, posy1, 'environment', true),
+        this.level.map.getTile(posx2, posy2, 'environment', true)
     ];
 
     if (BlueBall.Helper.getTilesFromIndexArray(this.tilesThatPreventSpawn, tiles).length > 0) {

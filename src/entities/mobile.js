@@ -60,19 +60,13 @@ BlueBall.Mobile.prototype.canMoveTo = function (direction) {
                 }
 
                 pushing1 = BlueBall.Helper.intersection(pushing1, pushing2);
-                if (pushing1.length !== pushing2.length) {
+                if (pushing1.length === 0 || pushing1.length !== pushing2.length) {
                     return false;
                 }
 
-                if (pushing1.length > 0) {
-                    for (var i = 0; i < pushing1.length; i++) {
-                        if (!pushing1[i].canBePushed || !pushing1[i].canMoveTo(direction)) {
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
+                return !pushing1.some(function(entity) {
+                    return !entity.canBePushed || !entity.canMoveTo(direction);
+                });
             }
         }
     }
@@ -119,9 +113,9 @@ BlueBall.Mobile.prototype.moveTo = function (direction, wasPushed, movementDurat
         this.isMoving = true;
         this.wasPushed = wasPushed === true;
 
-        for (var i = 0; i < pushedEntities.length; i++) {
-            pushedEntities[i].moveTo(direction, true, duration);
-        }
+        pushedEntities.forEach(function(entity) {
+            entity.moveTo(direction, true, duration);
+        });
 
         var tween = this.game.add.tween(this);
         tween.onComplete.add(function () {
