@@ -117,20 +117,14 @@ BlueBall.Entity.prototype.canRespawnAtPosition = function (position) {
 }
 
 BlueBall.Entity.prototype.respawn = function () {
-    if (this.canRespawnAtPosition(this.spawnPosition)) {
-        this.setCellPosition(this.spawnPosition.x, this.spawnPosition.y);
-        this.revive();
-    } else if (this.level.map.properties.spawns) {
-        for (var i = 0; i < this.level.map.properties.spawns.length; i++) {
-            if (this.canRespawnAtPosition(this.level.map.properties.spawns[i])) {
-                this.setCellPosition(this.level.map.properties.spawns[i].x, this.level.map.properties.spawns[i].y);
-                this.revive();
-                break;
-            }
-        }
-    }
+    var spawnPoint = [ this.spawnPosition ]
+        .concat(this.level.map.properties.spawns)
+        .find(this.canRespawnAtPosition.bind(this));
 
-    if (!this.alive) {
+    if (spawnPoint) {
+        this.setCellPosition(spawnPoint.x, spawnPoint.y);
+        this.revive();
+    } else {
         // TODO: Indicar que la entity ha muerto
     }
 };
