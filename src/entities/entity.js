@@ -90,28 +90,27 @@ BlueBall.Entity.prototype.setCellPosition = function (x, y) {
 BlueBall.Entity.prototype.canRespawnAtPosition = function (position) {
     var posx = position.x >> 1;
     var posy = position.y >> 1;
+    var incx = position.x % 2;
+    var incy = position.x % 2;
 
     var tiles = [
         this.level.map.getTile(posx, posy, 'environment', true),
-        this.level.map.getTile(posx, posy + 1, 'environment', true),
-        this.level.map.getTile(posx + 1, posy, 'environment', true),
-        this.level.map.getTile(posx + 1, posy + 1, 'environment', true)
+        this.level.map.getTile(posx, posy + incy, 'environment', true),
+        this.level.map.getTile(posx + incx, posy, 'environment', true),
+        this.level.map.getTile(posx + incx, posy + incy, 'environment', true)
     ];
 
-    var entities = [
-        this.level.getEntitesAt(position.x, position.y),
-        this.level.getEntitesAt(position.x, position.y + 1),
-        this.level.getEntitesAt(position.x + 1, position.y),
-        this.level.getEntitesAt(position.x + 1, position.y + 1)
-    ];
+    if (BlueBall.Helper.getTilesFromIndexArray(this.tilesThatPreventSpawn, tiles).length > 0) {
+        return false;
+    }
 
-    for (var i = 0; i < 4; i++) {
-        if (
-            BlueBall.Helper.getTilesFromIndexArray(this.tilesThatPreventSpawn, tiles[i]).length > 0 ||
-            BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatPreventSpawn, entities[i]).length > 0
-        ) {
-            return false;
-        }
+    var entities = this.level.getEntitesAt(position.x, position.y)
+        .concat(this.level.getEntitesAt(position.x, position.y + 1))
+        .concat(this.level.getEntitesAt(position.x + 1, position.y))
+        .concat(this.level.getEntitesAt(position.x + 1, position.y + 1));
+
+    if (BlueBall.Helper.getEntitiesFromIndexArray(this.entitiesThatPreventSpawn, entities).length > 0) {
+        return false;
     }
 
     return true;
