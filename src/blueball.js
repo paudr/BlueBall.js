@@ -13,59 +13,35 @@ var BlueBall = {
     'Helper': {
 
         'intersection': function (array1, array2) {
-            var result = [];
-            var item;
-
-            for (var i = 0; i < array1.length; i++) {
-                item = array1[i];
-                if (array2.indexOf(item) > -1) {
-                    result.push(item);
-                }
-            }
-
-            return result;
+            return array1.filter(function(item) {
+                return array2.indexOf(item) > -1;
+            });
         },
 
         'union': function (array1, array2) {
-            var result = array1.slice();
-            var item;
-
-            for (var i = 0; i < array2.length; i++) {
-                item = array2[i];
-                if (result.indexOf(item) < 0) {
-                    result.push(item);
-                }
-            }
-
-            return result;
+            return array1.concat(array2.filter(function (item) {
+                return array1.indexOf(item) < 0;
+            }));
         },
 
         'getEntitiesFromIndexArray': function (indexArray, entities) {
-            var selected = [];
-
             if (indexArray.length > 0) {
-                for (var i = 0; i < entities.length; i++) {
-                    if (indexArray.indexOf(entities[i].gid) > -1) {
-                        selected.push(entities[i]);
-                    }
-                }
+                return entities.filter(function(entity) {
+                    return indexArray.indexOf(entity.gid) > -1;
+                });
+            } else {
+                return [];
             }
-
-            return selected;
         },
 
         'getTilesFromIndexArray': function (indexArray, tiles) {
-            var selected = [];
-
             if (indexArray.length > 0) {
-                for (var i = 0; i < tiles.length; i++) {
-                    if (indexArray.indexOf(tiles[i].index) > -1) {
-                        selected.push(tiles[i]);
-                    }
-                }
+                return tiles.filter(function(tile) {
+                    return indexArray.indexOf(tile.index) > -1;
+                });
+            } else {
+                return [];
             }
-
-            return selected;
         },
 
         'getDirectionTo': function (source, target) {
@@ -111,23 +87,16 @@ var BlueBall = {
         },
 
         'getTileIds': function () {
-            var result = [];
-
-            for (var i = 0; i < arguments.length; i++) {
-                Array.prototype.push.apply(result, BlueBall.Global.Tiles[arguments[i]]);
-            }
-
-            return result;
+            return Array.prototype.reduce.call(arguments, function(accumulated, value) {
+                Array.prototype.push.apply(accumulated, BlueBall.Global.Tiles[value]);
+                return accumulated;
+            }, []);
         },
 
         'getEntityIds': function () {
-            var result = [];
-
-            for (var i = 0; i < arguments.length; i++) {
-                result.push(BlueBall.Global.Entities[arguments[i]]);
-            }
-
-            return result;
+            return Array.prototype.map.call(arguments, function(value) {
+                return BlueBall.Global.Entities[value];
+            });
         },
 
         'destroyEntity': function (entity) {
