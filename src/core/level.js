@@ -62,11 +62,11 @@ BlueBall.Level.prototype.create = function () {
         this.playerInput = new BlueBall.VirtualJoystick(this.game);
     }
 
-    this.gui = new BlueBall.Gui(this);
-
     this.map.addTilesetImage('AdventuresOfLolo3', 'AdventuresOfLolo3');
 
     this.environment = this.map.createLayer('environment', undefined, undefined, this.layers);
+
+    this.gui = new BlueBall.Gui(this);
 
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Chest, 'chestSprites', 0, true, false, this.entities, BlueBall.Chest, false);
     this.map.createFromObjects('entities', BlueBall.Global.Entities.Heart, 'tileSprites', 1, true, false, this.entities, BlueBall.Heart, false);
@@ -88,6 +88,7 @@ BlueBall.Level.prototype.create = function () {
     this.game.camera.follow(this.player);
 
     this.layers.bringToTop(this.entities);
+    this.layers.bringToTop(this.gui.layer);
 
     this.resize(this.game.width, this.game.height);
 };
@@ -144,6 +145,7 @@ BlueBall.Level.prototype.resize = function (width, height) {
     this.world.setBounds(-offsetX, -offsetY, this.map.widthInPixels + (offsetX * 2), this.map.heightInPixels + (offsetY * 2));
 
     this.playerInput.resize(width, height);
+    this.gui.resize(width, height);
 };
 
 BlueBall.Level.prototype.setCurrentPhase = function (phase) {
