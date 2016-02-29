@@ -98,9 +98,12 @@ Editor.Tilemap = (function () {
         this.domElement.style.backgroundColor = 'black';
 
         this.domElement.addEventListener('click', Tilemap.prototype.handleClick.bind(this, 'left'), true);
+        this.domElement.addEventListener('contextmenu', Tilemap.prototype.handleClick.bind(this, 'right'), true);
 
         this.tiles = [];
         getEmptyMap(this.options.width, this.options.height).forEach(this.addTile, this);
+
+        this.objects = [];
 
         container.appendChild(this.domElement);
     }
@@ -126,11 +129,33 @@ Editor.Tilemap = (function () {
         }
     };
 
+    Tilemap.prototype.addObject = function (options) {
+        var object = new Tile(Editor.Helper.extend({
+            tileWidth: this.options.tileWidth,
+            tileHeight: this.options.tileHeight,
+            tileset: this.options.tileset
+        }, options), this);
+        this.objects.push(object);
+        return object;
+    }
+
+    Tilemap.prototype.removeObject = function (object) {
+        var index = this.objects.indexOf(object);
+        if (index >= 0) {
+            this.objects.splice(index, 1);
+            object.destroy();
+        }
+    };
+
     Tilemap.prototype.setSize = function (width, height) {
         if (this.options.width !== width || this.options.height !== height) {
             this.tiles.filter(function (tile) {
                 return tile.options.x >= width || tile.options.y >= height;
             }).forEach(this.removeTile, this);
+
+            this.objects.filter(function (object) {
+                return object.options.x >= width || object.options.y >= height;
+            }).forEach(this.removeObject, this);
 
             getEmptyMap(width, height).filter(function (cell) {
                 return cell.x >= this.options.width || cell.y >= this.options.height;
@@ -152,6 +177,12 @@ Editor.Tilemap = (function () {
             tile.setId(tileId);
         }
     };
+
+    Tilemap.prototype.removeObjects = function (x, y) {
+        this.objects.filter(function(object) {
+            return object.options.x === x && object.options.y === y;
+        }).forEach(this.removeObject, this);
+    }
 
     Tilemap.prototype.handleClick = function (button, event) {
         event.preventDefault();

@@ -8,10 +8,16 @@ var Editor = {
                     if (selected) {
                         if (selected.type === 'tile') {
                             tilemap.setTile(position.x, position.y, selected.tileId);
+                        } else if (selected.type === 'object') {
+                            tilemap.addObject(Editor.Helper.extend({
+                                x: position.x,
+                                y: position.y
+                            }, selected));
                         }
                     }
+                } else if (button === 'right') {
+                    tilemap.removeObjects(position.x, position.y);
                 }
-
             }
         }, document.getElementById('tilemap'));
 
