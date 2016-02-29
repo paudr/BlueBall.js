@@ -125,8 +125,8 @@ Editor.Tileset = (function () {
 
         var pos = Editor.Helper.getPositionFromCoords(
             this.domElement, {
-                x: event.clientX,
-                y: event.clientY
+                x: event.pageX,
+                y: event.pageY
             }, {
                 width: this.options.tileWidth,
                 height: this.options.tileHeight
