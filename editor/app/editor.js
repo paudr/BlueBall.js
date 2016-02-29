@@ -1,6 +1,7 @@
 var Editor = {
     init: function () {
         var tilemap = new Editor.Tilemap({}, document.getElementById('tilemap'));
+        new Editor.Tileset({}, document.getElementById('tileset'));
 
         function onChangeSize(event) {
             var width = tilemap.options.width;
@@ -31,6 +32,39 @@ var Editor = {
                 })
             });
             return base;
+        },
+        getPositionFromCoords: function(element, coords, tileSize) {
+            var getNumericStyleProperty = function (style, prop) {
+                return parseInt(style.getPropertyValue(prop), 10);
+            };
+            var element_position = function (element) {
+                    var x = 0,
+                        y = 0;
+                    var inner = true;
+                    while (element) {
+                        x += element.offsetLeft;
+                        y += element.offsetTop;
+                        var style = getComputedStyle(element, null);
+                        var borderTop = getNumericStyleProperty(style, "border-top-width");
+                        var borderLeft = getNumericStyleProperty(style, "border-left-width");
+                        y += borderTop;
+                        x += borderLeft;
+                        if (inner) {
+                            var paddingTop = getNumericStyleProperty(style, "padding-top");
+                            var paddingLeft = getNumericStyleProperty(style, "padding-left");
+                            y += paddingTop;
+                            x += paddingLeft;
+                        }
+                        inner = false;
+                        element = element.offsetParent;
+                    }
+                    return { x: x, y: y };
+            };
+            var container = element_position(element);
+            return {
+                x: Math.floor((coords.x - container.x) / tileSize.width),
+                y: Math.floor((coords.y - container.y) / tileSize.height)
+            };
         }
     }
 };
