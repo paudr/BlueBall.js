@@ -59,11 +59,10 @@ Editor.Tilemap = (function () {
         this.tileset = document.createElement('img');
         this.tileset.src = this.options.tileset;
 
-        var tilsetWidth = Math.floor(this.tileset.width / this.options.tileWidth);
+        this.options.tilsetWidth = Math.floor(this.tileset.width / this.options.tileWidth);
 
         this.tileset.style.position = 'absolute';
-        this.tileset.style.left = (-((this.options.tileId - 1) % tilsetWidth) * this.options.tileWidth) + 'px';
-        this.tileset.style.top = (-Math.floor((this.options.tileId - 1) / tilsetWidth) * this.options.tileHeight) + 'px';
+        this.setId(this.options.tileId);
 
         this.domElement.appendChild(this.tileset);
         this.tilemap.domElement.appendChild(this.domElement);
@@ -71,6 +70,12 @@ Editor.Tilemap = (function () {
 
     Tile.prototype = Object.create(Object.prototype);
     Tile.prototype.constructor = Tile;
+
+    Tile.prototype.setId = function(id) {
+        this.options.tileId = id;
+        this.tileset.style.left = (-((this.options.tileId - 1) % this.options.tilsetWidth) * this.options.tileWidth) + 'px';
+        this.tileset.style.top = (-Math.floor((this.options.tileId - 1) / this.options.tilsetWidth) * this.options.tileHeight) + 'px';
+    };
 
     Tile.prototype.destroy = function () {
         this.tilemap.domElement.removeChild(this.domElement);
@@ -82,7 +87,8 @@ Editor.Tilemap = (function () {
             height: 14,
             tileWidth: 32,
             tileHeight: 32,
-            tileset: 'assets/aol3.png'
+            tileset: 'assets/aol3.png',
+            onClick: function() {}
         }, options);
 
         this.domElement = document.createElement('div');
@@ -90,6 +96,8 @@ Editor.Tilemap = (function () {
         this.domElement.style.width = (this.options.width * this.options.tileWidth) + 'px';
         this.domElement.style.height = (this.options.height * this.options.tileHeight) + 'px';
         this.domElement.style.backgroundColor = 'black';
+
+        this.domElement.addEventListener('click', Tilemap.prototype.handleClick.bind(this, 'left'), true);
 
         this.tiles = [];
         getEmptyMap(this.options.width, this.options.height).forEach(this.addTile, this);
@@ -134,6 +142,31 @@ Editor.Tilemap = (function () {
             this.domElement.style.width = (this.options.width * this.options.tileWidth) + 'px';
             this.domElement.style.height = (this.options.height * this.options.tileHeight) + 'px';
         }
+    };
+
+    Tilemap.prototype.setTile = function (x, y, tileId) {
+        var tile = this.tiles.find(function(tile) {
+            return tile.options.x === x && tile.options.y === y;
+        });
+        if (tile) {
+            tile.setId(tileId);
+        }
+    };
+
+    Tilemap.prototype.handleClick = function (button, event) {
+        event.preventDefault();
+
+        var pos = Editor.Helper.getPositionFromCoords(
+            this.domElement, {
+                x: event.clientX,
+                y: event.clientY
+            }, {
+                width: this.options.tileWidth,
+                height: this.options.tileHeight
+            }
+        );
+
+        this.options.onClick(this, button, pos);
     };
 
     return Tilemap;

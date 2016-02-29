@@ -1,7 +1,19 @@
 var Editor = {
     init: function () {
-        var tilemap = new Editor.Tilemap({}, document.getElementById('tilemap'));
-        new Editor.Tileset({}, document.getElementById('tileset'));
+        var tileset = new Editor.Tileset({}, document.getElementById('tileset'));
+        var tilemap = new Editor.Tilemap({
+            onClick: function(tilemap, button, position) {
+                if (button === 'left') {
+                    var selected = tileset.getSelected();
+                    if (selected) {
+                        if (selected.type === 'tile') {
+                            tilemap.setTile(position.x, position.y, selected.tileId);
+                        }
+                    }
+                }
+
+            }
+        }, document.getElementById('tilemap'));
 
         function onChangeSize(event) {
             var width = tilemap.options.width;
