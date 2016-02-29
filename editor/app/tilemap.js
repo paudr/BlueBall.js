@@ -1,5 +1,5 @@
-Editor.Tilemap = (function() {
-    function getEmptyMap (width, height) {
+Editor.Tilemap = (function () {
+    function getEmptyMap(width, height) {
         var map = [];
         var x, y, row, tileId;
 
@@ -31,7 +31,7 @@ Editor.Tilemap = (function() {
         map[height - 1][0].tileId = 11;
         map[height - 1][width - 1].tileId = 13;
 
-        return map.reduce(function(previous, current) {
+        return map.reduce(function (previous, current) {
             return previous.concat(current)
         }, []);
     }
@@ -72,7 +72,7 @@ Editor.Tilemap = (function() {
     Tile.prototype = Object.create(Object.prototype);
     Tile.prototype.constructor = Tile;
 
-    Tile.prototype.destroy = function() {
+    Tile.prototype.destroy = function () {
         this.tilemap.domElement.removeChild(this.domElement);
     }
 
@@ -100,7 +100,7 @@ Editor.Tilemap = (function() {
     Tilemap.prototype = Object.create(Object.prototype);
     Tilemap.prototype.constructor = Tilemap;
 
-    Tilemap.prototype.addTile = function(options) {
+    Tilemap.prototype.addTile = function (options) {
         var tile = new Tile(Editor.Helper.extend({
             tileWidth: this.options.tileWidth,
             tileHeight: this.options.tileHeight,
@@ -110,11 +110,29 @@ Editor.Tilemap = (function() {
         return tile;
     };
 
-    Tilemap.prototype.removeTile = function(tile) {
+    Tilemap.prototype.removeTile = function (tile) {
         var index = this.tiles.indexOf(tile);
         if (index >= 0) {
             this.tiles.splice(index, 1);
             tile.destroy();
+        }
+    };
+
+    Tilemap.prototype.setSize = function (width, height) {
+        if (this.options.width !== width || this.options.height !== height) {
+            this.tiles.filter(function (tile) {
+                return tile.options.x >= width || tile.options.y >= height;
+            }).forEach(this.removeTile, this);
+
+            getEmptyMap(width, height).filter(function (cell) {
+                return cell.x >= this.options.width || cell.y >= this.options.height;
+            }, this).forEach(this.addTile, this);
+
+            this.options.width = width;
+            this.options.height = height;
+
+            this.domElement.style.width = (this.options.width * this.options.tileWidth) + 'px';
+            this.domElement.style.height = (this.options.height * this.options.tileHeight) + 'px';
         }
     };
 
