@@ -132,7 +132,7 @@ Editor.Tileset = (function () {
 
         if (button === 'left') {
             this.selector.setPosition(pos.x, pos.y);
-            this.selector.setVisible(true);
+            this.selector.setVisible(this.getSelected() !== null);
         } else if (button === 'right') {
             if (this.selector.inPosition(pos.x, pos.y)) {
                 this.selector.setVisible(false);
@@ -141,21 +141,21 @@ Editor.Tileset = (function () {
     };
 
     Tileset.prototype.getSelected = function () {
-        if (this.selector.options.visible) {
-            var tileId = this.selector.options.x + (this.selector.options.y * this.options.tilesetWidth) + 1;
-            if (validTileIds.indexOf(tileId) >= 0) {
-                return {
-                    type: 'tile',
-                    tileId: tileId
-                }
-            }
-            var object = validObjectIds.find(function(object) {
-                return object.tileId === tileId;
-            });
-            if (object) {
-                return Editor.Helper.extend({ type: 'object' }, object);
+        var tileId = this.selector.options.x + (this.selector.options.y * this.options.tilesetWidth) + 1;
+        if (validTileIds.indexOf(tileId) >= 0) {
+            return {
+                type: 'tile',
+                tileId: tileId
             }
         }
+        var object = validObjectIds.find(function(object) {
+            return object.tileId === tileId;
+        });
+        if (object) {
+            return Editor.Helper.extend({ type: 'object' }, object);
+        }
+
+        return null;
     }
 
     return Tileset;
