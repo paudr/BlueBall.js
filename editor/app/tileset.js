@@ -15,11 +15,14 @@ Editor.Tileset = (function () {
     var validObjectIds = [
         { tileId: 77 }, // Alma
         { tileId: 29 }, // Block
-        { tileId: 85 }, // DonMedusa
-        { tileId: 81, direction: 0 }, // Gol
-        { tileId: 82, direction: 1 }, // Gol
-        { tileId: 83, direction: 2 }, // Gol
-        { tileId: 84, direction: 3 }, // Gol
+        { tileId: 85, properties: { direction: 0 } }, // DonMedusa
+        { tileId: 86, properties: { direction: 1 } }, // DonMedusa
+        { tileId: 87, properties: { direction: 2 } }, // DonMedusa
+        { tileId: 88, properties: { direction: 3 } }, // DonMedusa
+        { tileId: 81, properties: { direction: 0 } }, // Gol
+        { tileId: 82, properties: { direction: 1 } }, // Gol
+        { tileId: 83, properties: { direction: 2 } }, // Gol
+        { tileId: 84, properties: { direction: 3 } }, // Gol
         { tileId: 69 }, // Leeper
         { tileId: 98 }, // Medusa
         { tileId: 99 }, // Player
@@ -29,7 +32,7 @@ Editor.Tileset = (function () {
         { tileId: 117 }, // Chest
         { tileId: 15 }, // DoorClosed
         { tileId: 30 }, // Heart
-        { tileId: 31, eggs: 2 } // Heart
+        { tileId: 31, properties: { eggs: 2 } } // Heart
     ];
 
     function Selector(options, tileset) {
