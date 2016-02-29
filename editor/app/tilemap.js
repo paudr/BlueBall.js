@@ -86,7 +86,7 @@ Editor.Tilemap = (function () {
         }, options);
 
         this.domElement = document.createElement('div');
-        this.domElement.style.position = 'static';
+        this.domElement.style.position = 'relative';
         this.domElement.style.width = (this.options.width * this.options.tileWidth) + 'px';
         this.domElement.style.height = (this.options.height * this.options.tileHeight) + 'px';
         this.domElement.style.backgroundColor = 'black';
