@@ -6,9 +6,6 @@
     "tileheight": 32,
     "orientation": "orthogonal",
     "properties": {
-        "world": 2,
-        "level": 4,
-        "next": "level2-5",
         "powers": {
             "hammer": [ 7 ]
         }

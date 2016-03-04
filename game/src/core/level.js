@@ -1,6 +1,7 @@
 BlueBall.Level = function (level) {
     this.levelName = level.name;
     this.levelPath = level.path;
+    this.levelNext = level.next;
     this.map = null;
     this.layers = null;
     this.entities = null;
@@ -163,7 +164,7 @@ BlueBall.Level.prototype.catchExit = function () {
     this.setCurrentPhase(BlueBall.Level.PHASES.ENDED);
     this.player.win();
     this.game.time.events.add(Phaser.Timer.HALF, function () {
-        this.game.state.start(this.map.properties.next);
+        this.game.state.start(this.levelNext);
     }, this);
 };
 

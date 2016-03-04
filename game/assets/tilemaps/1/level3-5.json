@@ -5,11 +5,7 @@
     "tilewidth": 32,
     "tileheight": 32,
     "orientation": "orthogonal",
-    "properties": {
-        "world": 3,
-        "level": 5,
-        "next": "level4-1"
-    },
+    "properties": {},
     "tilesets": [
         {
             "name": "AdventuresOfLolo3",

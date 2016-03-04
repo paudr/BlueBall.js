@@ -30,8 +30,12 @@ BlueBall.Loader.prototype.preload = function () {
 
 BlueBall.Loader.prototype.create = function () {
     BlueBall.Config.world = this.game.cache.getJSON('world');
-    BlueBall.Config.world.levels.forEach(function(level) {
-        this.add(level.name, new BlueBall.Level(level));
+    BlueBall.Config.world.levels.forEach(function(level, index, array) {
+        this.add(level.name, new BlueBall.Level({
+            name: level.name,
+            path: level.path,
+            next: (index + 1) >= array.length ? 'menu' : array[index + 1].name
+        }));
     }.bind(this.game.state));
 
     this.game.state.start('menu');

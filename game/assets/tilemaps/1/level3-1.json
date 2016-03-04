@@ -6,9 +6,6 @@
     "tileheight": 32,
     "orientation": "orthogonal",
     "properties": {
-        "world": 3,
-        "level": 1,
-        "next": "level3-2",
         "powers": {
             "bridge": [ 5 ]
         }

@@ -6,9 +6,6 @@
     "tileheight": 32,
     "orientation": "orthogonal",
     "properties": {
-        "world": 2,
-        "level": 3,
-        "next": "level2-4",
         "spawns": [
             { "x": 20, "y": 24 }
         ]
