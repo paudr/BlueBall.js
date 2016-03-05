@@ -64,6 +64,8 @@ BlueBall.Level.prototype.create = function () {
     this.layers = this.game.add.group();
     this.entities = this.game.add.group(this.layers);
     this.map = this.game.add.tilemap(null, tilesetData.tileWidth, tilesetData.tileHeight, mapData.width, mapData.height);
+    this.map.properties = mapData.properties;
+
     var tileset = this.map.addTilesetImage('tileset-image');
     tileset.firstgid = 1;
     tileset.tileProperties = tilesetData.tileProperties;
