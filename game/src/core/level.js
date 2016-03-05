@@ -48,11 +48,12 @@ BlueBall.Level.prototype.create = function () {
         this.playerInput = new BlueBall.VirtualJoystick(this.game);
     }
 
+    var tilesetData = this.game.cache.getJSON('tileset-data');
     var mapData = this.game.cache.getJSON('map-' + this.levelName);
 
     this.tileSize = {
-        width: mapData.tilesets[0].tilewidth,
-        height: mapData.tilesets[0].tileheight
+        width: tilesetData.tileWidth,
+        height: tilesetData.tileHeight
     };
 
     this.cellSize = {
@@ -62,16 +63,20 @@ BlueBall.Level.prototype.create = function () {
 
     this.layers = this.game.add.group();
     this.entities = this.game.add.group(this.layers);
-    this.map = this.game.add.tilemap(null, mapData.tilewidth, mapData.tileheight, mapData.width, mapData.height);
-    this.map.addTilesetImage('AdventuresOfLolo3').firstgid = 1;
-    this.environment = this.map.create('environment', mapData.width, mapData.height, mapData.tilewidth, mapData.tileheight, this.layers);
+    this.map = this.game.add.tilemap(null, tilesetData.tileWidth, tilesetData.tileHeight, mapData.width, mapData.height);
+    var tileset = this.map.addTilesetImage('tileset-image');
+    tileset.firstgid = 1;
+    tileset.tileProperties = tilesetData.tileProperties;
+
+    this.environment = this.map.create('environment', mapData.width, mapData.height, tilesetData.tileWidth, tilesetData.tileHeight, this.layers);
 
     this.gui = new BlueBall.Gui(this);
 
     mapData.layers.forEach(function (layer) {
         if (layer.name === 'environment') {
             layer.data.forEach(function (tile, index) {
-                this.map.putTile(tile, index % layer.width, Math.floor(index / layer.width), this.environment);
+                tile = this.map.putTile(tile, index % layer.width, Math.floor(index / layer.width), this.environment);
+                Phaser.Utils.mixin(tileset.tileProperties[tile.index - tileset.firstgid], tile.properties);
             }, this);
         } else if (layer.name === 'entities') {
             layer.objects.forEach(function (object) {

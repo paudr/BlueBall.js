@@ -4,6 +4,8 @@ BlueBall.Config = {
     'gameSpeed': 8.0,
 
     /* Game content */
-    'world': 'aol1.json'
+    'world': 'aol1.json',
+
+    'tileset': 'aol3'
 
 };
