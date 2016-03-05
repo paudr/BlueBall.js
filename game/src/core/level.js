@@ -28,7 +28,7 @@ BlueBall.Level.PHASES = {
 };
 
 BlueBall.Level.prototype.preload = function () {
-    this.game.load.tilemap(this.levelName, 'assets/tilemaps/' + this.levelPath, null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.json('map-' + this.levelName, 'assets/tilemaps/' + this.levelPath);
 };
 
 BlueBall.Level.prototype.create = function () {
@@ -42,11 +42,17 @@ BlueBall.Level.prototype.create = function () {
 
     this.onPlayerDead.add(this.playerDead, this);
 
-    this.map = this.game.add.tilemap(this.levelName);
+    if (this.game.device.desktop) {
+        this.playerInput = new BlueBall.Keyboard(this.game);
+    } else {
+        this.playerInput = new BlueBall.VirtualJoystick(this.game);
+    }
+
+    var mapData = this.game.cache.getJSON('map-' + this.levelName);
 
     this.tileSize = {
-        width: this.map.tilesets[0].tileWidth,
-        height: this.map.tilesets[0].tileHeight
+        width: mapData.tilesets[0].tilewidth,
+        height: mapData.tilesets[0].tileheight
     };
 
     this.cellSize = {
@@ -56,38 +62,81 @@ BlueBall.Level.prototype.create = function () {
 
     this.layers = this.game.add.group();
     this.entities = this.game.add.group(this.layers);
-
-    if (this.game.device.desktop) {
-        this.playerInput = new BlueBall.Keyboard(this.game);
-    } else {
-        this.playerInput = new BlueBall.VirtualJoystick(this.game);
-    }
-
-    this.map.addTilesetImage('AdventuresOfLolo3', 'AdventuresOfLolo3');
-
-    this.environment = this.map.createLayer('environment', undefined, undefined, this.layers);
+    this.map = this.game.add.tilemap(null, mapData.tilewidth, mapData.tileheight, mapData.width, mapData.height);
+    this.map.addTilesetImage('AdventuresOfLolo3').firstgid = 1;
+    this.environment = this.map.create('environment', mapData.width, mapData.height, mapData.tilewidth, mapData.tileheight, this.layers);
 
     this.gui = new BlueBall.Gui(this);
 
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Chest, 'chestSprites', 0, true, false, this.entities, BlueBall.Chest, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Heart, 'tileSprites', 1, true, false, this.entities, BlueBall.Heart, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.DoorClosed, 'tileSprites', 2, true, false, this.entities, BlueBall.Door, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Stairs, 'stairs', null, true, false, this.entities, BlueBall.Stairs, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Block, 'tileSprites', 0, true, false, this.entities, BlueBall.Block, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Snakey, 'mobSprites', 3, true, false, this.entities, BlueBall.Snakey, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Gol, 'mobSprites', 6, true, false, this.entities, BlueBall.Gol, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Leeper, 'mobSprites', 14, true, false, this.entities, BlueBall.Leeper, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Skull, 'mobSprites', 24, true, false, this.entities, BlueBall.Skull, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Rocky, 'mobSprites', 38, true, false, this.entities, BlueBall.Rocky, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Alma, 'mobSprites', 46, true, false, this.entities, BlueBall.Alma, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Medusa, 'mobSprites', 51, true, false, this.entities, BlueBall.Medusa, false);
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.DonMedusa, 'mobSprites', 55, true, false, this.entities, BlueBall.DonMedusa, false);
+    mapData.layers.forEach(function (layer) {
+        if (layer.name === 'environment') {
+            layer.data.forEach(function (tile, index) {
+                this.map.putTile(tile, index % layer.width, Math.floor(index / layer.width), this.environment);
+            }, this);
+        } else if (layer.name === 'entities') {
+            layer.objects.forEach(function (object) {
+                var sprite = null;
+                switch (object.gid) {
+                case BlueBall.Global.Entities.Chest:
+                    sprite = new BlueBall.Chest(this.game, object.x, object.y, 'chestSprites', 0);
+                    break;
+                case BlueBall.Global.Entities.Heart:
+                    sprite = new BlueBall.Heart(this.game, object.x, object.y, 'tileSprites', 1);
+                    break;
+                case BlueBall.Global.Entities.DoorClosed:
+                    sprite = new BlueBall.Door(this.game, object.x, object.y, 'tileSprites', 2);
+                    break;
+                case BlueBall.Global.Entities.Stairs:
+                    sprite = new BlueBall.Stairs(this.game, object.x, object.y, 'stairs', 0);
+                    break;
+                case BlueBall.Global.Entities.Block:
+                    sprite = new BlueBall.Block(this.game, object.x, object.y, 'tileSprites', 0);
+                    break;
+                case BlueBall.Global.Entities.Snakey:
+                    sprite = new BlueBall.Snakey(this.game, object.x, object.y, 'mobSprites', 3);
+                    break;
+                case BlueBall.Global.Entities.Gol:
+                    sprite = new BlueBall.Gol(this.game, object.x, object.y, 'mobSprites', 6);
+                    break;
+                case BlueBall.Global.Entities.Leeper:
+                    sprite = new BlueBall.Leeper(this.game, object.x, object.y, 'mobSprites', 14);
+                    break;
+                case BlueBall.Global.Entities.Skull:
+                    sprite = new BlueBall.Skull(this.game, object.x, object.y, 'mobSprites', 24);
+                    break;
+                case BlueBall.Global.Entities.Rocky:
+                    sprite = new BlueBall.Rocky(this.game, object.x, object.y, 'mobSprites', 38);
+                    break;
+                case BlueBall.Global.Entities.Alma:
+                    sprite = new BlueBall.Alma(this.game, object.x, object.y, 'mobSprites', 46);
+                    break;
+                case BlueBall.Global.Entities.Medusa:
+                    sprite = new BlueBall.Medusa(this.game, object.x, object.y, 'mobSprites', 51);
+                    break;
+                case BlueBall.Global.Entities.DonMedusa:
+                    sprite = new BlueBall.DonMedusa(this.game, object.x, object.y, 'mobSprites', 55);
+                    break;
+                case BlueBall.Global.Entities.Player:
+                    sprite = new BlueBall.Player(this.game, object.x, object.y, 'playerSprites', 10);
+                    break;
+                }
 
-    this.map.createFromObjects('entities', BlueBall.Global.Entities.Player, 'playerSprites', 10, true, false, this.entities, BlueBall.Player, false);
+                if (sprite !== null) {
+                    Object.keys(object.properties).forEach(function (property) {
+                        sprite[property] = this[property];
+                    }, object.properties);
+                    this.entities.add(sprite, true);
+                }
+            }, this);
+        }
+    }, this);
+
     this.player = this.entities.iterate('isPlayer', true, Phaser.Group.RETURN_CHILD);
+
     this.player.assignInput(this.playerInput);
     this.game.camera.follow(this.player);
 
+    this.entities.bringToTop(this.player);
     this.layers.bringToTop(this.entities);
     this.layers.bringToTop(this.gui.layer);
 
