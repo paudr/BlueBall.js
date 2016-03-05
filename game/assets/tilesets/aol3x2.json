@@ -1,0 +1,30 @@
+{
+    "tileWidth": 64,
+    "tileHeight": 64,
+    "tileProperties": {
+        "17": {
+            "direction": 0
+        },
+        "18": {
+            "direction": 1
+        },
+        "19": {
+            "direction": 2
+        },
+        "20": {
+            "direction": 3
+        },
+        "24": {
+            "direction": 0
+        },
+        "25": {
+            "direction": 1
+        },
+        "26": {
+            "direction": 2
+        },
+        "27": {
+            "direction": 3
+        }
+    }
+}

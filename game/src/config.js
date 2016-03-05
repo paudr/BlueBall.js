@@ -6,6 +6,6 @@ BlueBall.Config = {
     /* Game content */
     'world': 'aol1.json',
 
-    'tileset': 'aol3'
+    'tileset': 'aol3x2'
 
 };
