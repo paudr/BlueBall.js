@@ -1,5 +1,8 @@
 var Editor = {
     init: function () {
+        Editor.preload(Editor.createComponents);
+    },
+    createComponents: function () {
         var tileset = new Editor.Tileset({}, document.getElementById('tileset'));
         var tilemap = new Editor.Tilemap({
             onClick: function(tilemap, button, position) {
@@ -41,6 +44,13 @@ var Editor = {
         Array.prototype.forEach.call(document.querySelectorAll('#widthSelector, #heightSelector'), function (element) {
             element.addEventListener('change', onChangeSize, false);
         });
+    },
+    preload: function(callback) {
+        var img = new Image();
+        img.onload = function() {
+            callback();
+        }
+        img.src = 'assets/aol3.png';
     },
     Helper: {
         extend: function (base) {

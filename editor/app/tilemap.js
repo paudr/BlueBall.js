@@ -101,7 +101,7 @@ Editor.Tilemap = (function () {
         this.domElement.addEventListener('contextmenu', Tilemap.prototype.handleClick.bind(this, 'right'), true);
 
         this.tiles = [];
-        getEmptyMap(this.options.width, this.options.height).forEach(this.addTile, this);
+        getEmptyMap(this.options.width, this.options.height).forEach(Tilemap.prototype.addTile, this);
 
         this.objects = [];
 
