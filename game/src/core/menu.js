@@ -12,10 +12,10 @@ BlueBall.Menu.prototype.create = function () {
     this.title = this.add.sprite(0, 0, 'menu_title');
     this.title.anchor = { x: 0.5, y: 0.5 };
 
-    this.start = this.add.button(0, 0, 'menu_start', this.callStart, this);
+    this.start = this.add.button(0, 0, 'menu_start', BlueBall.Helper.startLevel.bind(this, BlueBall.Config.world.firstLevel));
     this.start.anchor = { x: 0.5, y: 0.5 };
 
-    this.continue = this.add.button(0, 0, 'menu_continue', this.callContinue, this);
+    this.continue = this.add.button(0, 0, 'menu_continue', BlueBall.Helper.startLevel.bind(this, BlueBall.Save.loadData('currentLevel')));
     this.continue.anchor = { x: 0.5, y: 0.5 };
 
     this.erease = this.add.button(0, 0, 'menu_erease', this.callErease, this);
@@ -27,7 +27,6 @@ BlueBall.Menu.prototype.create = function () {
     }
 
     this.resize(this.game.width, this.game.height);
-    //this.game.state.start(BlueBall.Config.firstLevel);
 };
 
 BlueBall.Menu.prototype.shutdown = function () {
@@ -67,10 +66,6 @@ BlueBall.Menu.prototype.resize = function (width, height) {
     this.erease.x = midWidth;
     this.erease.y = height - offsetErease;
 };
-
-BlueBall.Menu.prototype.callStart = function() {
-    this.game.state.start(BlueBall.Config.world.firstLevel);
-}
 
 BlueBall.Menu.prototype.callContinue = function() {
     this.game.state.start(BlueBall.Save.loadData('currentLevel'));

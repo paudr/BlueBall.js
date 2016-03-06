@@ -3,9 +3,10 @@ var BlueBall = {
     'init': function () {
         var game = new Phaser.Game(516, 548, Phaser.AUTO);
 
-        game.state.add('boot', new BlueBall.Boot());
-        game.state.add('loader', new BlueBall.Loader());
-        game.state.add('menu', new BlueBall.Menu());
+        game.state.add('boot', new BlueBall.Boot);
+        game.state.add('loader', new BlueBall.Loader);
+        game.state.add('menu', new BlueBall.Menu);
+        game.state.add('level', new BlueBall.Level);
 
         game.state.start('boot');
     },
@@ -105,6 +106,26 @@ var BlueBall = {
 
         'openEntity': function (entity) {
             entity.open();
+        },
+
+        'startLevel': function(name) {
+            if (name === 'menu') {
+                this.game.state.start('menu');
+            } else {
+                var index = BlueBall.Config.world.levels.findIndex(function(level) {
+                    return level.name === name;
+                });
+                var level = BlueBall.Config.world.levels[index];
+                this.game.state.start('level', true, false, {
+                    name: level.name,
+                    path: level.path,
+                    next: (index + 1) >= BlueBall.Config.world.levels.length ? (
+                        'menu'
+                    ) : (
+                        BlueBall.Config.world.levels[index + 1].name
+                    )
+                });
+            }
         }
 
     }

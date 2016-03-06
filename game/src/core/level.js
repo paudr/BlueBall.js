@@ -1,7 +1,4 @@
-BlueBall.Level = function (level) {
-    this.levelName = level.name;
-    this.levelPath = level.path;
-    this.levelNext = level.next;
+BlueBall.Level = function () {
     this.map = null;
     this.layers = null;
     this.entities = null;
@@ -25,6 +22,12 @@ BlueBall.Level.PHASES = {
     'PEARLS': 2,
     'EXITS': 3,
     'ENDED': 4
+};
+
+BlueBall.Level.prototype.init = function (level) {
+    this.levelName = level.name;
+    this.levelPath = level.path;
+    this.levelNext = level.next;
 };
 
 BlueBall.Level.prototype.preload = function () {
@@ -216,14 +219,14 @@ BlueBall.Level.prototype.catchExit = function () {
     this.setCurrentPhase(BlueBall.Level.PHASES.ENDED);
     this.player.win();
     this.game.time.events.add(Phaser.Timer.HALF, function () {
-        this.game.state.start(this.levelNext);
+        BlueBall.Helper.startLevel.call(this, this.levelNext);
     }, this);
 };
 
 BlueBall.Level.prototype.playerDead = function () {
     this.setCurrentPhase(BlueBall.Level.PHASES.ENDED);
     this.game.time.events.add(Phaser.Timer.SECOND * 1, function () {
-        this.game.state.start(this.levelName, true, false);
+        BlueBall.Helper.startLevel.call(this, this.levelName);
     }, this);
 };
 
