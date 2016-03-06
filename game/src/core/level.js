@@ -92,7 +92,7 @@ BlueBall.Level.prototype.create = function () {
             sprite = new BlueBall.Heart(this.game, object.x, object.y, 'tileSprites', 1);
             break;
         case BlueBall.Global.Entities.DoorClosed:
-            sprite = new BlueBall.Door(this.game, object.x, object.y, 'tileSprites', 2);
+            sprite = new BlueBall.DoorClosed(this.game, object.x, object.y, 'tileSprites', 2);
             break;
         case BlueBall.Global.Entities.Stairs:
             sprite = new BlueBall.Stairs(this.game, object.x, object.y, 'stairs', 0);
