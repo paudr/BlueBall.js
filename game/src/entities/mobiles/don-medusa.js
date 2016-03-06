@@ -1,5 +1,5 @@
-BlueBall.DonMedusa = function (game, x, y, key, frame) {
-    BlueBall.Mobile.call(this, game, x, y, key, frame, {
+BlueBall.DonMedusa = function (game, x, y) {
+    BlueBall.Mobile.call(this, game, x, y, 'mobSprites', 'donmedusa1', {
         gid: BlueBall.Global.Entities.DonMedusa
     });
 

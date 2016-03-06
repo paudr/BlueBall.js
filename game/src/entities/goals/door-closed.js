@@ -1,5 +1,5 @@
-BlueBall.DoorClosed = function (game, x, y, key, frame) {
-    BlueBall.Goal.call(this, game, x, y, key, frame, {
+BlueBall.DoorClosed = function (game, x, y) {
+    BlueBall.Goal.call(this, game, x, y, 'tileSprites', 'doorClosed', {
         gid: BlueBall.Global.Entities.DoorClosed
     });
 

@@ -1,5 +1,5 @@
-BlueBall.Snakey = function (game, x, y, key, frame) {
-    BlueBall.Mobile.call(this, game, x, y, key, frame, {
+BlueBall.Snakey = function (game, x, y) {
+    BlueBall.Mobile.call(this, game, x, y, 'mobSprites', 'snakey4', {
         gid: BlueBall.Global.Entities.Snakey
     });
 

@@ -1,5 +1,5 @@
-BlueBall.Rocky = function (game, x, y, key, frame) {
-    BlueBall.Mobile.call(this, game, x, y, key, frame, {
+BlueBall.Rocky = function (game, x, y) {
+    BlueBall.Mobile.call(this, game, x, y, 'mobSprites', 'rockyDown2', {
         gid: BlueBall.Global.Entities.Rocky
     });
 

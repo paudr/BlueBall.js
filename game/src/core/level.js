@@ -82,60 +82,15 @@ BlueBall.Level.prototype.create = function () {
         Phaser.Utils.mixin(tileset.tileProperties[tile.index - tileset.firstgid], tile.properties);
     }, this);
 
-    mapData.entities.forEach(function (object) {
-        var sprite = null;
-        switch (object.gid) {
-        case BlueBall.Global.Entities.Chest:
-            sprite = new BlueBall.Chest(this.game, object.x, object.y, 'chestSprites', 0);
-            break;
-        case BlueBall.Global.Entities.Heart:
-            sprite = new BlueBall.Heart(this.game, object.x, object.y, 'tileSprites', 1);
-            break;
-        case BlueBall.Global.Entities.DoorClosed:
-            sprite = new BlueBall.DoorClosed(this.game, object.x, object.y, 'tileSprites', 2);
-            break;
-        case BlueBall.Global.Entities.Stairs:
-            sprite = new BlueBall.Stairs(this.game, object.x, object.y, 'stairs', 0);
-            break;
-        case BlueBall.Global.Entities.Block:
-            sprite = new BlueBall.Block(this.game, object.x, object.y, 'tileSprites', 0);
-            break;
-        case BlueBall.Global.Entities.Snakey:
-            sprite = new BlueBall.Snakey(this.game, object.x, object.y, 'mobSprites', 3);
-            break;
-        case BlueBall.Global.Entities.Gol:
-            sprite = new BlueBall.Gol(this.game, object.x, object.y, 'mobSprites', 6);
-            break;
-        case BlueBall.Global.Entities.Leeper:
-            sprite = new BlueBall.Leeper(this.game, object.x, object.y, 'mobSprites', 14);
-            break;
-        case BlueBall.Global.Entities.Skull:
-            sprite = new BlueBall.Skull(this.game, object.x, object.y, 'mobSprites', 24);
-            break;
-        case BlueBall.Global.Entities.Rocky:
-            sprite = new BlueBall.Rocky(this.game, object.x, object.y, 'mobSprites', 38);
-            break;
-        case BlueBall.Global.Entities.Alma:
-            sprite = new BlueBall.Alma(this.game, object.x, object.y, 'mobSprites', 46);
-            break;
-        case BlueBall.Global.Entities.Medusa:
-            sprite = new BlueBall.Medusa(this.game, object.x, object.y, 'mobSprites', 51);
-            break;
-        case BlueBall.Global.Entities.DonMedusa:
-            sprite = new BlueBall.DonMedusa(this.game, object.x, object.y, 'mobSprites', 55);
-            break;
-        case BlueBall.Global.Entities.Player:
-            sprite = new BlueBall.Player(this.game, object.x, object.y, 'playerSprites', 10);
-            break;
-        }
-
-        if (sprite !== null) {
-            Object.keys(object.properties).forEach(function (property) {
-                sprite[property] = this[property];
-            }, object.properties);
-            this.entities.add(sprite, true);
-        }
-    }, this);
+    var entityNames = Object.keys(BlueBall.Global.Entities);
+    this.entities.addMultiple(mapData.entities.map(function (object) {
+        var entityName = entityNames.filter(function(name) { return BlueBall.Global.Entities[name] === object.gid; })[0];
+        var sprite = new BlueBall[entityName](this.game, object.x, object.y);
+        Object.keys(object.properties).forEach(function (property) {
+            sprite[property] = this[property];
+        }, object.properties);
+        return sprite;
+    }, this), true);
 
     this.player = this.entities.iterate('isPlayer', true, Phaser.Group.RETURN_CHILD);
 

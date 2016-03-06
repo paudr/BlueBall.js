@@ -1,5 +1,5 @@
-BlueBall.Block = function (game, x, y, key, frame) {
-    BlueBall.Mobile.call(this, game, x, y, key, frame, {
+BlueBall.Block = function (game, x, y) {
+    BlueBall.Mobile.call(this, game, x, y, 'tileSprites', 'block', {
         gid: BlueBall.Global.Entities.Block
     });
 };

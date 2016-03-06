@@ -1,5 +1,5 @@
-BlueBall.Alma = function (game, x, y, key, frame) {
-    BlueBall.Mobile.call(this, game, x, y, key, frame, {
+BlueBall.Alma = function (game, x, y) {
+    BlueBall.Mobile.call(this, game, x, y, 'mobSprites', 'alma1', {
         gid: BlueBall.Global.Entities.Alma
     });
 

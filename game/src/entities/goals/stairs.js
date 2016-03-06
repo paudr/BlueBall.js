@@ -1,5 +1,5 @@
-BlueBall.Stairs = function (game, x, y, key, frame) {
-    BlueBall.Goal.call(this, game, x, y, key, frame, {
+BlueBall.Stairs = function (game, x, y) {
+    BlueBall.Goal.call(this, game, x, y, 'stairs', 0, {
         gid: BlueBall.Global.Entities.Stairs
     });
 
