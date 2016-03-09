@@ -97,9 +97,19 @@ Editor.Tilemap = (function () {
         this.domElement.style.height = (this.options.height * this.options.tileHeight) + 'px';
         this.domElement.style.backgroundColor = 'black';
 
-        this.domElement.addEventListener('click', Tilemap.prototype.handleClick.bind(this, 'left'), true);
-        this.domElement.addEventListener('contextmenu', Tilemap.prototype.handleClick.bind(this, 'right'), true);
-
+        this.isLeftMouseDown = false;
+        this.isRightMouseDown = false;
+        this.lastPos;
+        this.domElement.addEventListener('contextmenu', function(event) { event.preventDefault(); }, true);
+        this.domElement.addEventListener('mousedown', Tilemap.prototype.handleClick.bind(this), true);
+        this.domElement.addEventListener('mouseup', Tilemap.prototype.handleClick.bind(this), true);
+        this.domElement.addEventListener('mousemove',  function(event) {
+            if (this.isLeftMouseDown === true) {
+                Tilemap.prototype.handleMouse.call(this, event);
+            } else if (this.isRightMouseDown === true) {
+                Tilemap.prototype.handleMouse.call(this, event);
+            }
+        }.bind(this), true);
         this.tiles = [];
         getEmptyMap(this.options.width, this.options.height).forEach(Tilemap.prototype.addTile, this);
 
@@ -130,13 +140,17 @@ Editor.Tilemap = (function () {
     };
 
     Tilemap.prototype.addObject = function (options) {
-        var object = new Tile(Editor.Helper.extend({
-            tileWidth: this.options.tileWidth,
-            tileHeight: this.options.tileHeight,
-            tileset: this.options.tileset
-        }, options), this);
-        this.objects.push(object);
-        return object;
+        if (!this.objects.some(function(object) {
+            return object.options.x === options.x && object.options.y === options.y;
+        })) {
+            var object = new Tile(Editor.Helper.extend({
+                tileWidth: this.options.tileWidth,
+                tileHeight: this.options.tileHeight,
+                tileset: this.options.tileset
+            }, options), this);
+            this.objects.push(object);
+            return object;
+        }
     }
 
     Tilemap.prototype.removeObject = function (object) {
@@ -184,9 +198,26 @@ Editor.Tilemap = (function () {
         }).forEach(this.removeObject, this);
     }
 
-    Tilemap.prototype.handleClick = function (button, event) {
+    Tilemap.prototype.handleClick = function (event) {
         event.preventDefault();
+        if (event.button === 0) {
+            if (event.buttons === 1) {
+                this.isLeftMouseDown = true;
+                Tilemap.prototype.handleMouse.call(this, event);
+            } else if (event.buttons === 0) {
+                this.isLeftMouseDown = false;
+            }
+        } else if (event.button === 2) {
+            if (event.buttons === 2) {
+                this.isRightMouseDown = true;
+                Tilemap.prototype.handleMouse.call(this, event);
+            } else if (event.buttons === 0) {
+                this.isRightMouseDown = false;
+            }
+        }
+    };
 
+    Tilemap.prototype.handleMouse = function (event) {
         var pos = Editor.Helper.getPositionFromCoords(
             this.domElement, {
                 x: event.pageX,
@@ -196,9 +227,18 @@ Editor.Tilemap = (function () {
                 height: this.options.tileHeight
             }
         );
+        var button = null;
+        if (this.isLeftMouseDown === true) {
+            button = 'left';
+        } else if (this.isRightMouseDown === true) {
+            button = 'right';
+        }
 
-        this.options.onClick(this, button, pos);
+        if (button) {
+            this.options.onClick(this, button, pos);
+        }
     };
+
 
     return Tilemap;
 })();
