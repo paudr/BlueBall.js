@@ -260,5 +260,20 @@ Editor.Tilemap = (function () {
         };
     };
 
+    Tilemap.prototype.setData = function (data) {
+        this.setSize(data.width, data.height);
+        data.environment.forEach(function(id, index) {
+            this.setTile(index % data.width, Math.floor(index / data.width), id);
+        }, this);
+        data.entities.forEach(function(object) {
+            this.addObject({
+                tileId: object.gid,
+                x: Math.floor(object.x / 2),
+                y: Math.floor(object.y / 2),
+                properties: object.properties
+            });
+        }, this);
+    };
+
     return Tilemap;
 })();
