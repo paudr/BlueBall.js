@@ -239,6 +239,26 @@ Editor.Tilemap = (function () {
         }
     };
 
+    Tilemap.prototype.getData = function () {
+        return {
+            "width": this.options.width,
+            "height": this.options.height,
+            "properties": {},
+            "environment": this.tiles.sort(function(a, b) {
+                return a.options.y !== b.options.y ? a.options.y - b.options.y : a.options.x - b.options.x;
+            }).map(function(tile) {
+                return tile.options.tileId;
+            }),
+            "entities": this.objects.map(function(object) {
+                return {
+                    "gid": object.options.tileId,
+                    "x": object.options.x * 2,
+                    "y": object.options.y * 2,
+                    "properties": object.options.properties || {}
+                };
+            })
+        };
+    };
 
     return Tilemap;
 })();
