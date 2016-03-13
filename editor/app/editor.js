@@ -23,6 +23,11 @@ var Editor = {
                 }
             }
         }, document.getElementById('tilemap'));
+        new Editor.Data({
+            onLoad: function(data) {
+                tilemap.setData(data);
+            }
+        }, document.getElementById('data'));
 
         function onChangeSize(event) {
             var width = tilemap.options.width;
