@@ -261,6 +261,7 @@ Editor.Tilemap = (function () {
     };
 
     Tilemap.prototype.setData = function (data) {
+        this.objects.slice().forEach(Tilemap.prototype.removeObject, this);
         this.setSize(data.width, data.height);
         data.environment.forEach(function(id, index) {
             this.setTile(index % data.width, Math.floor(index / data.width), id);
