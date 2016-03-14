@@ -36,6 +36,13 @@ Editor.Data = (function () {
     };
 
     Data.prototype.saveData = function() {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.options.onSave())));
+        element.setAttribute('download', 'level.json');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
     };
 
     return Data;

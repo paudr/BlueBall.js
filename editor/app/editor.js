@@ -26,6 +26,9 @@ var Editor = {
         new Editor.Data({
             onLoad: function(data) {
                 tilemap.setData(data);
+            },
+            onSave: function() {
+                return tilemap.getData();
             }
         }, document.getElementById('data'));
 
